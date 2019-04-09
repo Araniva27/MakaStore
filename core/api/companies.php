@@ -9,6 +9,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
     session_start();
     $compañia= new companies; /*Instanciacion de clase companies  */
     $result=array('status'=>0, 'exception'=> '');
+  
     if($_GET['site'] == 'dashboard'){/* verificacion si el sitio es el dashboard */
         switch($_GET['action']){/* verificacion de la accion a realizar en el switch */
             case 'read':            

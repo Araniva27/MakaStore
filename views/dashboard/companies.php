@@ -87,8 +87,7 @@
         </div>
         <div class="container">
             <!---Creacion de la tabla donde se encuentran todos los productos registrados-->
-            <table class="centered">
-                <div class="col">
+            <table class="centered responsive-table">
                     <thead>
                         <tr>
                             <!--Creacion del encabezado de las tablas-->
@@ -104,8 +103,8 @@
 
                     <tbody id="tbody-read">                    
                     </tbody>
-                </div>
             </table>
+        </div>    
             <div id="modal-update" class="modal">
                 <div class="modal-content">
                     <h4 class="center">Modificacion de datos</h4>
@@ -118,7 +117,7 @@
                             <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                             <div class='row'>
                                 <div class='input-field col s12 l3 m12'>
-                                    <input class='validate' type='text' name='idProveedor' id='idProveedor' />
+                                    <input class='validate enable' type='text' name='idProveedor' id='idProveedor'/>
                                     <label for='idProveedor'>Código</label>
                                 </div>
                                 <div class='input-field col s12 l4 m12'>
@@ -157,6 +156,11 @@
     </div>
     <br>
     <br>
+    <?php
+//llamada a la funcion footer en la clase dashboard
+  dashboard::footer();
+  
+?>
     <!--Inclusion de scrip javascript para la inicializacion y uso de diversos elementos-->
     <script src="../../resource/js/jquery-3.3.1.min.js"></script>
     <script src="../../resource/js/materialize.min.js"></script>
@@ -165,10 +169,6 @@
     <script type="text/javascript" src="../../core/helpers/functions.js"></script>
     <script type="text/javascript" src="../../core/controllers/companies.js"></script>
     </body>
-    <?php
-//llamada a la funcion footer en la clase dashboard
-  dashboard::footer();
-  
-?>
+    
 
         </html>

@@ -98,6 +98,7 @@ $('#form-search').submit(function(){
 //funcion para crear un nuevo registro
 $('#form-create').submit(function(){
     event.preventDefault();
+
     $.ajax({
         url: apiCompanies + 'create',
         type: 'post',
