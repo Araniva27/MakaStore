@@ -17,30 +17,7 @@
         </div>
         <div class="row center">
             <a class="waves-effect waves-light btn green modal-trigger" href="#modal-create">Registrar compañia + </a>
-        </div>
-        <div class="row">
-        <nav>
-            <!--Creacion de la barra de busqueda de compañias-->
-            <form method="post" id="form-search">
-                <div class="nav-wrapper blue">
-                    <div class="input-field">
-                        <input id="buscar" type="search" name="busqueda">
-                        <label class="label-icon" for="buscar">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <i class="material-icons">close</i>
-                    </div>
-                    <div class="row center">
-                        <div class="input-field offset col s12 m12 l12">
-                            <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Buscar" id="busqueda">Buscar</button>
-
-                        </div>
-
-                    </div>
-                </div>
-            </form>
-        </nav>
-        </div>    
+        </div>        
         <!---Creacion de la tabla donde se encuentran todos los productos registrados-->
             <table class="responsive-table highlight" id="tabla-proveedores">
                 <thead>

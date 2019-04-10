@@ -62,17 +62,17 @@
                         <label for='phone'>Direccion</label>
                     </div>
                 </div>
-                <div class="row"><!--Creacion de cada una de las filas donde se encuentran algunos elementos del formulario de registro-->
-                    <div class="file-field input-field"><!--Definicion del tipo de campo a crear-->
-                        <div class="">
-                            <span class="btn blue">Foto</span>
-                            <input type="file">
-                        </div>
+                <!--<div class="row">--><!--Creacion de cada una de las filas donde se encuentran algunos elementos del formulario de registro-->
+                    <!-- <div class="file-field input-field"> --><!--Definicion del tipo de campo a crear-->
+                        <!-- <div class=""> -->
+                            <!-- <span class="btn blue">Foto</span>
+                            <input type="file"> -->
+                       <!--  </div>
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
                         </div>
                     </div>
-                </div>
+                </div> -->
             
             
                 <div class='row'><!--Creacion de cada una de las filas donde se encuentran algunos elementos del formulario de registro-->

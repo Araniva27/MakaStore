@@ -36,8 +36,7 @@
                   <li><div class="user-view">
                     <div class="background red">
                       <img src="../../resource/img/img-card/black.jpg" >
-                    </div>
-                    <a href="#user"><img class="circle" src="../../resource/img/img-card/yo.jpg"></a>
+                    </div>                    
                     <a href="#name"><span class="white-text name">Manuel Araniva</span></a>
                     <a href="#email"><span class="white-text email">manuelaraniva07@gmail.com</span></a>
                   </div></li>
