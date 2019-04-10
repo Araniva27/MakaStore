@@ -39,6 +39,15 @@ class Validator
 		return $fields;
 	}
 
+	public function validatePhone($value)
+	{
+		if(preg_match('/^([0-9]{4})(-)([0-9]{4})$/',$value)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public function validateId($value)
 	{
 		if (filter_var($value, FILTER_VALIDATE_INT, array('min_range' => 1))) {

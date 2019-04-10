@@ -49,7 +49,7 @@ class Companies extends Validator
     }
 
     public function setTelefono($value){
-        if($this->validateAlphanumeric($value,1,10)){
+        if($this->validatePhone($value)){
             $this->telefono=$value;
             return true;
         }else{

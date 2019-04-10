@@ -29,6 +29,35 @@ function fillTable(rows){
         `;
     });
     $('#tbody-read').html(content);
+    var table = $('#tabla-proveedores').DataTable({
+        "oLanguage":{
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        retrieve: true
+       
+    });
+    $('select').formSelect();
     $('.tooltipped').tooltip();
 }
 //Función para obtener y mostrar los registros disponibles
@@ -60,6 +89,9 @@ function showTable(){
 
 var form_search = document.getElementById('buscar');
 
+function chepe(){
+    alert("a rolin le gusta el chepe en salsa xddxdxd MEPER donasxdxdxd");
+}
 //funcion para mostrar los resultados de una busqueda
 $('#form-search').submit(function(){
     event.preventDefault();
@@ -78,7 +110,7 @@ $('#form-search').submit(function(){
                 const result =JSON.parse(response);
                 //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if(result.status){
-                    sweetAlert(4,'Coincidencias' + result.dataset.length, null);
+                    sweetAlert(4,'Coincidencias: ' + result.dataset.length, null);
                     fillTable(result.dataset);
                 }
                 else{
@@ -193,10 +225,12 @@ $('#form-update').submit(function(){
                     sweetAlert(1, 'Proveedor modificado. '+ result.exception, null);
                 }
                 showTable();
-            }else{
+            } else {
+                sweetAlert(2,result.exception,null);
+            }
+        }else{
                 console.log(response);
             }
-        }
     })
     .fail(function(jqXHR){
         console.log('Error: '+ jqXHR.status+ ' ' + jqXHR.statusText);

@@ -14,6 +14,10 @@
                     <link rel="stylesheet"type="text/css" href="../../resource/css/star.css" >
                     <link rel="stylesheet" type="text/css" href="../../resource/css/modals.css" >
                     <link rel="shortcut icon" href="../../resource/img/logo/logoMKStore.png">
+                    <link rel="stylesheet" type="text/css" href="../../resource/css/material.min.css" >
+                    <link rel="stylesheet" type="text/css" href="../../resource/css/dataTables.material.min.css">
+                    
+
                     <title>'.$title.'</title>
                 </head>
                
