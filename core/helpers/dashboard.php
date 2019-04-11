@@ -57,7 +57,7 @@
         }
 
         //Metodo footer aqui se encuentra el footer utilizado en las paginas privadas
-        public static function footer(){
+        public static function footer($controller){
             print('
             <footer class="page-footer light-blue darken-2">
                 <div class="container">
@@ -89,6 +89,14 @@
                 
                 </div>
                 </div>
+                <script src="../../resource/js/jquery-3.3.1.min.js"></script>
+                <script src="../../resource/js/materialize.min.js"></script>
+                <script src="../../resource/js/initialization.js"></script>
+                <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
+                <script type="text/javascript" src="../../core/helpers/functions.js"></script>
+                <script type="text/javascript" src="../../core/controllers/'.$controller.'"></script>
+                <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
+                <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
             </footer>');
         }
     }

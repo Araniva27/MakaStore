@@ -131,22 +131,12 @@
 
     </div>
     <br>
-    <br>
+    <br>                
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer();
+  dashboard::footer('companies.js');
   
 ?>
-        <!--Inclusion de scrip javascript para la inicializacion y uso de diversos elementos-->
-        <script src="../../resource/js/jquery-3.3.1.min.js"></script>
-        <script src="../../resource/js/materialize.min.js"></script>
-        <script src="../../resource/js/initialization.js"></script>
-        <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
-        <script type="text/javascript" src="../../core/helpers/functions.js"></script>
-        <script type="text/javascript" src="../../core/controllers/companies.js"></script>
-        <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
-        <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
-        </body>
-
-
-        </html>
+        
+</body>
+</html>

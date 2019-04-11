@@ -27,7 +27,7 @@ class Admin extends Validator{
     }
 
     public function setNombre($value){
-        if($this->validateAlphanumeric($value, 1, 50)){
+        if($this->validateAlphabetic($value, 1, 50)){
             $this->nombre=$value;
             return true;
         }else{
@@ -157,5 +157,35 @@ class Admin extends Validator{
         return Database:: getRows($sql, $params);
 
     }
+
+    public function createAdmin(){
+        $sql='INSERT INTO admin(nombre, apellido, correo, usuario, contraseña, telefono, direccion) VALUES(?,?,?,?,?,?,?)';
+        $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $this->contra, $this->telefono, $this->direccion);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function getAdmin(){
+        $sql='SELECT idAdmin, nombre, apellido, usuario, telefono, direccion FROM admin WHERE idAdmin = ?';
+        $params=array($this->id);
+        return Database::getRow($sql, $params); 
+    }
+
+    public function updateAdmin(){
+        $sql='UPDATE admin set nombre = ?, apellido = ?, usuario = ?, telefono = ?, direccion = ? WHERE idAdmin = ?';
+        $params=array($this->nombre, $this->apellido, $this->usuario, $this->telefono, $this->direccion, $this->id);
+        return Database::executeRow($sql, $params);        
+    }
+
+    public function deleteAdmin(){
+        $sql='DELETE FROM admin WHERE idAdmin = ?';
+        $params=array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+    //funcion para validar exitencia de usuario 
+    public function checkExistencia() {
+		$sql='SELECT * FROM admin where usuario = ?';
+		$params= array($this->usuario);
+		return Database:: getRow($sql,$params);
+	}
 }
 ?>
