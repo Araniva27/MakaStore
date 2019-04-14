@@ -51,6 +51,37 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     $result['exception']='Nombre incorrecto';
                 }
             break;
+            case 'login':
+                $_POST = $admin->validateForm($_POST);
+                if ($admin->setUsuario($_POST['usuario'])) {
+                    if ($admin->checkUser()) {
+                        if ($admin->setContra($_POST['contrasena'])) {
+                            if ($admin->checkContra()) {
+                                $_SESSION['idAdmin'] = $admin->getId();
+                                $_SESSION['usuario'] = $admin->getUsuario();
+                                $_SESSION['nombre']=$admin->getNombre();
+                                $_SESSION['apellido']=$admin->getApellido();
+                                $result['status'] = 1;                                
+                            } else {
+                                $result['exception'] = 'Clave inexistente';
+                            }
+                        } else {
+                            $result['exception'] = 'Clave menor a 6 caracteres';
+                        }
+                    } else {
+                        $result['exception'] = 'Usuario inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+            break;    
+            case 'read':
+            if ($result['dataset'] = $admin->readAdmin()) {
+                $result['status'] = 1;
+            } else {
+                $result['exception'] = 'No hay administradores registrados';
+            }
+            break;
         }
     }
     print(json_encode($result));

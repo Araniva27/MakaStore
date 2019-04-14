@@ -25,35 +25,35 @@
         }  
         //Metodo navbar no recibe parametros y su funcion es la creacion del navbar en las paginas privadas
         public static function navbar(){
-            print('
-            <body>
-            <div class="navbar-fixed">    
-                <nav class="blue navbar-fixed">
-                  <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a> <center><img src="../../resource/img/logo/logoMKStore.png" width="125" height="70" class="center-align">
-                </nav>
-            </div>
-                <ul id="slide-out" class="sidenav">
-                  <li><div class="user-view">
-                    <div class="background red">
-                      <img src="../../resource/img/img-card/black.jpg" >
-                    </div>                    
-                    <a href="#name"><span class="white-text name">Manuel Araniva</span></a>
-                    <a href="#email"><span class="white-text email">manuelaraniva07@gmail.com</span></a>
-                  </div></li>
-                  <!--creacion de los elementos que se encuentran en el menu asi como su icono-->
-                  <li><a href="../../views/dashboard/main.php"><i class="material-icons">home</i>Home</a></li>
-                  <li><a href="../../views/dashboard/products.php"><i class="material-icons">videogame_asset</i>Productos</a></li>
-                  <li><a href="../../views/dashboard/companies.php"><i class="material-icons">assignment_late</i>Proveedores</a></li>
-                  <li><a href="../../views/dashboard/sales.php"><i class="material-icons">attach_money</i>Control de ventas</a></li>
-                  <li><a href="../../views/dashboard/stock.php"><i class="material-icons">add_circle</i>Reabastecimiento</a></li>
-                  <li><a href="../../views/dashboard/control.php"><i class="material-icons">find_replace</i>Controlador</a></li>
-                  <li><a href="../../views/dashboard/customers.php"><i class="material-icons">list</i>Control clientes</a></li>
-                  <li><a href="../../views/dashboard/mod.php"><i class="material-icons">update</i>Modificación de datos</a></li>
-                  <li><a href="../../views/dashboard/index.php"><i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
-                  <li><a href="index.php"><i class="material-icons">account_circle</i>Ingresar</a></li>
-                  <li><a href="../../views/dashboard/check_in.php"><i class="material-icons">assignment</i>Registrarse</a></li>
-                  
-                </ul>');
+                    print('
+                    <body>
+                    <div class="navbar-fixed">    
+                        <nav class="blue navbar-fixed">
+                        <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a> <center><img src="../../resource/img/logo/logoMKStore.png" width="125" height="70" class="center-align">
+                        </nav>
+                    </div>
+                        <ul id="slide-out" class="sidenav">
+                        <li><div class="user-view">
+                            <div class="background red">
+                            <img src="../../resource/img/img-card/black.jpg" >
+                            </div>                    
+                            <a href=""><span class="white-text name" >Manuel Araniva</span></a>
+                            <a href="#email"><span class="white-text email">manuelaraniva07@gmail.com</span></a>
+                        </div></li>
+                        <!--creacion de los elementos que se encuentran en el menu asi como su icono-->
+                        <li><a href="../../views/dashboard/main.php"><i class="material-icons">home</i>Home</a></li>
+                        <li><a href="../../views/dashboard/products.php"><i class="material-icons">videogame_asset</i>Productos</a></li>
+                        <li><a href="../../views/dashboard/companies.php"><i class="material-icons">assignment_late</i>Proveedores</a></li>
+                        <li><a href="../../views/dashboard/sales.php"><i class="material-icons">attach_money</i>Control de ventas</a></li>
+                        <li><a href="../../views/dashboard/stock.php"><i class="material-icons">add_circle</i>Reabastecimiento</a></li>
+                        <li><a href="../../views/dashboard/control.php"><i class="material-icons">find_replace</i>Controlador</a></li>
+                        <li><a href="../../views/dashboard/customers.php"><i class="material-icons">list</i>Control clientes</a></li>
+                        <li><a href="../../views/dashboard/mod.php"><i class="material-icons">update</i>Modificación de datos</a></li>
+                        <li><a href="../../views/dashboard/index.php"><i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
+                        <li><a href="index.php"><i class="material-icons">account_circle</i>Ingresar</a></li>
+                        <li><a href="../../views/dashboard/check_in.php"><i class="material-icons">assignment</i>Registrarse</a></li>
+                        
+                        </ul>');
         }
 
         //Metodo footer aqui se encuentra el footer utilizado en las paginas privadas
@@ -94,7 +94,7 @@
                 <script src="../../resource/js/initialization.js"></script>
                 <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
                 <script type="text/javascript" src="../../core/helpers/functions.js"></script>
-                <script type="text/javascript" src="../../core/controllers/'.$controller.'"></script>
+                <script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
                 <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
                 <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
             </footer>');

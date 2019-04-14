@@ -114,18 +114,20 @@ class Admin extends Validator{
     }
     //funciones para el manejo de la sesion de usuario
     public function checkUser(){
-        $sql='SELECT idAdmin from admin WHERE usuario = ?';
+        $sql='SELECT idAdmin, nombre, apellido from admin WHERE usuario = ?';
         $params= array($this->usuario);
         $data= Database::getRow($sql, $params);
         if($data){
             $this->id= $data['idAdmin'];
+            $this->nombre= $data['nombre'];
+            $this->apellido=$data['apellido'];
             return true;
         }else{
             return false;
         }
     }
 
-    public function chechContra(){
+    public function checkContra(){
         $sql='SELECT contraseña FROM admin where idAdmin = ?';
         $params= array($this->id);
         $data=Database::getRow($sql, $params);
@@ -134,6 +136,13 @@ class Admin extends Validator{
         }else{
             return false;
         }
+    }
+    
+    public function login(){
+        $hash= password_hash($this->contra, PASSWORD_DEFAULT);
+        $sql='SELECT idAdmin FROM admin where usuario = ? and contraseña = ?';
+        $params=array($this->usuario, $hash);
+        Database::getRow($sql, $params);       
     }
 
     public function changeContra(){
@@ -159,8 +168,9 @@ class Admin extends Validator{
     }
 
     public function createAdmin(){
+        $hash=password_hash($this->contra, PASSWORD_DEFAULT);
         $sql='INSERT INTO admin(nombre, apellido, correo, usuario, contraseña, telefono, direccion) VALUES(?,?,?,?,?,?,?)';
-        $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $this->contra, $this->telefono, $this->direccion);
+        $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $hash, $this->telefono, $this->direccion);
         return Database::executeRow($sql, $params);
     }
 
