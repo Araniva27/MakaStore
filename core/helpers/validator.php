@@ -38,7 +38,13 @@ class Validator
 		}
 		return $fields;
 	}
-
+	public function validateDate($value){
+		if(preg_match('^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$',$value)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	public function validatePhone($value)
 	{
 		if(preg_match('/^([0-9]{4})(-)([0-9]{4})$/',$value)){

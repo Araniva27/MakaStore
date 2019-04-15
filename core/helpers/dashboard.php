@@ -97,6 +97,7 @@
                 <script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
                 <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
                 <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
+                <script type="text/javascript" src="../../core/helpers/validator.js"></script>
             </footer>');
         }
     }

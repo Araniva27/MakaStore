@@ -7,7 +7,20 @@ $( document ).ready(function(){
     $('.modal').modal();//Inicializacion de modales
     $('.sidenav').sidenav(); 
     $('select').formSelect();//Inicializacion de las listas desplegables
-    $('.datepicker').datepicker();//Inicilazion del date picker
+    $('.datepicker').datepicker({//Inicilazion del date picker
+      firstDay:1,
+      format:'yyyy-mm-dd',
+      i18n: {
+          months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+          monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nom", "Dic"],
+          weekdays: ["Lunes","Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+          weekdaysShort: ["Lun","Mart", "Mier", "Juev", "Vier", "Sab", "Dom"],
+          weekdaysAbbrev: ["L","M", "Mi", "J", "V", "S", "D"],
+          cancel:'Cacelar',
+          clear:'Limpiar',
+          done:'Aceptar'
+      }
+    });
     $('.tooltipped').tooltip();//Inicializacion del tooltips
     $('.tabs').tabs();//inicializacion del tabs
 });

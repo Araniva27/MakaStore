@@ -52,7 +52,7 @@
 
         <div class="container-fluid">
             <!---Creacion de la tabla donde se encuentran todas las ventas realizadas-->
-            <table class="centered responsive-table">
+            <table class="centered responsive-table"  id="tabla-ventas">
                 <div class="col">
                     <thead>
                         <tr>
@@ -61,78 +61,12 @@
                             <th>Cliente</th>
                             <th>Fecha</th>
                             <th>Estado</th>
-                            <th>Total</th>
-
-
+                            <th>Actualizar</th>
+                            <th>Detalles</th>
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Manuel Araniva</td>
-                            <td>16/2/2018</td>
-                            <td>Pendiente de entrega</td>
-                            <td>$299.00</td>
-                            <!--Boton para actualizar estado de venta-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Actualizar estado" href="#modal1">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-                            <!--Boton para ver detalle de la venta-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped blue modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Detalle de venta" href="#modal2">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Alejandro Perez</td>
-                                <td>15/2/2018</td>
-                                <td>Pendiente de entrega</td>
-                                <td>$299.00</td>
-                                <!--Boton para actualizar estado de venta-->
-                                <td>
-                                    <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top"
-                                        data-delay="50" data-tooltip="Actualizar estado" href="#modal1">
-                                        <i class="material-icons center">update</i>
-                                    </a>
-                                </td>
-                                <!--Boton para ver detalle de la venta-->
-                                <td>
-                                    <a class="waves-effect waves-light btn tooltipped blue modal-trigger" data-position="top"
-                                        data-delay="50" data-tooltip="Detalle de venta" href="#modal2">
-                                        <i class="material-icons center">list</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Claudia Iraheta</td>
-                                <td>16/2/2018</td>
-                                <td>Entregada</td>
-                                <td>$299.00</td>
-                                <!--Boton para actualizar estado de venta-->
-                                <td>
-                                    <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top"
-                                        data-delay="50" data-tooltip="Actualizar estado" href="#modal1">
-                                        <i class="material-icons center">update</i>
-                                    </a>
-                                </td>
-                                <!--Boton para ver detalle de la venta-->
-                                <td>
-                                    <a class="waves-effect waves-light btn tooltipped blue modal-trigger" data-position="top"
-                                        data-delay="50" data-tooltip="Detalle de venta" href="#modal2">
-                                        <i class="material-icons center">list</i>
-                                    </a>
-                                </td>
-
-                            </tr>
-
+                    <tbody id="tbody-read">
                     </tbody>
                 </div>
             </table>
@@ -140,16 +74,16 @@
         </div>
     </div>
     <!--Modal para detalle de venta-->
-    <div id="modal2" class="modal">
+    <div id="modalDetalle" class="modal">
         <div class="modal-content">
 
             <h4>Detalle de venta</h4>
-            <table class="centered responsive-table">
+            <table class="centered responsive-table" id="tabla-detalle">
                 <div class="col">
                     <thead>
                         <tr>
                             <!--Creacion de encabezado de la tabla-->
-
+                            <th>Codigo</th>   
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio unitario</th>
@@ -158,25 +92,7 @@
                         </tr>
                     </thead>
                     <!--Datos de la tabla-->
-                    <tbody>
-                        <tr>
-                            <td>Nintendo Switch</td>
-                            <td>1</td>
-                            <td>$299.99</td>
-                            <td>$299.99</td>
-                        </tr>
-                        <tr>
-                            <td>Zelda breath of the wild</td>
-                            <td>2</td>
-                            <td>$50.00</td>
-                            <td>$100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Persona 5</td>
-                            <td>1</td>
-                            <td>$30.00</td>
-                            <td>$30.00</td>
-                        </tr>
+                    <tbody id="detalle">                        
                     </tbody>
                 </div>
             </table>
@@ -212,7 +128,7 @@
     <br>
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer();
+  dashboard::footer('sales.js');
 ?>
 
         </html>

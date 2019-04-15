@@ -47,7 +47,7 @@
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_nombre' id='create_nombre' />
+                            <input class='validate' type='text' name='create_nombre' id='create_nombre' onkeypress="return soloLetras(event)"/>
                             <label for='create_nombre'>Nombre del proveedor</label>
                         </div>
 
@@ -60,7 +60,7 @@
 
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_telefono' id='create_telefono' />
+                            <input class='validate' type='text' name='create_telefono' id='create_telefono' onkeypress="return validarTelefono(event)"/>
                             <label for='create_telefono'>Teléfono</label>
                         </div>
                         <div class="input-field col s12 l6 m12">
@@ -128,10 +128,11 @@
                 </form>
             </div>
         </div>
-
+       
     </div>
     <br>
-    <br>                
+    <br>        
+    
     <?php
 //llamada a la funcion footer en la clase dashboard
   dashboard::footer('companies.js');
