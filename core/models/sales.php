@@ -70,5 +70,11 @@ class Sales extends Validator{
         $params=array($this->id);
         return Database::getRows($sql,$params);
     }
+
+    public function searchVenta(){
+        $sql='SELECT idVenta, nombre, fecha_hora, estadoventa.estado FROM cliente, estadoventa, venta WHERE cliente.idCliente=venta.idCliente AND estadoventa.idEstado=venta.idEstado AND fecha_hora = ?  ORDER by idVenta ASC';
+        $params=array($this->fecha);
+        return Database::getRows($sql, $params);
+    }
 }
 ?>

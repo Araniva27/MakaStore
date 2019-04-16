@@ -21,34 +21,7 @@
     desplegable y un date picker estos elementos para realizar busquedas con filtros-->
     <div class="container">
         <br>
-        <div class='input-field col s12 l6 m12'>
-            <h5 class="center"> Estado de venta:</h5>
-            <select class="">
-                <option value="" disabled selected>Estado de venta</option>
-                <option value="1">Entregada</option>
-                <option value="2">Pendiente de entrega</option>
-            </select>
-            <div class="row center">
-                <a class="waves-effect waves-light btn blue centered">
-                    <i class="material-icons right">search</i>Buscar</a>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="row center">
-            <h5>Fecha</h5>
-            <div class="col l6 offset-l3">
-                <input type="text" class="datepicker center">
-                <a class="waves-effect waves-light btn blue centered">
-                    <i class="material-icons right">search</i>Buscar</a>
-                <br>
-                <br>
-                <a class="waves-effect waves-light btn blue centered">
-                    <i class="material-icons right">bookmark</i>Mostrar todo</a>
-            </div>
-
-        </div>
-
+       <!-- aqui -->
 
         <div class="container-fluid">
             <!---Creacion de la tabla donde se encuentran todas las ventas realizadas-->
@@ -61,7 +34,6 @@
                             <th>Cliente</th>
                             <th>Fecha</th>
                             <th>Estado</th>
-                            <th>Actualizar</th>
                             <th>Detalles</th>
                         </tr>
                     </thead>
@@ -87,7 +59,7 @@
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio unitario</th>
-                            <th>Precio Total</th>
+                            <th>Precio Total ($)</th>
 
                         </tr>
                     </thead>

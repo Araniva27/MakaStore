@@ -27,6 +27,18 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }else{
                     $result['exception']='Venta incorrecta';
                 }
+            break;
+            case 'search':
+                $_POST = $sales->validateForm($_POST);
+                if ($_POST['fecha'] != '') {
+                    if ($result['dataset'] = $sales->searchVenta($_POST['fecha'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                } else {
+                    $result['exception'] = 'Ingrese un valor para buscar';
+                }
             break;    
         }
     }else{

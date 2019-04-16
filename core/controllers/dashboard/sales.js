@@ -17,8 +17,7 @@ function fillTable(rows)
                 <td>${row.idVenta}</td>
                 <td>${row.nombre}</td>
                 <td>${row.fecha_hora}</td>
-                <td>${row.estado}</td>                            
-                <td><a href="#" onclick="confirmDelete(${row.idCliente})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a></td>
+                <td>${row.estado}</td>                                            
                 <td><a href="#" onclick="modalDetalles(${row.idVenta})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Detalle"><i class="material-icons">list</i></a></td>                
             </tr>
         `;
@@ -150,8 +149,7 @@ function modalDetalles(id)
                 fillTable2(result.dataset);
                 $('#modalDetalle').modal('open');
                 $(document).ready(function()
-                {
-                    
+                {  
                     showTable(); 
                 })
                 
@@ -168,3 +166,34 @@ function modalDetalles(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+//Función para mostrar los resultados de una búsqueda
+$('#buscarVenta').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiVentas+ 'search',
+        type: 'post',
+        data: $('#buscarVenta').serialize(),
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                sweetAlert(4, 'Coincidencias: ' + result.dataset.length, null);
+                fillTable(result.dataset);
+            } else {
+                sweetAlert(3, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})

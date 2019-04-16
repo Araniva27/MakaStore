@@ -49,8 +49,7 @@
                         <li><a href="../../views/dashboard/control.php"><i class="material-icons">find_replace</i>Controlador</a></li>
                         <li><a href="../../views/dashboard/customers.php"><i class="material-icons">list</i>Control clientes</a></li>
                         <li><a href="../../views/dashboard/mod.php"><i class="material-icons">update</i>Modificación de datos</a></li>
-                        <li><a href="../../views/dashboard/index.php"><i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
-                        <li><a href="index.php"><i class="material-icons">account_circle</i>Ingresar</a></li>
+                        <li><a href="../../views/dashboard/index.php"><i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>                        
                         <li><a href="../../views/dashboard/check_in.php"><i class="material-icons">assignment</i>Registrarse</a></li>
                         
                         </ul>');
