@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="conta">
+    <div class="container">
         <div class="row center">
             <a class="waves-effect waves-light btn green modal-trigger" href="#modalprod">Registrar producto + </a>
 
@@ -25,7 +25,7 @@
         <div class="modal-content">
             <h4 class="center">Registrar producto</h4>
             <div class="container">
-                <form class="col s12" method="post">
+                <form class="col s12" method="post" id="form-create">
                     <div class='row'>
                         <div class='col s12'>
                         </div>
@@ -33,52 +33,40 @@
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                     <div class='row'>
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='producto' id='Nproducto' />
-                            <label for='name'>Nombre del producto</label>
+                            <input class='validate' type='text' name='create_nombreP' id='create_nombreP' />
+                            <label for='create_nombreP'>Nombre del producto</label>
                         </div>
 
 
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='precio' id='precio' />
-                            <label for='name'>Precio</label>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='number' name='cantidad' id='cantidad' />
-                            <label for='username'>Cantidad</label>
-                        </div>
-                        <div class="input-field col s12 l6 m12">
-                            <!--Creacion de la lista desplegable de categorias-->
-                            <select class="browser-default">
-                                <option value="" disabled selected>Categoría</option>
-                                <option value="1">Consolas</option>
-                                <option value="2">Videojuegos</option>
-
-                            </select>
+                            <input class='validate' type='number' min="0.01" max="999.99" step="any" name='create_precioP' id='create_precioP' />
+                            <label for='create_precioP'>Precio</label>
                         </div>
                     </div>
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <!--Creacion de la lista desplegable de categorias-->
-                            <select class="browser-default">
-                                <option value="" disabled selected>Proveedor</option>
-                                <option value="1">Nintendo</option>
-                                <option value="2">Sony</option>
-                                <option value="2">Microsoft</option>
-
+                            <input class='validate' type='number' name='create_cantidadP' id='create_cantidadP' />
+                            <label for='create_cantidadP'>Cantidad</label>
+                        </div>
+                        <div class="input-field col s12 m12 l6">
+                            <select id="create_proveedor" name="create_proveedor">
                             </select>
                         </div>
+                    </div>
+                    <div class='row'>
+                    <div class="input-field col s12 m6">
+                        <select id="create_categoria" name="create_categoria">
+                        </select>
+                    </div>
 
                         <!--Creaacion del campo para añadir foto-->
-                        <div class="file-field input-field col s12 l6 m6">
-                            <div class="">
-                                <span class="btn blue">Foto</span>
-                                <input type="file">
+                        <div class="file-field input-field col s12 m6">
+                            <div class="btn waves-effect">
+                                <span><i class="material-icons">image</i></span>
+                                <input id="create_archivo" type="file" name="create_archivo" required/>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
+                                <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                             </div>
                         </div>
 
@@ -90,232 +78,54 @@
                             <!--Creacion del switch para seleccionar estado del producto visible o invisible-->
                             <div class="row center">
                                 <div class="switch">
-
                                     <label style="font-size:25px">
                                         <h5 class="black-text">Estado:</h5>
-                                        Invisible
-                                        <input type="checkbox">
+                                        <i class="material-icons">visibility_off</i>
+                                        <input type="checkbox" name="create_estado" id="create_estado">
                                         <span class="lever"></span>
-                                        Visible
+                                        <i class="material-icons">visibility</i>
                                     </label>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row center-align">
+                            <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                            <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Crear"><i class="material-icons">check</i></button>
                         </div>
                 </form>
                 </div>
             </div>
 
-        </div>
-        <!--Creacion del container donde se ubica el formulario e ingreso de productos-->
-
-        <!--Creacion del boton para registrar productos y para modificarlos-->
-        <div class="row center">
-            <a class="waves-effect waves-light btn green">
-                <i class="material-icons right">done</i>Registrar</a>
-
-        </div>
+        </div>        
     </div>
+    
     <div class="container">
-        <nav>
-            <!--Creacion de la barra de busqueda de productos-->
-            <div class="nav-wrapper blue">
-                <form>
-                    <div class="input-field">
-                        <input id="search" type="search" required>
-                        <label class="label-icon" for="search">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <i class="material-icons">close</i>
-                    </div>
-                </form>
-            </div>
-    </div>
-    <div class="container">
-        </nav>
-        <br>
-        <!--Creacion del boton de busqueda-->
-        <div class="row center">
-            <a class="waves-effect waves-light btn blue">
-                <i class="material-icons right">search</i>Buscar</a>
-        </div>
-
         <div class="container-fluid">
             <!---Creacion de la tabla donde se encuentran todos los productos registrados-->
-            <table class="centered responsive-table">
+            <table class="centered responsive-table" id="tabla-productos">
                 <div class="col">
                     <thead>
                         <tr>
                             <th>Código</th>
+                            <th>Imagen</th>
                             <th>Producto</th>
                             <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Categoría</th>
+                            <th>Cantidad</th>                            
                             <th>Compañía</th>
-                            <th>Descripción</th>
+                            <th>Estado</th>
                             <th>Eliminar</th>
                             <th>Comentario</th>
                             <th>Modificar</th>
+                            <th>Reabastecimiento</th>
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Nintendo Switch</td>
-                            <td>$259.99</td>
-                            <td>750</td>
-                            <td>Consolas</td>
-                            <td>Nintendo</td>
-                            <td>Consola de videojuegos desarrollado por Nintendo</td>
-
-                            <!--Colocacion del boton para eliminar productos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped red" data-position="top" data-delay="50" data-tooltip="Eliminar">
-                                    <i class="material-icons center">close</i>
-                                </a>
-                            </td>
-                            <!--Boton para mostrar modal con los comentarios del producto elegido-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped orange modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Comentarios" href="#modalP">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-                            <!--Boton para abrir modal donde se modifican los datos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Modificar" href="#modalM">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Play Station 4</td>
-                            <td>$150.00</td>
-                            <td>500</td>
-                            <td>Consolas</td>
-                            <td>Sony</td>
-                            <td>Consola de videojuegos desarrollado por Sony</td>
-
-                            <!--Colocacion del boton para eliminar productos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped red" data-position="top" data-delay="50" data-tooltip="Eliminar">
-                                    <i class="material-icons center">close</i>
-                                </a>
-                            </td>
-                            <!--Boton para mostrar modal con los comentarios del producto elegido-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped orange modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Comentarios" href="#modalP">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-                            <!--Boton para abrir modal donde se modifican los datos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Modificar" href="#modalM">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Xbox one</td>
-                            <td>$250.00</td>
-                            <td>374</td>
-                            <td>Consolas</td>
-                            <td>Microsoft</td>
-                            <td>Consola de videojuegos desarrollado por Microsoft</td>
-
-                            <!--Colocacion del boton para eliminar productos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped red" data-position="top" data-delay="50" data-tooltip="Eliminar">
-                                    <i class="material-icons center">close</i>
-                                </a>
-                            </td>
-                            <!--Boton para mostrar modal con los comentarios del producto elegido-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped orange modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Comentarios" href="#modalP">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-                            <!--Boton para abrir modal donde se modifican los datos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Modificar" href="#modalM">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Zelda Breath of the wild</td>
-                            <td>$59.00</td>
-                            <td>147</td>
-                            <td>VIdeojuegos</td>
-                            <td>Nintendo</td>
-                            <td>Ultimo juego de Zelda lanzado</td>
-
-                            <!--Colocacion del boton para eliminar productos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped red" data-position="top" data-delay="50" data-tooltip="Eliminar">
-                                    <i class="material-icons center">close</i>
-                                </a>
-                            </td>
-                            <!--Boton para mostrar modal con los comentarios del producto elegido-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped orange modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Comentarios" href="#modalP">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-                            <!--Boton para abrir modal donde se modifican los datos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Modificar" href="#modalM">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Persona 5</td>
-                            <td>$59.00</td>
-                            <td>85</td>
-                            <td>VIdeojuegos</td>
-                            <td>Atlus</td>
-                            <td>Uno de los mejores RPG de la decada</td>
-
-                            <!--Colocacion del boton para eliminar productos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped red" data-position="top" data-delay="50" data-tooltip="Eliminar">
-                                    <i class="material-icons center">close</i>
-                                </a>
-                            </td>
-                            <!--Boton para mostrar modal con los comentarios del producto elegido-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped orange modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Comentarios" href="#modalP">
-                                    <i class="material-icons center">list</i>
-                                </a>
-                            </td>
-                            <!--Boton para abrir modal donde se modifican los datos-->
-                            <td>
-                                <a class="waves-effect waves-light btn tooltipped grey modal-trigger" data-position="top" data-delay="50"
-                                    data-tooltip="Modificar" href="#modalM">
-                                    <i class="material-icons center">update</i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tbody id="tbody-read">
+                       
                     </tbody>
                 </div>
             </table>
         </div>
-    </div>
     </div>
     <div id="modalP" class="modal modals">
         <div class="modal-content">
@@ -367,62 +177,57 @@
         <div class="modal-content">
             <h4 class="center">Modificar Datos</h4>
             <div class="container">
-                <form class="col s12" method="post">
+                <form class="col s12" method="post" id="form-update" enctype="multipart/form-data">
                     <div class='row'>
                         <div class='col s12'>
                         </div>
                     </div>
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
+                    <div class="row">
+                        <input type="hidden" id="idProducto" name="idProducto"/>
+                        <input type="hidden" id="imagen_producto" name="imagen_producto"/>
+                    </div>
                     <div class='row'>
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='producto' id='Nproducto' />
-                            <label for='name'>Nombre del producto</label>
+                            <input class='validate' type='text' name='update_producto' id='update_producto' />
+                            <label for='update_producto'>Nombre del producto</label>
                         </div>
 
 
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='precio' id='precio' />
-                            <label for='name'>Precio</label>
+                            <input class='validate' type='number' min="0.01" max="999.99" step="any" name='update_precio' id='update_precio' />
+                            <label for='update_precio'>Precio</label>
                         </div>
                     </div>
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
                             <!--Creacion de la lista desplegable de categorias-->
-                            <select class="browser-default">
-                                <option value="" disabled selected>Proveedor</option>
-                                <option value="1">Nintendo</option>
-                                <option value="2">Sony</option>
-                                <option value="2">Microsoft</option>
-
+                            <select id="update_proveedor" name="update_proveedor">
                             </select>
                         </div>
 
                         <div class="input-field col s12 l6 m12">
                             <!--Creacion de la lista desplegable de categorias-->
-                            <select class="browser-default">
-                                <option value="" disabled selected>Categoría</option>
-                                <option value="1">Consolas</option>
-                                <option value="2">Videojuegos</option>
-
+                            <select id="update_categoria" name="update_categoria">
                             </select>
                         </div>
                     </div>
                     <div class='row'>
 
                         <!--Creaacion del campo para añadir foto-->
-                        <div class="file-field input-field col s12 l12 m12">
-                            <div class="">
-                                <span class="btn blue">Foto</span>
-                                <input type="file">
+                        <div class="file-field input-field col s12 m12 l12">
+                            <div class="btn waves-effect">
+                                <span><i class="material-icons">image</i></span>
+                                <input id="update_archivo" type="file" name="update_archivo"/>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
+                                <input class="file-path validate" type="text" placeholder="Seleccione una imagen"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class='input-field col s12 l12 m12'>
-                                <input class='validate' type='text' name='descripcion' id='descripcion' />
-                                <label for='descripcion'>Descripción</label>
+                                <input class='validate' type='text' name='update_descripcion' id='update_descripcion' />
+                                <label for='update_descripcion'>Descripción</label>
                             </div>
 
                         </div>
@@ -434,42 +239,57 @@
 
                                 <label style="font-size:25px">
                                     <h5 class="black-text">Estado:</h5>
-                                    Invisible
-                                    <input type="checkbox">
+                                    <i class="material-icons">visibility_off</i>
+                                    <input type="checkbox" id="update_estado" type="checkbox" name="update_estado">
                                     <span class="lever"></span>
-                                    Visible
+                                    <i class="material-icons">visibility</i>
                                 </label>
                             </div>
-
                         </div>
+                        <div class="row center-align">
+                            <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                            <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Modificar"><i class="material-icons">update</i></button>
+                        </div>
+                    </div>    
                 </form>
                 <br>
-                <br>
-                <div class="card-action">
-                    <div class="row center">
-                        <!--Boton para modificar datos-->
-                        <a class="waves-effect waves-light btn grey">
-                            <i class="material-icons right">update</i>Modificar</a>
-                    </div>
-                </div>
+                <br> 
                 </div>
 
             </div>
         </div>
-
-
+    </div>
+    <div id="modalE" class="modal">
+        <div class="modal-content">
+            <h4 class="center">Agregar exitencia</h4>
+            <br>
+            <form class="col s12" method="post" id="form-cantidad" enctype="multipart/form-data">
+                <div class="row">
+                    <input type="hidden" id="idProductoC" name="idProductoC"/>
+                    <input type="hidden" id="cantidadS" name="cantidadS"/>
+                    <div class="input-field col s12 l6 m12 offset-l3">
+                        <i class="material-icons prefix">add</i>
+                        <input id="cantidadP" name="cantidadP" type="number" class="validate">
+                        <label for="cantidadP">Cantidad</label>
+                    </div>
+                </div>
+                <div class="row center-align">
+                    <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                    <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Agregar"><i class="material-icons">check</i></button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <br>
     <br>
+    <br>
     <!--Inclusion de scrip javascript para la inicializacion y uso de diversos elementos-->
-    <script src="../../resource/js/jquery-3.3.1.min.js"></script>
-    <script src="../../resource/js/materialize.min.js"></script>
-    <script src="../../resource/js/initialization.js"></script>
+    
     </body>
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer();
+  dashboard::footer('products.js');
 ?>
 
         </html>

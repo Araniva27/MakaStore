@@ -57,10 +57,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     if ($admin->checkUser()) {
                         if ($admin->setContra($_POST['contrasena'])) {
                             if ($admin->checkContra()) {
-                                $_SESSION['idAdmin'] = $admin->getId();
-                                $_SESSION['usuario'] = $admin->getUsuario();
-                                $_SESSION['nombre']=$admin->getNombre();
-                                $_SESSION['apellido']=$admin->getApellido();
+                                $_SESSION['idAdmin'] = $admin->getId();                                
                                 $result['status'] = 1;                                
                             } else {
                                 $result['exception'] = 'Clave inexistente';

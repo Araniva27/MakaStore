@@ -9,9 +9,9 @@ if(isset($_GET['site']) && isset($_GET['action'])){
     $cliente= new Clientes();
     $result= array('status'=>0, 'exception'=> '');
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
-    if($_GET['site']=='dashboard'){
+    if($_GET['site']=='dashboard' && isset($_SESSION['idAdmin'])){        
         switch ($_GET['action']){
-            case 'read';
+            case 'read';            
                 if($result['dataset']=$cliente->readCliente()){
                     $result['status']=1;
                 }else{

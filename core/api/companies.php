@@ -7,15 +7,16 @@ require_once('../../core/models/companies.php');
 //Comprobacion de si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if(isset($_GET['site']) && isset($_GET['action'])){
     session_start();
+    
     $compañia= new companies; /*Instanciacion de clase companies  */
     $result=array('status'=>0, 'exception'=> '');
   
-    if($_GET['site'] == 'dashboard'){/* verificacion si el sitio es el dashboard */
+    if($_GET['site'] == 'dashboard' && isset($_SESSION['idAdmin'])){/* verificacion si el sitio es el dashboard */
         switch($_GET['action']){/* verificacion de la accion a realizar en el switch */
             case 'read':            
                 /* Procesos a realizar si el caso es leer */
                 if($result['dataset']=$compañia->readCompanies()){
-                    $result['status'] = 1;
+                    $result['status'] = 1;                    
                 }else{
                     $result['exception']='No hay proveedores registrados';
                 }
