@@ -128,51 +128,47 @@
         </div>
     </div>
     <div id="modalP" class="modal modals">
-        <div class="modal-content">
+        <div class="modal-content" id="modal-content">
             <h4>Comentarios</h4>
-
-            <div class="card white">
-                <div class="card-content white-text hoverable">
-                    <span class="card-title blue-text">Manuel Araniva</span>
-                    <p class="black-text">
-                        <strong class="blue-text">Comentario:</strong> Una muy buena consola híbrida con magníficos juegos para poder disfutar en ella,
-                        elaborada con muy buenos materiales y un muy buen diseño, aunque una de sus mas grandes carencias
-                        es la poca potencia en comparación a las demas consolas de la competencia </p>
-                    <p class="black-text">
-                        <strong class="blue-text">Calificación:</strong> 4</p>
-                </div>
-
-            </div>
-            <div class="card white">
-                <div class="card-content white-text hoverable">
-                    <span class="card-title blue-text">Rolin Salas</span>
-                    <p class="black-text">
-                        <strong class="blue-text">Comentario:</strong> Una excelente consola con un buen catalogo de juegos y un buen precio de venta,
-                        aunque accesorios muy caros</p>
-                    <p class="black-text">
-                        <strong class="blue-text">Calificación:</strong> 4</p>
-                </div>
-
-            </div>
-            <div class="card white">
-                <div class="card-content white-text hoverable">
-                    <span class="card-title blue-text">Gabriela Perez</span>
-                    <p class="black-text">
-                        <strong class="blue-text">Comentario:</strong> Una consola elaborada con muy buenos materiales con grandes juegos, aunque con
-                        una plataforma online mejorable </p>
-                    <p class="black-text">
-                        <strong class="blue-text">Calificación:</strong> 4</p>
-                </div>
-
-            </div>
-
         </div>
-        <!--Boton para cerrar modal-->
-        <div class="modal-footer">
-
-            <a href="#" class="btn blue modal-close">Cerrar</a>
-        </div>
+       <div class="row center">
+       <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar">Cerrar<i class="material-icons"></i></a>
+       </div>
     </div>
+    <div id="modalState" class="modal">
+			<div class="modal-content">
+				<h4 class="center">Estado del comentario</h4>
+				<form class="col s12" method="post" id="form-updateState" enctype="multipart/form-data">
+						<div class="row">
+							<div class='input-field col s12 l12 m12'>
+									<input class='validate' type='hidden' name='idComentario' id='idComentario' />
+								</div>
+							</div>
+							<div class="row center">
+								<div class="switch">
+									<label style="font-size:30px">
+										<i class="material-icons">visibility_off</i>
+										<input id="update_estado" type="checkbox" name="update_estado">
+										<span class="lever"></span>
+										<i class="material-icons">visibility</i>
+									</label>
+								</div>
+							</div>
+						</div>		
+						<div class="row center">
+							<a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar">
+								<i class="material-icons">cancel</i>
+							</a>
+							<button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Modificar">
+								<i class="material-icons">update</i>
+							</button>
+						</div>
+					</form>	
+				<div class="modal-footer">
+
+				</div>
+			</div>
+		</div>
     <div id="modalM" class="modal modalsM">
         <div class="modal-content">
             <h4 class="center">Modificar Datos</h4>

@@ -197,5 +197,23 @@ class Productos extends Validator{
         $params=array($this->cantidad, $this->id);
         return Database::executeRow($sql,$params);
     }
+
+    public function readComment(){
+        $sql='SELECT idComentario, comentario, producto.nombre as producto,cliente.nombre as cliente, comentarios.estado as estado, cliente.usuario as usuario FROM cliente, producto, comentarios where producto.idProducto=comentarios.idProducto and cliente.idCliente=comentarios.idCliente and comentarios.idProducto=?';
+        $params=array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    public function updateState(){
+        $sql='UPDATE comentarios set estado= ? where idComentario=?';
+        $params=array($this->estado, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readComment2(){
+        $sql='SELECT idComentario, estado FROM comentarios where idComentario = ?';
+        $params=array($this->id);
+        return Database::getRow($sql, $params);
+    }
 }
 ?>

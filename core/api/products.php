@@ -202,7 +202,45 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }else{
                     $result['exception']='Producto incorrecto';
                 }
+            break;
+            case 'getComentarios':
+                if($producto->setId($_POST['idProducto'])){
+                    if($result['dataset']=$producto->readComment()){
+                        $result['status']=1; 
+                    }else{
+                        $result['exception']='error';
+                    }    
+                }else{
+                    $result['exception']='Producto incorrecto';
+                }
+            break; 
+            case 'getComentarios2':
+                if($producto->setId($_POST['idComentario'])){
+                    if($result['dataset']=$producto->readComment2()){
+                        $result['status']=1; 
+                    }else{
+                        $result['exception'] = 'Comentario inexistente';
+                    }
+                }else{
+                    $result['exception']='Comentario incorrecto'; 
+                }
             break;    
+            case 'updateState':
+            $_POST=$producto->validateForm($_POST);
+                if($producto->setId($_POST['idComentario'])){
+                    if($producto->setEstado((isset($_POST['update_estado']) ? 1 : 0))){
+                            if($producto->updateState()){
+                                $result['status']=1;
+                            }else{
+                                $result['exception']='Operacion fallida';
+                            }
+                    }else{
+                    $result['exception']='Cantidad incorrecta';
+                }
+                }else{
+                    $result['exception']='Producto incorrecto';
+                }
+            break; 
         }
     }else{
         exit('Recurso denegado');

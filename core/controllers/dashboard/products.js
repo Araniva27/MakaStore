@@ -97,6 +97,170 @@ function showTable()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+function fillCards(rows)
+{
+    let content = '';
+    //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
+    rows.forEach(function(row){
+        (row.estado == 1) ? icon = 'visibility' : icon = 'visibility_off';
+        content += `
+        <div class="card white">
+            <input class='validate' type="hidden"  value="${row.idComentario}"/>
+            <div class="card-content white-text hoverable">
+                <p class="black-text">
+                    <strong class="blue-text">Producto:</strong> ${row.producto}</p>
+                <p class="black-text">
+                    <strong class="blue-text">Cliente:</strong> ${row.cliente}</p>
+                    <p class="black-text">
+                    <strong class="blue-text">Usuario:</strong> ${row.usuario}</p>
+                <p class="black-text">
+                    <strong class="blue-text">Cliente:</strong> ${row.cliente}</p>
+                    <p class="black-text">
+                    <strong class="blue-text">Comentario:</strong> ${row.comentario}</p>
+                    <p class="black-text">
+                    <strong class="blue-text">Estado:</strong><i class="material-icons"> ${icon}</i></p>
+                    <a href="#" onclick="updateState(${row.idComentario})" class="waves-effect waves-grey btn blue tooltipped" data-tooltip="Modificar estado"><i class="material-icons">mode_edit</i></a>                    
+            </div>
+        </div>
+        `;
+    });
+    $('#modal-content').html(content);
+    $('select').formSelect();
+    $('.tooltipped').tooltip();   
+    $('.materialboxed').materialbox();
+}
+
+/* function showCard()
+{
+    $.ajax({
+        url: apiProductos + 'readComentarios',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                fillCards(result.dataset);
+            } else {
+                sweetAlert(4, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+} */
+
+function updateState(id)
+{
+    $.ajax({
+        url: apiProductos + 'getComentarios2',
+        type: 'post',
+        data:{
+            idComentario: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {       
+                $('#form-updateState')[0].reset();
+                $('#idComentario').val(result.dataset.idComentario);
+                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                $('#modalState').modal('open');                        
+            } else {
+                sweetAlert(2, result.status, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
+
+$('#form-updateState').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiProductos + 'updateState',
+        type: 'post',
+        data: new FormData($('#form-updateState')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {                
+                $('#modalState').modal('close');
+                if (result.status == 1) {
+                    sweetAlert(1, 'Estado modificado correctamente', null);
+                } else if(result.status == 2) {
+                    sweetAlert(3, 'Estado modificado. ' + result.exception, null);
+                } else {
+                    sweetAlert(1, 'Estado modificado. ' + result.exception, null);
+                }
+                
+            } else {
+                console.log(response);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+function readComments(id)
+{
+    $.ajax({
+        url: apiProductos + 'getComentarios',
+        type: 'post',
+        data:{
+            idProducto: id
+        },
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
+            if (result.status) {       
+                fillCards(result.dataset);         
+                $('#modalP').modal('open');                        
+            } else {
+                sweetAlert(2, 'Este producto no tiene comentarios', null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+}
 
 //Función para cargar las caterias en el select del formulario
 function showSelectProveedores(idSelect, value)
