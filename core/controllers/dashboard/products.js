@@ -176,7 +176,7 @@ function updateState(id)
             if (result.status) {       
                 $('#form-updateState')[0].reset();
                 $('#idComentario').val(result.dataset.idComentario);
-                (result.dataset.estado == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                (result.dataset.estado == 1) ? $('#update_estadoC').prop('checked', true) : $('#update_estadoC').prop('checked', false);
                 $('#modalState').modal('open');                        
             } else {
                 sweetAlert(2, result.status, null);

@@ -54,6 +54,7 @@
                         <li><a href="../../views/dashboard/control.php"><i class="material-icons">find_replace</i>Controlador</a></li>
                         <li><a href="../../views/dashboard/customers.php"><i class="material-icons">list</i>Control clientes</a></li>
                         <li><a href="#"  onclick="modalProfile()"><i class="material-icons">update</i>Modificación de datos</a></li>
+                        <li><a href="#modal-password" class="modal-trigger"><i class="material-icons">lock</i>Cambiar clave</a></li>
                         <li><a href="#" onclick="cerrarSesion()"><i class="material-icons">clear</i>Cerrar Sesion</a></li>                       
                         <li><a href="../../views/dashboard/check_in.php"><i class="material-icons">assignment</i>Registrarse</a></li>
                         
@@ -200,7 +201,7 @@
 						</div>
 						<div class="row center-align">
 							<a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
-							<button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Cambiar"><i class="material-icons">save</i></button>
+							<button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Actualizar"><i class="material-icons">update</i></button>
 						</div>
 					</form>
 				</div>

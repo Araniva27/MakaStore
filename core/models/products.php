@@ -163,8 +163,8 @@ class Productos extends Validator{
     }
 
     public function updateProducto(){
-        $sql='UPDATE producto set nombre = ?, precio = ?, descripcion = ?, foto = ?, estado = ?, idCategoria = ?, cantidad = ?, idProveedor = ? where idProducto = ?';
-        $params= array($this->nombre, $this->precio, $this->descripcion, $this->foto, $this->estado, $this->categoria, $this->cantidad, $this->proveedor, $this->id);
+        $sql='UPDATE producto set nombre = ?, precio = ?, descripcion = ?, foto = ?, estado = ?, idCategoria = ?, idProveedor = ? where idProducto = ?';
+        $params= array($this->nombre, $this->precio, $this->descripcion, $this->foto, $this->estado, $this->categoria, $this->proveedor, $this->id);
         return Database::executeRow($sql,$params);
     }
 

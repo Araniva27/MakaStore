@@ -148,7 +148,7 @@
 								<div class="switch">
 									<label style="font-size:30px">
 										<i class="material-icons">visibility_off</i>
-										<input id="update_estado" type="checkbox" name="update_estado">
+										<input id="update_estadoC" type="checkbox" name="update_estadoC">
 										<span class="lever"></span>
 										<i class="material-icons">visibility</i>
 									</label>

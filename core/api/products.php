@@ -108,7 +108,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                         if($producto->setCategoria($_POST['update_categoria'])){
                                             if($producto->setEstado(isset($_POST['update_estado']) ? 1 : 0)){
                                                 if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                                    if ($producto->setFoto($_FILES['update_archivo'], $_POST['imagen_producto'])) {
+                                                    if ($producto->setFoto($_FILES['update_archivo'], null)) {
                                                         $archivo = true;
                                                     } else {
                                                         $result['exception'] = $producto->getImageError();
@@ -228,7 +228,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
             case 'updateState':
             $_POST=$producto->validateForm($_POST);
                 if($producto->setId($_POST['idComentario'])){
-                    if($producto->setEstado((isset($_POST['update_estado']) ? 1 : 0))){
+                    if($producto->setEstado((isset($_POST['update_estadoC']) ? 1 : 0))){
                             if($producto->updateState()){
                                 $result['status']=1;
                             }else{

@@ -119,6 +119,38 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 $result['exception'] = 'Usuario incorrecto';
             } 
             break;       
+            case 'password':
+                if ($admin->setId($_SESSION['idAdmin'])) {
+                    $_POST = $admin->validateForm($_POST);
+                    if ($_POST['clave_actual_1'] == $_POST['clave_actual_2']) {
+                        if ($admin->setContra($_POST['clave_actual_1'])) {
+                            if ($admin->checkContra()) {
+                                if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
+                                    if ($admin->setContra($_POST['clave_nueva_1'])) {
+                                            if ($admin->changeContra()) {
+                                            $result['status'] = 1;
+                                        } else {
+                                            $result['exception'] = 'Operación fallida';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Clave nueva menor a 6 caracteres';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Claves nuevas diferentes';
+                                }
+                            } else {
+                                $result['exception'] = 'Clave actual incorrecta';
+                            }
+                        } else {
+                            $result['exception'] = 'Clave actual menor a 6 caracteres';
+                        }
+                    } else {
+                        $result['exception'] = 'Claves actuales diferentes';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+            break;
         }
     }else if($_GET['site']=='dashboard'){
         switch ($_GET['action']){
