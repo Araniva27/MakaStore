@@ -114,7 +114,7 @@ class Admin extends Validator{
     }
     //funciones para el manejo de la sesion de usuario
     public function checkUser(){
-        $sql='SELECT idAdmin, nombre, apellido from admin WHERE usuario = ?';
+        $sql='SELECT idAdmin, nombre, apellido, usuario, correo from admin WHERE usuario = ?';
         $params= array($this->usuario);
         $data= Database::getRow($sql, $params);
         if($data){
@@ -196,6 +196,12 @@ class Admin extends Validator{
 		$sql='SELECT * FROM admin where usuario = ?';
 		$params= array($this->usuario);
 		return Database:: getRow($sql,$params);
-	}
+    }
+    
+    public function getProfile(){
+        $sql='SELECT idAdmin, nombre, apellido, usuario, telefono, correo, direccion FROM admin WHERE idAdmin = ?';
+        $params=array($this->id);
+        return Database::getRow($sql, $params);
+    }
 }
 ?>

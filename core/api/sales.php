@@ -8,7 +8,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
     $sales= new Sales();
     $result=array('status'=>0, 'exception'=>'');
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
-    if($_GET['site']=='dashboard'){
+    if(isset($_SESSION['idAdmin']) && $_GET['site']=='dashboard'){
         switch ($_GET['action']){
             case 'read':
                 if($result['dataset']=$sales->readVentas()){
