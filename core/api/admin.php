@@ -151,6 +151,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     $result['exception'] = 'Usuario incorrecto';
                 }
             break;
+            
         }
     }else if($_GET['site']=='dashboard'){
         switch ($_GET['action']){
@@ -177,7 +178,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
             } else {
                 $result['exception'] = 'Usuario incorrecto';
             }
-        break;   
+        break;  
         }
     }
     print(json_encode($result));

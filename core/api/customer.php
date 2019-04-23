@@ -56,12 +56,87 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 $result['exception']='Cliente incorrecto';
             }       
         }
+
+    }else if($_GET['site']=='public'){
+        switch ($_GET['action']){
+            case 'createC':             
+                $_POST=$cliente->validateForm($_POST);
+                if($cliente->setNombre($_POST['nombre'])){
+                    if($cliente->setApellido($_POST['apellido'])){
+                        if($cliente->setCorreo($_POST['correo'])){
+                            if($cliente->setUsuario($_POST['usuario'])){
+                                if($cliente->setContra($_POST['contra'])){
+                                    if($cliente->setTelefono($_POST{'telefono'})){
+                                        if($cliente->setDireccion($_POST['direccion'])){
+                                            if($cliente->setEstado($_POST['estado'])){
+                                                if($cliente->verificarUsuario()){
+                                                    $result['exception']='Usuario ya existente';
+                                                }else{
+                                                    if (isset($_POST["check"])) {
+                                                        if($cliente->createCliente()){
+                                                            $result['status'] = 1;
+                                                        }else{
+                                                            $result['status']=2;
+                                                            $result['exception']='Operacion fallida';
+                                                        }
+                                                    }else{
+                                                        $result['exception']='Debe de aceptar los terminos y condiciones';
+                                                    }                                                    
+                                                }                                                
+                                            }else{
+                                                $result['exception']='Estado incorrecto';
+                                            }                                           
+                                        }else{
+                                            $result['exception']='Direccion incorrecta';
+                                        }
+                                    }else{
+                                        $result['exception']='Telefono incorrecto';
+                                    }
+                                }else{
+                                    $result['exception']='Contraseña incorrecta';
+                                }
+                            }else{
+                                $result['exception']='Usuario incorrecto';
+                            }
+                        }else{
+                            $result['exception']='Correo incorrecto';
+                        }
+                    }else{
+                        $result['exception']='Apellido incorrecto';
+                    }
+                }else{
+                    $result['exception']='Nombre incorrecto';
+                }
+            break;
+            case'login':
+                $_POST=$cliente->validateForm($_POST);
+                if($cliente->setUsuario($_POST['usuarioCliente'])){
+                    if($cliente->checkUser()){
+                        if($cliente->setContra($_POST['ContraseñaCliente'])){
+                            if($cliente->checkContra()){
+                                $_SESSION['idCliente']=$cliente->getId();
+                                $_SERVER['nombre']=$cliente->getNombre();
+                                $result['status'] = 1;                                 
+                            }else{
+                                $result['exception'] = 'Clave inexistente';
+                            }
+                        }else{
+                            $result['exception'] = 'Clave menor a 6 caracteres';
+                        }
+                    }else{
+                        $result['exception']='Usuario inexistente';
+                    }
+                }else{  
+                    $result['exception']='Usuario incorrecto';
+                }
+            break;
+        }     
     }else{
         exit('Acceso no disponible');
     }
     print(json_encode($result));
-}else{
+ }else{
     exit('Recurso denegado');
-}
+} 
 
 ?>

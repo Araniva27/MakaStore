@@ -208,10 +208,7 @@
       public_pages::footer();
      ?>
     <!--Inclusion scripts javascript para funcionalidad de paginas web-->
-    <script src="../../resource/js/jquery-3.3.1.min.js"></script>
-    <script src="../../resource/js/materialize.min.js"></script>
-    <script src="../../resource/js/initialization.js"></script>
-
+    
     </body>
 
     </html>

@@ -139,13 +139,13 @@ class Productos extends Validator{
 
     //Metodos para el manejo del CRUD
     public function readProductos(){
-        $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, estado from producto, proveedor where proveedor.idProveedor=producto.idProveedor';
+        $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado from producto, proveedor where proveedor.idProveedor=producto.idProveedor';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
 
     public function readProveedores(){
-        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono,correo FROM proveedor';
+        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono,correo FROM proveedor where estado=1';
         $params=array(null);
         return Database::getRows($sql, $params);
     }

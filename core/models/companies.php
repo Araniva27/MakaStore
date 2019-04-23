@@ -6,6 +6,7 @@ class Companies extends Validator
     private $correo=null;
     private $direccion=null;
     private $telefono=null;
+    private $estado=null;
 
     public function setId($value)
 	{
@@ -74,9 +75,22 @@ class Companies extends Validator
     public function getCorreo(){
         return $this->correo;
     }
+
+    public function setEstado($value){
+        if($value == '1'|| $value == '0'){
+            $this->estado=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getEstado(){
+        return $this->estado;
+    }
     //Funcion para obtener todos los registros de la BD
     public function readCompanies(){
-        $sql='SELECT idProveedor, nombreProveedor, direccion, correo, telefono FROM proveedor ORDER BY nombreProveedor';
+        $sql='SELECT idProveedor, nombreProveedor, direccion, correo, telefono, estado FROM proveedor ORDER BY nombreProveedor';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
@@ -92,19 +106,19 @@ class Companies extends Validator
         $params=array($this->nombre, $this->direccion, $this->telefono, $this->correo);
         return Database::executeRow($sql, $params);
     }
-   //funcion para obetenre
+   //funcion para obtener compañia
     public function getCompanie(){
-        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono, correo FROM proveedor WHERE idProveedor = ?';
+        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono, correo, estado FROM proveedor WHERE idProveedor = ?';
         $params=array($this->id);
         return Database::getRow($sql, $params);
     }
-
+    //funcion para actualizar compañia
     public function updateCompanie(){
-        $sql='UPDATE proveedor SET nombreProveedor = ?, direccion = ?, telefono = ?, correo = ? WHERE idProveedor = ?';
-        $params=array($this->nombre, $this->direccion, $this->telefono, $this->correo, $this->id);
+        $sql='UPDATE proveedor SET nombreProveedor = ?, direccion = ?, telefono = ?, correo = ?, estado = ? WHERE idProveedor = ?';
+        $params=array($this->nombre, $this->direccion, $this->telefono, $this->correo, $this->estado, $this->id);
         return Database::executeRow($sql, $params);
     }
-
+    //funcion para eliminar compañia
     public function deleteCompanie(){
         $sql='DELETE from proveedor WHERE idProveedor = ?';
         $params=array($this->id);

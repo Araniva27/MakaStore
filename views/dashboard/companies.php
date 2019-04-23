@@ -27,6 +27,7 @@
                         <th>Dirección</th>
                         <th>Teléfono</th>
                         <th>Correo</th>
+                        <th>Estado</th>
                         <th>Eliminar</th>
                         <th>Actualizar</th>
                     </tr>
@@ -110,12 +111,22 @@
                             <label for='update_telefono'>Teléfono</label>
                         </div>
                     </div>
-                 <div class='row'>
+                    <div class='row'>
                         <div class="input-field col s12 l12 m12">
                             <input class='validate' type='email' name='update_correo' id='update_correo' />
                             <label for='update_correo'>Correo</label>
                         </div>
                     </div>
+                    <div class="row center">
+						<div class="switch">
+							<label style="font-size:30px">
+								<i class="material-icons">visibility_off</i>
+								<input id="update_state" type="checkbox" name="update_state">
+								<span class="lever"></span>
+								<i class="material-icons">visibility</i>
+							</label>
+						</div>
+					</div>
                     <!--Creacion del boton para registrar productos y para modificarlos-->
                     <div class="row center-align">
                         <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar">

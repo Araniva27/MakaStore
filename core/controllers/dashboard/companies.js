@@ -11,6 +11,7 @@ function fillTable(rows){
     let content='';
     
     rows.forEach(function(row){
+        (row.estado == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
                 <td>${row.idProveedor}</td>
@@ -18,6 +19,7 @@ function fillTable(rows){
                 <td>${row.direccion}</td>
                 <td>${row.telefono}</td>
                 <td>${row.correo}</td>
+                <td><i class="material-icons">${icon}</i></td>
                 <td>
                 <a href="#" onclick="confirmDelete(${row.idProveedor})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
@@ -90,7 +92,7 @@ function showTable(){
 var form_search = document.getElementById('buscar');
 
 function chepe(){
-    alert("a rolin le gusta el chepe en salsa xddxdxd MEPER donasxdxdxd");
+    
 }
 //funcion para mostrar los resultados de una busqueda
 $('#form-search').submit(function(){
@@ -187,6 +189,7 @@ function modalUpdate(id){
                 $('#update_direccion').val(result.dataset.direccion);
                 $('#update_telefono').val(result.dataset.telefono);
                 $('#update_correo').val(result.dataset.correo);
+                (result.dataset.estado == 1) ? $('#update_state').prop('checked', true) :  $('#update_state').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             }else{

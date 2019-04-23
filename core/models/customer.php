@@ -27,7 +27,7 @@ class Clientes extends Validator{
     }
 
     public function setNombre($value){
-        if($this->validateAlphabetic($value)){
+        if($this->validateAlphabetic($value, 1 , 100)){
             $this->nombre=$value;
             return true;
         }else{
@@ -40,7 +40,7 @@ class Clientes extends Validator{
     }
 
     public function setApellido($value){
-        if($this->validateAlphabetic($value)){
+        if($this->validateAlphabetic($value, 1 ,200)){
             $this->apellido=$value;
             return true;
         }else{
@@ -66,7 +66,7 @@ class Clientes extends Validator{
     }
 
     public function setUsuario($value){
-        if($this->validateAlphanumeric($value)){
+        if($this->validateAlphanumeric($value, 1 , 200)){
             $this->usuario=$value;
             return true;
         }else{
@@ -92,7 +92,7 @@ class Clientes extends Validator{
     }
 
     public function setTelefono($value){
-        if($this->validatePhone()){
+        if($this->validatePhone($value)){
             $this->telefono=$value;
             return true;
         }else{
@@ -105,7 +105,7 @@ class Clientes extends Validator{
     }
 
     public function setDireccion($value){
-        if($this->validateAlphabetic($value)){
+        if($this->validateAlphabetic($value, 1, 100)){
             $this->direccion=$value;
             return true;
         }else{
@@ -118,7 +118,7 @@ class Clientes extends Validator{
     }
 
     public function setEstado($value){
-        if($value==1 || $value==2){
+        if($value==1 || $value==0){
             $this->estado=$value;
             return true;
         }else{
@@ -159,6 +159,50 @@ class Clientes extends Validator{
         $sql= 'DELETE FROM cliente WHERE idCliente = ?';
         $params=array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    public function createCliente(){
+        $hash=password_hash($this->contra, PASSWORD_DEFAULT);
+        $sql='INSERT INTO cliente (nombre, apellido, correo, usuario, contraseña, telefono, direccion, estado) VALUES (?,?,?,?,?,?,?,?)';
+        $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $hash,  $this->telefono, $this->direccion, $this->estado);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function verificarUsuario(){
+        $sql='SELECT * FROM cliente WHERE usuario = ?';
+        $params=array($this->usuario);
+        return Database::getRow($sql,$params);
+    }
+
+    public function checkUser(){
+        $sql='SELECT idCliente, nombre, apellido, usuario, correo FROM cliente WHERE usuario = ?';
+        $params=array($this->usuario);
+        $data= Database::getRow($sql, $params);
+        if($data){
+            $this->id=$data['idCliente'];
+            $this->nombre=$data['nombre'];
+            $this->apellido=$data['apellido'];
+            $this->usuario=$data['usuario'];
+            $this->correo=$data['correo'];
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function checkContra(){
+        $sql='SELECT contraseña FROM cliente WHERE idCliente = ?';
+        $params=array($this->id);
+        $data=Database::getRow($sql, $params);
+        if(password_verify($this->contra, $data['contraseña'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function login(){
+        
     }
 }
 ?>

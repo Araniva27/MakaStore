@@ -1,7 +1,7 @@
 <?php
 //Inclusion del archivo public_pages.php
 include "../../core/helpers/public_pages.php";
-public_pages::header('Login');//aplicacion del header y envio del parametro titulo
+public_pages::header('Registro');//aplicacion del header y envio del parametro titulo
 ?>
     <!--Aplicacion del logo de maka store en la pagina-->
     <header class="center">
@@ -13,7 +13,7 @@ public_pages::header('Login');//aplicacion del header y envio del parametro titu
                 <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
                     <img src="../../resource/img/img-card/registro.png">
                     <!--Creacion del text input en el formulario-->
-                    <form class="col s12" method="post">
+                    <form class="col s12" method="post" id="form-createC">
                         <div class='row'>
                             <div class='col s12'>
                             </div>
@@ -21,14 +21,14 @@ public_pages::header('Login');//aplicacion del header y envio del parametro titu
                         <div class='row'>
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
-                                <input class='validate' type='text' name='name' id='name' />
-                                <label for='name'>Nombre</label>
+                                <input class='validate' type='text' name='nombre' id='nombre' />
+                                <label for='nombre'>Nombre</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='apellido' id='apellido' />
-                                <label for='name'>Apellido</label>
+                                <label for='apellido'>Apellido</label>
                             </div>
                         </div>
 
@@ -36,34 +36,35 @@ public_pages::header('Login');//aplicacion del header y envio del parametro titu
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='usuario' id='usuario' />
-                                <label for='username'>Usuario</label>
+                                <label for='usuario'>Usuario</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
-                                <input class='validate' type='password' name='password' id='passsword' />
-                                <label for='password'>Contraseña</label>
+                                <input class='validate' type='password' name='contra' id='contra' />
+                                <label for='contra'>Contraseña</label>
                             </div>
                         </div>
                         <div class='row'>
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='telefono' id='telefono' />
-                                <label for='phone'>Telefono</label>
+                                <label for='telefono'>Telefono</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='email' name='correo' id='correo' />
-                                <label for='email'>Correo</label>
+                                <label for='correo'>Correo</label>
                             </div>
 
                             <div class="row">
                                 <!--Creacion del text input en el formulario-->
                                 <div class='input-field col s12 l12 m12'>
-                                    <input class='validate' type='text' name='telefono' id='telefono' />
-                                    <label for='phone'>Direccion</label>
+                                    <input class='validate' type='text' name='direccion' id='direccion' />
+                                    <label for='direccion'>Direccion</label>
                                 </div>
+                                <input class='validate' type='hidden' name='estado' id='estado' value="1" />
                             </div>
                             <!--Creacion del container y el modal para mostrar los terminos y condiciones de la tienda-->
                             <div class="container">
@@ -139,7 +140,7 @@ public_pages::header('Login');//aplicacion del header y envio del parametro titu
                             <p>
                                 <label>
                                     <!--Creacion del checkbox para aceptar terminos y condiciones-->
-                                    <input type="checkbox" />
+                                    <input type="checkbox" name="check" id="check" />
                                     <span>He leido y acepto los terminos y condiciones</span>
                                 </label>
                             </p>
@@ -163,15 +164,10 @@ public_pages::header('Login');//aplicacion del header y envio del parametro titu
                 </div>
             </div>
 
-            </div>
-            <!--Inclusion de archivos javascript necesarios para la utilidad del sitio -->
-            <script src="../../resource/js/jquery-3.3.1.min.js"></script>
-            <script src="../../resource/js/materialize.min.js"></script>
-            <script src="../../resource/js/initialization.js"></script>
-            </body>
+            </div>                
             <?php
 //aplicacion del footer a la pagina
- public_pages::footer();
+ public_pages::footer('customer.js');
 ?>
 
                 </html>

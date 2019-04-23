@@ -23,11 +23,10 @@
                     <div class='row'>
                         <div class='input-field col s12 l6 m6'>
                             <!--Definicion del tipo de campo a crear-->
-                            <input class='validate' type='text' name='nombre_admin' id='nombre_admin' />
+                            <input class='validate' type='text' name='nombre_admin' id='nombre_admin'  data-error="hola" />
                             <label for='nombre_admin'>Nombre</label>
+                            
                         </div>
-
-
                         <div class='input-field col s12 l6 m6'>
                             <!--Definicion del tipo de campo a crear-->
                             <input class='validate' type='text' name='apellido_admin' id='apellido_admin' />
@@ -91,7 +90,7 @@
 
                     <div class='row'>
                         <!--Creacion de cada una de las filas donde se encuentran algunos elementos del formulario de registro-->
-                        <button type='submit' name='btn_login'
+                        <button type='submit' name='btnRegistrarA' id="btnRegistrarA"
                             class='col s12 btn btn-large waves-effect indigo'>Registrarse</button>
                         <br><br><br><br>
 

@@ -83,12 +83,16 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                             if($compañia -> setDireccion($_POST['update_direccion'])){
                                 if($compañia->setTelefono($_POST['update_telefono'])){
                                     if($compañia->setCorreo($_POST['update_correo'])){
-                                        if($compañia->updateCompanie()){/* Aplicacion del metodo actualizar companie*/
-                                            $result['status']=1;
+                                        if($compañia->setEstado(isset($_POST['update_state']) ? 1 : 0)){
+                                            if($compañia->updateCompanie()){/* Aplicacion del metodo actualizar companie*/
+                                                $result['status']=1;
+                                            }else{
+                                                $result['status']=2;
+                                                $result['exception']='Proceso fallido';
+                                            }
                                         }else{
-                                            $result['status']=2;
-                                            $result['exception']='Proceso fallido';
-                                        }
+                                            $result['exception']='Estado incorrecto';
+                                        }                                       
                                     }else{
                                         $result['exception']='Correo incorrecto';
                                     }

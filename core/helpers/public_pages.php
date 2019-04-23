@@ -46,6 +46,7 @@
                                 <li><a href="contact_us.php">Contactanos</a></li> 
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">account_circle</i></a></li>                      
                                 <li><a href="shopping_cart.php" ><i class="material-icons right">add_shopping_cart</i></a></li>                      
+                                <li><a href="salesControl.php" ><i class="material-icons right">list</i></a></li>                      
                               </ul>
                               
                             </div>
@@ -69,7 +70,7 @@
                     
         }
         /*Metodo footer, aqui se encuentra el footer de las paginas publicas*/
-        public static function footer(){
+        public static function footer($controlador){
             print('<footer class="page-footer light-blue darken-2">
             <div class="container">
               <div class="row">
@@ -100,7 +101,14 @@
               
               </div>
             </div>
+            <script src="../../resource/js/jquery-3.3.1.min.js"></script>
+            <script src="../../resource/js/materialize.min.js"></script>
+            <script src="../../resource/js/initialization.js"></script>
+            <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
+            <script type="text/javascript" src="../../core/helpers/functions.js"></script>
+            <script src="../../core/controllers/public/'.$controlador.'"></script>       
           </footer>
+         
                 ');
         } 
         //Metodo detalle_producto aqui se encuentra la card donde se muestra el detalle del producto seleccionado         
