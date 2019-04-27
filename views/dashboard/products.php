@@ -113,10 +113,7 @@
                             <th>Cantidad</th>                            
                             <th>Compañía</th>
                             <th>Estado</th>
-                            <th>Eliminar</th>
-                            <th>Comentario</th>
-                            <th>Modificar</th>
-                            <th>Reabastecimiento</th>
+                            <th>Acciones</th>                           
                         </tr>
                     </thead>
 
@@ -126,7 +123,10 @@
                 </div>
             </table>
         </div>
+        <button type="submit" class="btn waves-effect red"  id="btnEliminados">Productos eliminados</button>
+        <button type="submit" class="btn waves-effect green" onClick="showTable(1)" >Todos los productos</button>
     </div>
+    
     <div id="modalP" class="modal modals">
         <div class="modal-content" id="modal-content">
             <h4>Comentarios</h4>
@@ -142,6 +142,7 @@
 						<div class="row">
 							<div class='input-field col s12 l12 m12'>
 									<input class='validate' type='hidden' name='idComentario' id='idComentario' />
+                                    <input class='validate' type='hidden' name='idProd' id='idProd' />
 								</div>
 							</div>
 							<div class="row center">
@@ -285,7 +286,7 @@
     </body>
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('products.js');
+  dashboard::footer('products.js','registryValidator.js');
 ?>
 
         </html>

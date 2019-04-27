@@ -1,13 +1,13 @@
 $(document).ready(function()
 {
-    showTable();
+    showTable(1);
 })
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiCompanies = '../../core/api/companies.php?site=dashboard&action=';
 
 //funcion para llenar tabla con registros de la base de datos
 
-function fillTable(rows){
+function fillTable(rows, estado){
     let content='';
     
     rows.forEach(function(row){
@@ -19,16 +19,21 @@ function fillTable(rows){
                 <td>${row.direccion}</td>
                 <td>${row.telefono}</td>
                 <td>${row.correo}</td>
-                <td><i class="material-icons">${icon}</i></td>
-                <td>
-                <a href="#" onclick="confirmDelete(${row.idProveedor})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
-                </td>
-                <td>
+                <td><i class="material-icons">${icon}</i></td>`;
+                if(estado == 0){
+                    content += ` 
+                    <td>
+                        <a href="#" onclick="enableCompanie(${row.idProveedor})" class="waves-effect waves-grey btn green tooltipped" data-tooltip="Habilitar"><i class="material-icons">check</i></a>
+                    </td> `;
+                }else{
+                    content += ` 
+                    <td>
+                     <a href="#" onclick="confirmDelete(${row.idProveedor})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>               
                     <a class="waves-effect waves-light btn grey tooltipped" onclick= "modalUpdate(${row.idProveedor})" data-position="top" data-delay="50" data-tooltip="Modificar" href="#"><i class="material-icons center">update</i>
                     </a>
                 </td>
-            </tr>
-        `;
+            </tr>`;
+                }
     });
     $('#tbody-read').html(content);
     var table = $('#tabla-proveedores').DataTable({
@@ -63,7 +68,7 @@ function fillTable(rows){
     $('.tooltipped').tooltip();
 }
 //Función para obtener y mostrar los registros disponibles
-function showTable(){
+function showTable(estado){
     $.ajax({
         url: apiCompanies +'read',
         type: 'post',
@@ -75,7 +80,7 @@ function showTable(){
         if(isJSONString(response)){
             const result = JSON.parse(response);
             if(result.status){
-                fillTable(result.dataset);  
+                fillTable(result.dataset,estado);  
             }else{
                 sweetAlert(4,result.exception, null);
             }
@@ -155,6 +160,7 @@ $('#form-create').submit(function(){
                 }else{
                     sweetAlert(3,'Categoria creada. ' +result.exception, null);
                 }
+                $('#tabla-proveedores').DataTable().destroy();
                 showTable();
             }else{
                 sweetAlert(4, result.exception, null);
@@ -227,6 +233,7 @@ $('#form-update').submit(function(){
                 }else{
                     sweetAlert(1, 'Proveedor modificado. '+ result.exception, null);
                 }
+                $('#tabla-proveedores').DataTable().destroy();
                 showTable();
             } else {
                 sweetAlert(2,result.exception,null);
@@ -239,7 +246,7 @@ $('#form-update').submit(function(){
         console.log('Error: '+ jqXHR.status+ ' ' + jqXHR.statusText);
     });
 })
-
+//Funcion para eliminar productos
 function confirmDelete(id){
     swal({
         title: 'Advertencia',
@@ -270,6 +277,83 @@ function confirmDelete(id){
                         } else {
                             sweetAlert(3, 'Proveedor eliminado. ' + result.exception, null);
                         }
+                        $('#tabla-proveedores').DataTable().destroy();
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
+
+$("#btnProveedoresEliminado").on("click",function(){
+    $.ajax({
+        url: apiCompanies + 'readEliminados',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                fillTable(result.dataset,0);
+            } else {
+                sweetAlert(4, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+    
+});
+
+function enableCompanie(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere habilitar el proveedor?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiCompanies + 'enable',
+                type: 'post',
+                data:{
+                    idProveedor: id,                    
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        if (result.status == 1) {
+                            sweetAlert(1, 'Proveedor habilitado correctamente', null);
+                        } else {
+                            sweetAlert(3, 'Proveedor habilitado. ' + result.exception, null);
+                        }
+                        $('#tabla-proveedores').DataTable().destroy();
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);

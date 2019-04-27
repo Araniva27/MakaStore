@@ -1,14 +1,14 @@
 $(document).ready(function()
 {
     //inicializacion de la funcion para mostrar datos en la tabla
-    showTable();    
+    showTable(1);    
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiClientes = '../../core/api/customer.php?site=dashboard&action=';
 
 //Función para llenar tabla con los datos de los registros
-function fillTable(rows)
+function fillTable(rows, estado)
 {
     let content= '';
     rows.forEach(function(row){
@@ -21,11 +21,21 @@ function fillTable(rows)
                 <td>${row.correo}</td>
                 <td>${row.usuario}</td>
                 <td><i class="material-icons">${icon}</i></td>
-                <td>${row.direccion}</td>
-                <td><a href="#" onclick="confirmDelete(${row.idCliente})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a></td>
-                <td><a href="#" onclick="modalUpdate(${row.idCliente})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a></td>                
+                <td>${row.direccion}</td>`;
+                if(estado==0){
+                    content += ` 
+                    <td><a href="#" onclick="enableCustomer(${row.idCliente})" class="waves-effect waves-grey btn green tooltipped" data-tooltip="Eliminar"><i class="material-icons">check</i></a></td>`;
+                }else{
+                    content += `       
+                    <td>
+                        <a href="#" onclick="confirmDelete(${row.idCliente})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>     
+                        <a href="#" onclick="modalUpdate(${row.idCliente})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a> 
+                    </td>            
+                }
+                
             </tr>
         `;
+            }
     });
     $('#tbody-read').html(content);    
     $('#tbody-read').html(content);
@@ -62,7 +72,7 @@ function fillTable(rows)
 }
 
 //Función para obtener y mostrar los registros disponibles
-function showTable(){
+function showTable(estado){
     $.ajax({
         url: apiClientes + 'read',
         type: 'post',
@@ -75,7 +85,7 @@ function showTable(){
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                fillTable(result.dataset);
+                fillTable(result.dataset,estado);
             } else {
                 sweetAlert(4, result.exception, null);
             }
@@ -148,6 +158,7 @@ $('#form-update').submit(function()
                 } else {
                     sweetAlert(1, 'Cliente modificado. ' + result.exception, null);
                 }
+                $('#tabla-clientes').DataTable().destroy();
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -194,6 +205,84 @@ function confirmDelete(id)
                         } else {
                             sweetAlert(3, 'Cliente eliminado. ' + result.exception, null);
                         }
+                        $('#tabla-clientes').DataTable().destroy();
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
+
+//funcion para mostrar los clienes eliminados
+$("#btnClientesEliminados").on("click",function(){
+    $.ajax({
+        url: apiClientes + 'readEliminados',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                fillTable(result.dataset,0);
+            } else {
+                sweetAlert(4, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+    
+});
+
+function enableCustomer(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere habilitar el cliente?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiClientes + 'enable',
+                type: 'post',
+                data:{
+                    idCliente: id,                    
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        if (result.status == 1) {
+                            sweetAlert(1, 'Cliente habilitado correctamente', null);
+                        } else {
+                            sweetAlert(3, 'Cliente habilitado. ' + result.exception, null);
+                        }
+                        $('#tabla-clientes').DataTable().destroy();
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);

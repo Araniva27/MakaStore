@@ -46,15 +46,46 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }  
             break;
             case 'delete':
-            if($cliente->setId($_POST['idCliente'])){
-                if($cliente->deleteCliente()){
+                if ($cliente->setId($_POST['idCliente'])) {
+                    if ($cliente->getCliente()) {
+                        if($cliente->setEliminacion(0)){
+                            if ($cliente->updateEliminacion()) {
+                                $result['status']=1;
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        }                           
+                    } else {
+                        $result['exception'] = 'Cliente inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Cliente incorrecto';
+                }
+            break;
+            case 'readEliminados':
+                if($result['dataset']=$cliente->readClientesEliminados()){
                     $result['status']=1;
                 }else{
-                    $result['exception']='Operacion fallida';
+                    $result['exception']='No hay clientes eliminados';
                 }
-            }else{  
-                $result['exception']='Cliente incorrecto';
-            }       
+            break;  
+            case 'enable':
+                if($cliente->setId($_POST['idCliente'])){
+                    if ($cliente->getCliente()) {
+                        if($cliente->setEliminacion(1)){
+                            if ($cliente->updateEliminacion()) {
+                                $result['status']=1;
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        }                           
+                    } else {
+                        $result['exception'] = 'Cliente inexistente';
+                    }
+                }else{
+                    $result['exception'] = 'Cliente incorrecto';
+                }
+            break;     
         }
 
     }else if($_GET['site']=='public'){
@@ -129,7 +160,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }else{  
                     $result['exception']='Usuario incorrecto';
                 }
-            break;
+            break;          
         }     
     }else{
         exit('Acceso no disponible');

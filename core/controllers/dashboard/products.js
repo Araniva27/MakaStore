@@ -1,12 +1,13 @@
 $(document).ready(function()
 {
-    showTable();
+    showTable(1);
     showSelectProveedores('create_proveedor', null);
     showSelectCategoria('create_categoria', null);
 })
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiProductos = '../../core/api/products.php?site=dashboard&action=';
-function fillTable(rows)
+//funcion para llenar campos de la tabla      
+function fillTable(rows, estado)
 {
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
@@ -20,22 +21,25 @@ function fillTable(rows)
                 <td>${row.precio}</td>
                 <td>${row.cantidad}</td>
                 <td>${row.nombreProveedor}</td>
-                <td><i class="material-icons">${icon}</i></td>
+                <td><i class="material-icons">${icon}</i></td>`;
+                if(estado==0){
+                    content += ` 
                 <td>
-                    <a href="#" onclick="confirmDelete(${row.idProducto})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
-                </td>
+                    <a href="#" onclick="enableProduct(${row.idProducto})" class="waves-effect waves-grey btn green tooltipped" data-tooltip="Habilitar"><i class="material-icons">check</i></a>
+                </td> `;
+                }else{
+                    content += `               
                 <td>
-                    <a href="#" onclick="readComments(${row.idProducto})" class="waves-effect waves-grey btn yellow tooltipped" data-tooltip="Comentarios"><i class="material-icons">list</i></a>
-                </td>
-                <td>
-                    <a href="#" onclick="modalUpdate(${row.idProducto})" class="waves-effect waves-grey btn blue tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>                    
-                </td>
-                <td>
-                    <a href="#" onclick="modalStock(${row.idProducto})" class="waves-effect waves-grey btn green tooltipped" data-tooltip="Reabastecer"><i class="material-icons">refresh</i></a>                    
-                </td>
-            </tr>
-        `;
+                <a href="#" onclick="confirmDelete(${row.idProducto})" class="waves-effect waves-grey btn red tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                <a href="#" onclick="readComments(${row.idProducto})" class="waves-effect waves-grey btn yellow tooltipped" data-tooltip="Comentarios"><i class="material-icons">list</i></a>
+                <a href="#" onclick="modalUpdate(${row.idProducto})" class="waves-effect waves-grey btn blue tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>                    
+                <a href="#" onclick="modalStock(${row.idProducto})" class="waves-effect waves-grey btn green tooltipped" data-tooltip="Reabastecer"><i class="material-icons">add</i></a>                                   
+                
+            </tr>               
+            `;
+                }
     });
+    //aplicacion del pluggin datatable
     $('#tbody-read').html(content);
     var table = $('#tabla-productos').DataTable({
         "oLanguage":{
@@ -70,12 +74,14 @@ function fillTable(rows)
     $('.materialboxed').materialbox();
 }
 
-function showTable()
+function showTable(estado)
 {
     $.ajax({
         url: apiProductos + 'readProductos',
         type: 'post',
-        data: null,
+        data: {
+            estado:estado
+        },
         datatype: 'json'
     })
     .done(function(response){
@@ -84,7 +90,7 @@ function showTable()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                fillTable(result.dataset);
+                fillTable(result.dataset,estado);
             } else {
                 sweetAlert(4, result.exception, null);
             }
@@ -97,6 +103,10 @@ function showTable()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
+
+
+
 function fillCards(rows)
 {
     let content = '';
@@ -176,7 +186,9 @@ function updateState(id)
             if (result.status) {       
                 $('#form-updateState')[0].reset();
                 $('#idComentario').val(result.dataset.idComentario);
+                $('#idProd').val(result.dataset.idProducto);
                 (result.dataset.estado == 1) ? $('#update_estadoC').prop('checked', true) : $('#update_estadoC').prop('checked', false);
+                $('#modalP').modal('close'); 
                 $('#modalState').modal('open');                        
             } else {
                 sweetAlert(2, result.status, null);
@@ -209,7 +221,7 @@ $('#form-updateState').submit(function()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {                
-                $('#modalState').modal('close');
+                $('#modalState').modal('close');                
                 if (result.status == 1) {
                     sweetAlert(1, 'Estado modificado correctamente', null);
                 } else if(result.status == 2) {
@@ -217,7 +229,7 @@ $('#form-updateState').submit(function()
                 } else {
                     sweetAlert(1, 'Estado modificado. ' + result.exception, null);
                 }
-                
+                readComments($('#idProd').val());
             } else {
                 console.log(response);
             }
@@ -368,6 +380,7 @@ $('#form-create').submit(function()
                 } else {
                     sweetAlert(3, 'Producto creado. ' + result.exception, null);
                 }
+                $('#tabla-productos').DataTable().destroy();
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -382,6 +395,7 @@ $('#form-create').submit(function()
     });
 })
 
+//funcion para llenar los campos del formulario de acuerdo al producto seleccionado 
 function modalUpdate(id)
 {
     $.ajax({
@@ -481,6 +495,7 @@ $('#form-cantidad').submit(function()
                 } else {
                     sweetAlert(1, 'Cantidad modificada. ' + result.exception, null);
                 }
+                $('#tabla-productos').DataTable().destroy();
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -494,7 +509,7 @@ $('#form-cantidad').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-
+//funcion para actualizar producto
 $('#form-update').submit(function()
 {
     event.preventDefault();
@@ -521,6 +536,7 @@ $('#form-update').submit(function()
                 } else {
                     sweetAlert(1, 'Producto modificado. ' + result.exception, null);
                 }
+                $('#tabla-productos').DataTable().destroy();
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
@@ -568,6 +584,84 @@ function confirmDelete(id, file)
                         } else {
                             sweetAlert(3, 'Producto eliminado. ' + result.exception, null);
                         }
+                        $('#tabla-productos').DataTable().destroy();
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}
+//funcion para mostrar los productos eliminados
+$("#btnEliminados").on("click",function(){
+    $.ajax({
+        url: apiProductos + 'readEliminados',
+        type: 'post',
+        data: null,
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                fillTable(result.dataset,0);
+            } else {
+                sweetAlert(4, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+    
+});
+
+//funcion para habilitar los productos que ya fueron eliminados
+function enableProduct(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere habilitar el producto?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiProductos + 'enable',
+                type: 'post',
+                data:{
+                    idProducto: id,                    
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        if (result.status == 1) {
+                            sweetAlert(1, 'Producto habilitado correctamente', null);
+                        } else {
+                            sweetAlert(3, 'Producto habilitado. ' + result.exception, null);
+                        }
+                        $('#tabla-productos').DataTable().destroy();
                         showTable();
                     } else {
                         sweetAlert(2, result.exception, null);

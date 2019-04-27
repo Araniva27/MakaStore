@@ -42,12 +42,16 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     if($compañia->setDireccion($_POST['create_direccion'])){
                         if($compañia->setTelefono($_POST['create_telefono'])){
                             if($compañia->setCorreo($_POST['create_correo'])){
-                                if($compañia->createCompanie()){/* uso de la funcion createCompanies */
-                                    $result['status']=1;                                    
+                                if($compañia->checkProveedor()){
+                                    $result['exception'] = 'Proveedor ya se encuentra registrado';
                                 }else{
-                                    $result['status']=2;
-                                    $result['exception'] = 'Operación fallida';
-                                }    
+                                    if($compañia->createCompanie()){/* uso de la funcion createCompanies */
+                                        $result['status']=1;                                    
+                                    }else{
+                                        $result['status']=2;
+                                        $result['exception'] = 'Operación fallida';
+                                    }    
+                                }                                
                             }else{
                             $result['exception']='Correo incorrecto';
                           }
@@ -113,24 +117,49 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }
                 break;
             case 'delete':
-            /* Procesos a realizar si el caso es eliminar */
-                if($compañia->setid($_POST['idProveedor'])){/* Asignacion  del id para el producto a eliminar */
-                    if($compañia->getCompanie()){
-                        if($compañia->deleteCompanie()){
-                            $result['status']=1;
-                        }else{
-                            $result['status']=2;
-                            $result['exception']='Proceso fallido';
-                        }
-                    }else{
-                        $result['exception']='Proveedor inexistente';
+                /* Procesos a realizar si el caso es eliminar */
+                if ($compañia->setId($_POST['idProveedor'])) {
+                    if ($compañia->getCompanie()) {
+                        if($compañia->setEliminacion(0)){
+                            if ($compañia->updateEliminacion()) {
+                                $result['status']=1;
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        }                           
+                    } else {
+                        $result['exception'] = 'Proveedor inexistente';
                     }
+                } else {
+                    $result['exception'] = 'Proveedor incorrecto';
+                }
+            break;
+            case 'readEliminados':
+                if($result['dataset']=$compañia->readProveedoresEliminados()){
+                    $result['status']=1;
                 }else{
-                    $result['exception']= 'Proveedor incorrecto';
-                }  
-                break;
-                default:
-                exit('Acción no disponible'); 
+                    $result['exception']='No hay productos registrados';
+                }
+             break;
+             case 'enable':
+             if($compañia->setId($_POST['idProveedor'])){
+                 if ($compañia->getCompanie()) {
+                     if($compañia->setEliminacion(1)){
+                         if ($compañia->updateEliminacion()) {
+                             $result['status']=1;
+                         } else {
+                             $result['exception'] = 'Operación fallida';
+                         }
+                     }                           
+                 } else {
+                     $result['exception'] = 'Producto inexistente';
+                 }
+             }else{
+                 $result['exception'] = 'Producto incorrecto';
+             }
+         break;
+            default:           
+            exit('Acción no disponible'); 
         }
     }else{
         exit('Acceso no disponible');

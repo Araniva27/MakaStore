@@ -74,7 +74,7 @@
         }
 
         //Metodo footer aqui se encuentra el footer utilizado en las paginas privadas
-        public static function footer($controller){
+        public static function footer($controller, $validator){
             print('
             <footer class="page-footer light-blue darken-2">
                 <div class="container">
@@ -115,7 +115,7 @@
                 <script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
                 <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
                 <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
-                <script type="text/javascript" src="../../core/helpers/validator.js"></script>
+                <script type="text/javascript" src="../../core/helpers/'.$validator.'"></script>
                 <script type="text/javascript" src="../../resource/js/jquery.validate.min.js"></script>
             </footer>');
         }

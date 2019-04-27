@@ -12,11 +12,14 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
     if (isset($_SESSION['idAdmin']) && $_GET['site'] == 'dashboard') {
         switch ($_GET['action']){
             case 'readProductos':
+            
                 if($result['dataset']=$producto->readProductos()){
                     $result['status']=1;
                 }else{
                     $result['exception']='No hay productos registrados';
                 }
+         
+               
             break;
             case 'readProveedores':
                 if($result['dataset']=$producto->readProveedores()){
@@ -40,7 +43,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                             if($producto->setCategoria($_POST['create_categoria'])){
                                 if($producto->setProveedor($_POST['create_proveedor'])){
                                     if($producto->setCantidad($_POST['create_cantidadP'])){
-                                        if($producto->setEstado($_POST['create_estado'] ? 1 : 0)){
+                                        if($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)){
                                             if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                 if ($producto->setFoto($_FILES['create_archivo'], null)) {
                                                     if($producto->checkProducto()){
@@ -164,11 +167,13 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
             case 'delete':
                 if ($producto->setId($_POST['idProducto'])) {
                     if ($producto->getProducto()) {
-                        if ($producto->deleteProducto()) {
-                            $result['status']=1;
-                        } else {
-                            $result['exception'] = 'Operación fallida';
-                        }
+                        if($producto->setEliminacion(0)){
+                            if ($producto->updateEliminacion()) {
+                                $result['status']=1;
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        }                           
                     } else {
                         $result['exception'] = 'Producto inexistente';
                     }
@@ -241,6 +246,30 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Producto incorrecto';
                 }
             break; 
+            case 'readEliminados':
+                if($result['dataset']=$producto->readProductosEliminados()){
+                    $result['status']=1;
+                }else{
+                    $result['exception']='No hay productos registrados';
+                }
+            break;
+            case 'enable':
+                if($producto->setId($_POST['idProducto'])){
+                    if ($producto->getProducto()) {
+                        if($producto->setEliminacion(1)){
+                            if ($producto->updateEliminacion()) {
+                                $result['status']=1;
+                            } else {
+                                $result['exception'] = 'Operación fallida';
+                            }
+                        }                           
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                }else{
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;
         }
     }else{
         exit('Recurso denegado');

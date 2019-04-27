@@ -28,9 +28,7 @@
 						<th>Usuario</th>
 						<th>Visibilidad</th>
 						<th>Direccion</th>
-						<th>Eliminar</th>
-						<th>Estado</th>
-
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody id="tbody-read">	
@@ -38,6 +36,8 @@
 				</tbody>
 			</div>
 		</table>
+			<button type="submit" class="btn waves-effect red"  id="btnClientesEliminados">Clientes eliminados</button>
+            <button type="submit" class="btn waves-effect green" onClick="showTable(1)" >Todos los clientes</button>
 	</div>	
 		<div id="modalUpdate" class="modal">
 			<div class="modal-content">
@@ -81,7 +81,7 @@
 	</body>
 	<?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('customer.js');
+  dashboard::footer('customer.js','registryValidator.js');
 ?>
 
 		</html>

@@ -28,13 +28,14 @@
                         <th>Teléfono</th>
                         <th>Correo</th>
                         <th>Estado</th>
-                        <th>Eliminar</th>
-                        <th>Actualizar</th>
+                        <th>Acciones</th>                        
                     </tr>
                 </thead>
                 <tbody id="tbody-read">
                 </tbody>
             </table>
+            <button type="submit" class="btn waves-effect red"  id="btnProveedoresEliminado">Productos eliminados</button>
+            <button type="submit" class="btn waves-effect green" onClick="showTable(1)" >Todos los productos</button>
     </div>       
     <div id="modal-create" class="modal">
         <div class="modal-content">
@@ -48,7 +49,7 @@
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_nombre' id='create_nombre' onkeypress="return soloLetras(event)"/>
+                            <input class='validate' type='text' name='create_nombre' id='create_nombre'/>
                             <label for='create_nombre'>Nombre del proveedor</label>
                         </div>
 
@@ -146,7 +147,7 @@
     
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('companies.js');
+  dashboard::footer('companies.js', 'registryValidator.js');
   
 ?>
         

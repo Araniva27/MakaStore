@@ -10,10 +10,11 @@ class Clientes extends Validator{
     private $telefono= null;
     private $direccion= null;
     private $estado=null;
-
+    private $eliminacion=null;
     //Metodos para sobrecargar propiedades
 
-    public function setId($value){
+    public function setId($value)
+    {
         if($this->validateId($value)){
             $this->id=$value;
             return true;
@@ -22,11 +23,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setNombre($value){
+    public function setNombre($value)
+    {
         if($this->validateAlphabetic($value, 1 , 100)){
             $this->nombre=$value;
             return true;
@@ -35,11 +38,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setApellido($value){
+    public function setApellido($value)
+    {
         if($this->validateAlphabetic($value, 1 ,200)){
             $this->apellido=$value;
             return true;
@@ -48,11 +53,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getApellido(){
+    public function getApellido()
+    {
         return $this->apellido;
     }
 
-    public function setCorreo($value){
+    public function setCorreo($value)
+    {
         if($this->validateEmail($value)){
             $this->correo=$value;
             return true;
@@ -61,11 +68,13 @@ class Clientes extends Validator{
         }
     }
     
-    public function getCorreo(){
+    public function getCorreo()
+    {
         return $this->correo;
     }
 
-    public function setUsuario($value){
+    public function setUsuario($value)
+    {
         if($this->validateAlphanumeric($value, 1 , 200)){
             $this->usuario=$value;
             return true;
@@ -74,11 +83,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getUsuario(){
+    public function getUsuario()
+    {
         return $this->usuario;
     }
 
-    public function setContra($value){
+    public function setContra($value)
+    {
         if($this->validatePassword($value)){
             $this->contra=$value;
             return true;
@@ -87,11 +98,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getContra(){
+    public function getContra()
+    {
         return $this->contra;
     }
 
-    public function setTelefono($value){
+    public function setTelefono($value)
+    {
         if($this->validatePhone($value)){
             $this->telefono=$value;
             return true;
@@ -100,11 +113,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function getTelefono(){
+    public function getTelefono()
+    {
         return $this->telefono;
     }
 
-    public function setDireccion($value){
+    public function setDireccion($value)
+    {
         if($this->validateAlphabetic($value, 1, 100)){
             $this->direccion=$value;
             return true;
@@ -113,11 +128,13 @@ class Clientes extends Validator{
         }
     }
 
-    public function gerDireccion(){
+    public function gerDireccion()
+    {
         return $this->direccion;
     }
 
-    public function setEstado($value){
+    public function setEstado($value)
+    {
         if($value==1 || $value==0){
             $this->estado=$value;
             return true;
@@ -126,56 +143,80 @@ class Clientes extends Validator{
         }
     }
 
-    public function getEstado(){
+    public function getEstado()
+    {
         return $this->estado;
     }
 
+    public function setEliminacion($value)
+    {
+        if($value == '1' || $value == '0'){
+            $this->eliminacion=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getEliminacion()
+    {
+        return $this->eliminacion;
+    }
+
     //Metodos para manejo de SCRUD
-    public function readCliente(){
-        $sql='SELECT idCliente, nombre, apellido, correo, usuario,estado, direccion FROM cliente';
+    public function readCliente()
+    {
+        $sql='SELECT idCliente, nombre, apellido, correo, usuario,estado, direccion FROM cliente WHERE estadoEliminacion=1';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
 
-    public function getCliente(){
+    public function getCliente()
+    {
         $sql='SELECT idCliente, nombre, apellido, correo, usuario, estado, direccion FROM cliente WHERE idCliente= ?';
         $params=array($this->id);
         return Database::getRow($sql, $params);
     }
 
-    public function updateCliente(){
+    public function updateCliente()
+    {
         $sql='UPDATE cliente set correo = ?, usuario = ?, telefono = ?, direccion = ? WHERE idCliente = ?';
         $params= array($this->correo, $this->usuario, $this->telefono, $this->direccion, $this->id);
         return Database:: executeRow($sql, $params);
     }
 
-    public function updateEstado(){
+    public function updateEstado()
+    {
         $sql='UPDATE cliente set estado = ? WHERE idCliente = ?';
         $params=array($this->estado, $this->id);
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteCliente(){
+    public function deleteCliente()
+    {
         $sql= 'DELETE FROM cliente WHERE idCliente = ?';
         $params=array($this->id);
         return Database::executeRow($sql, $params);
     }
 
-    public function createCliente(){
+    public function createCliente()
+    {
         $hash=password_hash($this->contra, PASSWORD_DEFAULT);
         $sql='INSERT INTO cliente (nombre, apellido, correo, usuario, contraseña, telefono, direccion, estado) VALUES (?,?,?,?,?,?,?,?)';
         $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $hash,  $this->telefono, $this->direccion, $this->estado);
         return Database::executeRow($sql, $params);
     }
 
-    public function verificarUsuario(){
+    public function verificarUsuario()
+    {
         $sql='SELECT * FROM cliente WHERE usuario = ?';
         $params=array($this->usuario);
         return Database::getRow($sql,$params);
     }
 
-    public function checkUser(){
-        $sql='SELECT idCliente, nombre, apellido, usuario, correo FROM cliente WHERE usuario = ?';
+    public function checkUser()
+    {
+        $sql='SELECT idCliente, nombre, apellido, usuario, correo FROM cliente WHERE usuario = ? AND estado = 1 AND estadoEliminacion = 1';
         $params=array($this->usuario);
         $data= Database::getRow($sql, $params);
         if($data){
@@ -190,7 +231,8 @@ class Clientes extends Validator{
         }
     }
 
-    public function checkContra(){
+    public function checkContra()
+    {
         $sql='SELECT contraseña FROM cliente WHERE idCliente = ?';
         $params=array($this->id);
         $data=Database::getRow($sql, $params);
@@ -201,8 +243,18 @@ class Clientes extends Validator{
         }
     }
 
-    public function login(){
-        
-    }
+   public function updateEliminacion()
+   {
+        $sql='UPDATE cliente SET estadoEliminacion = ? WHERE idCliente = ?';
+        $params=array($this->eliminacion, $this->id);
+        return Database::executeRow($sql, $params);
+   }
+
+   public function readClientesEliminados()
+   {
+       $sql='SELECT idCliente, nombre, apellido, correo, usuario,estado, direccion FROM cliente WHERE estadoEliminacion=0';
+       $params= array(null);
+       return Database::getRows($sql, $params);
+   }
 }
 ?>

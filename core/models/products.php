@@ -11,6 +11,7 @@ class Productos extends Validator{
     private $estado=null;
     private $proveedor=null;
     private $cantidad=null;
+    private $eliminacion=null;
     
     private $ruta='../../resource/img/productos/';
 
@@ -137,43 +138,56 @@ class Productos extends Validator{
         return $this->cantidad;
     }
 
+    public function setEliminacion($value){
+        if($value == '1' || $value == '0'){
+            $this->eliminacion=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getEliminacion(){
+        return $this->eliminacion;
+    }
+    
     //Metodos para el manejo del CRUD
     public function readProductos(){
-        $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado from producto, proveedor where proveedor.idProveedor=producto.idProveedor';
+        $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado from producto, proveedor where proveedor.idProveedor=producto.idProveedor and producto.estadoEliminacion= 1';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
-
+    //Metodo para leer los productos
     public function readProveedores(){
-        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono,correo FROM proveedor where estado=1';
+        $sql='SELECT idProveedor, nombreProveedor, direccion, telefono,correo FROM proveedor where estado=1 AND proveedor.estadoEliminacion=1';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
-
+    //Metodo para seleccionar categorias de productos
     public function readCategoria(){
         $sql='SELECT idCategoria, nomCategoria from categoria';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
-
+    //Metodo para crear productos
     public function createProducto(){
-        $sql='INSERT INTO producto(nombre, precio, descripcion,foto,estado, idCategoria, cantidad, idProveedor) VALUES (?,?,?,?,?,?,?,?)';
+        $sql='INSERT INTO producto(nombre, precio, descripcion,foto,estado, idCategoria, cantidad, idProveedor,estadoEliminacion) VALUES (?,?,?,?,?,?,?,?,1)';
         $params=array($this->nombre, $this->precio, $this->descripcion, $this->foto, $this->estado, $this->categoria, $this->cantidad, $this->proveedor);
         return Database::executeRow($sql, $params);
     }
-
+    //Metodo para actulizar producto
     public function updateProducto(){
         $sql='UPDATE producto set nombre = ?, precio = ?, descripcion = ?, foto = ?, estado = ?, idCategoria = ?, idProveedor = ? where idProducto = ?';
         $params= array($this->nombre, $this->precio, $this->descripcion, $this->foto, $this->estado, $this->categoria, $this->proveedor, $this->id);
         return Database::executeRow($sql,$params);
     }
-
+    //Metodo para obtener productos
     public function getProducto(){
         $sql='SELECT idProducto, nombre, precio, descripcion, foto, estado, idCategoria, cantidad, idProveedor from producto WHERE idProducto = ?';
         $params=array($this->id);
         return Database::getRow($sql,$params);
     }
-    
+    //metodo para verificar existencia de un producto
     public function checkProducto(){
         $sql='SELECT *  FROM producto where nombre = ?';
         $params=array($this->nombre);
@@ -185,35 +199,47 @@ class Productos extends Validator{
         $params=array($this->id);
         return Database::executeRow($sql, $params);
     }
-
+    
     public function getStock(){
         $sql='SELECT idProducto, cantidad from producto where idProducto = ?';
         $params=array($this->id);
         return Database::getRow($sql, $params);
     }
-
+    //Metodo para actualizar cantidad de producto
     public function updateStock(){
         $sql='UPDATE producto SET cantidad = (? +producto.cantidad)  WHERE idProducto = ?';
         $params=array($this->cantidad, $this->id);
         return Database::executeRow($sql,$params);
     }
-
+    //Metodo para leer comentarios
     public function readComment(){
         $sql='SELECT idComentario, comentario, producto.nombre as producto,cliente.nombre as cliente, comentarios.estado as estado, cliente.usuario as usuario FROM cliente, producto, comentarios where producto.idProducto=comentarios.idProducto and cliente.idCliente=comentarios.idCliente and comentarios.idProducto=?';
         $params=array($this->id);
         return Database::getRows($sql, $params);
     }
-
+    //Metodo para actualizar estado de los comentarios
     public function updateState(){
         $sql='UPDATE comentarios set estado= ? where idComentario=?';
         $params=array($this->estado, $this->id);
         return Database::executeRow($sql, $params);
     }
-
+    
     public function readComment2(){
-        $sql='SELECT idComentario, estado FROM comentarios where idComentario = ?';
+        $sql='SELECT idComentario, estado, idProducto FROM comentarios where idComentario = ?';
         $params=array($this->id);
         return Database::getRow($sql, $params);
+    }
+    //Metodo para eliminar productos logicamente
+    public function updateEliminacion(){
+        $sql='UPDATE producto set estadoEliminacion = ?  where idProducto = ?';
+        $params=array($this->eliminacion, $this->id);
+        return Database::executeRow($sql,$params);
+    }
+    //Metodo para leer los productos eliminados
+    public function readProductosEliminados(){
+        $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado, producto.estadoEliminacion from producto, proveedor where proveedor.idProveedor=producto.idProveedor AND producto.estadoEliminacion=0';
+        $params=array(null);
+        return Database::getRows($sql, $params);        
     }
 }
 ?>

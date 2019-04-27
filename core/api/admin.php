@@ -151,34 +151,35 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     $result['exception'] = 'Usuario incorrecto';
                 }
             break;
+           
             
         }
     }else if($_GET['site']=='dashboard'){
         switch ($_GET['action']){
             case 'login':
-            $_POST = $admin->validateForm($_POST);
-            if ($admin->setUsuario($_POST['usuario'])) {
-                if ($admin->checkUser()) {
-                    if ($admin->setContra($_POST['contrasena'])) {
-                        if ($admin->checkContra()) {
-                            $_SESSION['idAdmin'] = $admin->getId();  
-                            $_SESSION['nombre'] = $admin->getNombre();
-                            $_SESSION['apellido'] = $admin->getApellido();  
-                            $_SESSION['usuario'] = $admin->getUsuario();                                                                  
-                            $result['status'] = 1;                                
+                $_POST = $admin->validateForm($_POST);
+                if ($admin->setUsuario($_POST['usuario'])) {
+                    if ($admin->checkUser()) {
+                        if ($admin->setContra($_POST['contrasena'])) {
+                            if ($admin->checkContra()) {
+                                $_SESSION['idAdmin'] = $admin->getId();  
+                                $_SESSION['nombre'] = $admin->getNombre();
+                                $_SESSION['apellido'] = $admin->getApellido();  
+                                $_SESSION['usuario'] = $admin->getUsuario();                                                                  
+                                $result['status'] = 1;                                
+                            } else {
+                                $result['exception'] = 'Clave inexistente';
+                            }
                         } else {
-                            $result['exception'] = 'Clave inexistente';
+                            $result['exception'] = 'Clave menor a 6 caracteres';
                         }
                     } else {
-                        $result['exception'] = 'Clave menor a 6 caracteres';
+                        $result['exception'] = 'Usuario inexistente';
                     }
                 } else {
-                    $result['exception'] = 'Usuario inexistente';
+                    $result['exception'] = 'Usuario incorrecto';
                 }
-            } else {
-                $result['exception'] = 'Usuario incorrecto';
-            }
-        break;  
+            break;  
         }
     }
     print(json_encode($result));
