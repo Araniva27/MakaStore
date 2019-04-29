@@ -33,19 +33,22 @@
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                     <div class='row'>
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='create_nombreP' id='create_nombreP' />
+                            <input class='validate' type='text' name='create_nombreP' id='create_nombreP' onfocusout="validateNombre()"/>
+                            <span class="helper-text"></span>
                             <label for='create_nombreP'>Nombre del producto</label>
                         </div>
 
 
                         <div class='input-field col s12 l6 m6'>
                             <input class='validate' type='number' min="0.01" max="999.99" step="any" name='create_precioP' id='create_precioP' />
+                            <span class="helper-text"></span>
                             <label for='create_precioP'>Precio</label>
                         </div>
                     </div>
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
                             <input class='validate' type='number' name='create_cantidadP' id='create_cantidadP' />
+                            <span class="helper-text"></span>
                             <label for='create_cantidadP'>Cantidad</label>
                         </div>
                         <div class="input-field col s12 m12 l6">
@@ -63,7 +66,8 @@
                         <div class="file-field input-field col s12 m6">
                             <div class="btn waves-effect">
                                 <span><i class="material-icons">image</i></span>
-                                <input id="create_archivo" type="file" name="create_archivo" required/>
+                                <input id="create_archivo" type="file" name="create_archivo" required onfocusout="validateImagen()"/>
+                                <span class="helper-text"></span>
                             </div>
                             <div class="file-path-wrapper">
                                 <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
@@ -72,7 +76,8 @@
 
                         <div class="row">
                             <div class='input-field col s12 l12 m12'>
-                                <input class='validate' type='text' name='descripcion' id='descripcion' />
+                                <input class='validate' type='text' name='descripcion' id='descripcion' onfocusout="validateDescripcion()"/>
+                                <span class="helper-text"></span>
                                 <label for='descripcion'>Descripción</label>
                             </div>
                             <!--Creacion del switch para seleccionar estado del producto visible o invisible-->
@@ -186,13 +191,15 @@
                     </div>
                     <div class='row'>
                         <div class='input-field col s12 l6 m6'>
-                            <input class='validate' type='text' name='update_producto' id='update_producto' />
+                            <input class='validate' type='text' name='update_producto' id='update_producto' onfocusout="validateNombreActualizado()" />
+                            <span class="helper-text"></span>
                             <label for='update_producto'>Nombre del producto</label>
                         </div>
 
 
                         <div class='input-field col s12 l6 m6'>
                             <input class='validate' type='number' min="0.01" max="999.99" step="any" name='update_precio' id='update_precio' />
+                            <span class="helper-text"></span>
                             <label for='update_precio'>Precio</label>
                         </div>
                     </div>
@@ -216,6 +223,7 @@
                             <div class="btn waves-effect">
                                 <span><i class="material-icons">image</i></span>
                                 <input id="update_archivo" type="file" name="update_archivo"/>
+                                <span class="helper-text"></span>
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder="Seleccione una imagen"/>
@@ -223,7 +231,8 @@
                         </div>
                         <div class="row">
                             <div class='input-field col s12 l12 m12'>
-                                <input class='validate' type='text' name='update_descripcion' id='update_descripcion' />
+                                <input class='validate' type='text' name='update_descripcion' id='update_descripcion' onfocusout="validateDescripcionActualizada()"/>
+                                <span class="helper-text"></span>
                                 <label for='update_descripcion'>Descripción</label>
                             </div>
 
@@ -286,7 +295,7 @@
     </body>
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('products.js','registryValidator.js');
+  dashboard::footer('products.js','productValidator.js');
 ?>
 
         </html>

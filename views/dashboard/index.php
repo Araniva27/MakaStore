@@ -25,14 +25,14 @@
 						<!---Campos del formulario de ingreso-->
 						<div class='row'>
 							<div class='input-field col s12'>
-								<input class='validate' type='text' name='usuario' id='usuario' required/>
+								<input class='validate' type='text' name='usuario' id='usuario' onfocusout="validateUsuario()" required/>
 								<label for='usuario'>Usuario</label>
 							</div>
 						</div>
 						<!---Campos del formulario de ingreso-->
 						<div class='row'>
 							<div class='input-field col s12'>
-								<input class='validate' type='password' name='contrasena' id='contrasena' required/>
+								<input class='validate' type='password' name='contrasena' id='contrasena' onfocusout="validateContraseña()" required/>
 								<label for='contrasena'>Contraseña</label>
 							</div>
 
@@ -64,6 +64,7 @@
 			<script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
 			<script type="text/javascript" src="../../core/controllers/dashboard/index.js"></script>
 			<script type="text/javascript" src="../../core/helpers/functions.js"></script>
+			<script type="text/javascript" src="../../core/helpers/loginAdminValidator.js"></script>
 
 </body>
 

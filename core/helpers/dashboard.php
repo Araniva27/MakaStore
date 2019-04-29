@@ -116,6 +116,7 @@
                 <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
                 <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
                 <script type="text/javascript" src="../../core/helpers/'.$validator.'"></script>
+                <script type="text/javascript" src="../../core/helpers/userValidator.js"></script>
                 <script type="text/javascript" src="../../resource/js/jquery.validate.min.js"></script>
             </footer>');
         }
@@ -130,32 +131,32 @@
 						<div class="row">
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">person</i>
-								<input id="profile_nombre" type="text" name="profile_nombre" class="validate" required/>
+                                <input id="profile_nombre" type="text" name="profile_nombre" class="validate"  onfocusout="validateNombreUsuario()" required/>                             
 								<label for="profile_nombre">Nombres</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">person</i>
-								<input id="profile_apellido" type="text" name="profile_apellido" class="validate" required/>
+                                <input id="profile_apellido" type="text" name="profile_apellido" class="validate" onfocusout="validateApellidoUsuario()" required/>                                
 								<label for="profile_apellido">Apellidos</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">email</i>
-								<input id="profile_correo" type="email" name="profile_correo" class="validate" required/>
+                                <input id="profile_correo" type="email" name="profile_correo" class="validate" onfocusout="validateCorreoUsuario()" required/>                                
 								<label for="profile_correo">Correo</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">person_pin</i>
-								<input id="profile_usuario" type="text" name="profile_usuario" class="validate" required/>
+                                <input id="profile_usuario" type="text" name="profile_usuario" class="validate" onfocusout="validateUsuario2()" required/>                                
 								<label for="profile_usuario">Usuario</label>
                             </div>
                             <div class="input-field col s12 m6">
 								<i class="material-icons prefix">person_pin</i>
-								<input id="profile_telefono" type="text" name="profile_telefono" class="validate" required/>
+                                <input id="profile_telefono" type="text" name="profile_telefono" class="validate" onfocusout="validateTelefonoUsuario()" required/>                            
 								<label for="profile_telefono">Telefono</label>
                             </div>
                             <div class="input-field col s12 m6">
 								<i class="material-icons prefix">person_pin</i>
-								<input id="profile_direccion" type="text" name="profile_direccion" class="validate" required/>
+                                <input id="profile_direccion" type="text" name="profile_direccion" class="validate" onfocusout="validateDireccionUsuario()" required/>                                
 								<label for="profile_direccion">Direccion</label>
 							</div>
 						</div>
@@ -176,12 +177,12 @@
 						<div class="row">
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">security</i>
-								<input id="clave_actual_1" type="password" name="clave_actual_1" class="validate" required/>
+								<input id="clave_actual_1" type="password" name="clave_actual_1" class="validate" onfocusout="validateContraseñaActual1()" required/>
 								<label for="clave_actual_1">Clave</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">security</i>
-								<input id="clave_actual_2" type="password" name="clave_actual_2" class="validate" required/>
+								<input id="clave_actual_2" type="password" name="clave_actual_2" class="validate" onfocusout="validateContraseñaActual2()" required/>
 								<label for="clave_actual_2">Confirmar clave</label>
 							</div>
 						</div>
@@ -191,12 +192,12 @@
 						<div class="row">
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">security</i>
-								<input id="clave_nueva_1" type="password" name="clave_nueva_1" class="validate" required/>
+								<input id="clave_nueva_1" type="password" name="clave_nueva_1" class="validate" onfocusout="validateContraseñaNueva1()" required/>
 								<label for="clave_nueva_1">Clave</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<i class="material-icons prefix">security</i>
-								<input id="clave_nueva_2" type="password" name="clave_nueva_2" class="validate" required/>
+								<input id="clave_nueva_2" type="password" name="clave_nueva_2" class="validate" onfocusout="validateContraseñaNueva2()" required/>
 								<label for="clave_nueva_2">Confirmar clave</label>
 							</div>
 						</div>

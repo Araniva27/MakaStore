@@ -17,7 +17,7 @@
                     <div class='row'>
                         <!--FIla con elementos del formulario-->
                         <div class='input-field col s12'>
-                            <input class='validate' type='text' name='usuarioCliente' id='usuarioCliente' />
+                            <input class='validate' type='text' name='usuarioCliente' id='usuarioCliente' onfocusout="validateUsuario2()" required/>
                             <!--Colocacion del campo usuario-->
                             <label for='usuarioCliente'>Usuario</label>
                         </div>
@@ -26,7 +26,7 @@
                     <div class='row'>
                         <!--FIla con elementos del formulario-->
                         <div class='input-field col s12'>
-                            <input class='validate' type='password' name='ContraseñaCliente' id='ContraseñaCliente' />
+                            <input class='validate' type='password' name='ContraseñaCliente' id='ContraseñaCliente' onfocusout="validateContraseña2()" required/>
                             <!--Colocacion del campo contraseña-->
                             <label for='ContraseñaCliente'>Contraseña</label>
                         </div>
@@ -52,7 +52,7 @@
         </div>
 
 
-
+        <script type="text/javascript" src="../../core/helpers/customerRegistrationValidator.js"></script>       
        
         <?php
 //Colocacion del footer

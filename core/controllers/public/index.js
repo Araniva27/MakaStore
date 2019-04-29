@@ -31,3 +31,4 @@ $('#loginCliente').submit(function(){
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+

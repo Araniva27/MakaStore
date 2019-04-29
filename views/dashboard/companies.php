@@ -49,24 +49,28 @@
                     <!--Creacion de filas y columnas para cada elemento del formulario de registro-->
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_nombre' id='create_nombre'/>
+                            <input class='validate' type='text' name='create_nombre' id='create_nombre' onfocusout="validateNombre()"/>
+                            <span class="helper-text"></span>
                             <label for='create_nombre'>Nombre del proveedor</label>
                         </div>
 
 
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_direccion' id='create_direccion' />
+                            <input class='validate' type='text' name='create_direccion' id='create_direccion' onfocusout="validateDireccion()"/>
+                            <span class="helper-text"></span>
                             <label for='create_direccion'>Dirección</label>
                         </div>
                     </div>
 
                     <div class='row'>
                         <div class='input-field col s12 l6 m12'>
-                            <input class='validate' type='text' name='create_telefono' id='create_telefono' onkeypress="return validarTelefono(event)"/>
+                            <input class='validate' type='text' name='create_telefono' id='create_telefono' onfocusout="validateTelefono()"/>
+                            <span class="helper-text"></span>
                             <label for='create_telefono'>Teléfono</label>
                         </div>
                         <div class="input-field col s12 l6 m12">
-                            <input class='validate' type='email' name='create_correo' id='create_correo' />
+                            <input class='validate' type='email' name='create_correo' id='create_correo' onfocusout="validateCorreo()"/>
+                            <span class="helper-text"></span>
                             <label for='create_correo'>Correo</label>
                         </div>
                     </div>
@@ -100,21 +104,25 @@
                     </div>
                     <div class='row'>
                         <div class='input-field col s12 l4 m12'>
-                            <input class='validate' type='text' name='update_nombre' id='update_nombre' />
+                            <input class='validate' type='text' name='update_nombre' id='update_nombre'  onfocusout="validateNombreA()"/>
+                            <span class="helper-text"></span>
                             <label for='update_nombre'>Nombre del proveedor</label>
                         </div>
                         <div class='input-field col s12 l4 m12'>
-                            <input class='validate' type='text' name='update_direccion' id='update_direccion' />
+                            <input class='validate' type='text' name='update_direccion' id='update_direccion' onfocusout="validateDireccionA()"/>
+                            <span class="helper-text"></span>
                             <label for='update_direccion'>Dirección</label>
                         </div>
                         <div class='input-field col s12 l4 m12'>
-                            <input class='validate' type='text' name='update_telefono' id='update_telefono' />
+                            <input class='validate' type='text' name='update_telefono' id='update_telefono' onfocusout="validateTelefonoA()"/>
+                            <span class="helper-text"></span>
                             <label for='update_telefono'>Teléfono</label>
                         </div>
                     </div>
                     <div class='row'>
                         <div class="input-field col s12 l12 m12">
-                            <input class='validate' type='email' name='update_correo' id='update_correo' />
+                            <input class='validate' type='email' name='update_correo' id='update_correo' onfocusout="validateCorreoA()"/>
+                            <span class="helper-text"></span>
                             <label for='update_correo'>Correo</label>
                         </div>
                     </div>
@@ -147,7 +155,7 @@
     
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('companies.js', 'registryValidator.js');
+  dashboard::footer('companies.js', 'companiesValidator.js');
   
 ?>
         

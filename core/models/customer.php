@@ -173,15 +173,15 @@ class Clientes extends Validator{
 
     public function getCliente()
     {
-        $sql='SELECT idCliente, nombre, apellido, correo, usuario, estado, direccion FROM cliente WHERE idCliente= ?';
+        $sql='SELECT idCliente, nombre, apellido, correo, usuario, estado, direccion, telefono FROM cliente WHERE idCliente= ?';
         $params=array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateCliente()
     {
-        $sql='UPDATE cliente set correo = ?, usuario = ?, telefono = ?, direccion = ? WHERE idCliente = ?';
-        $params= array($this->correo, $this->usuario, $this->telefono, $this->direccion, $this->id);
+        $sql='UPDATE cliente set nombre = ?, apellido = ?, correo = ?, usuario = ?, telefono = ?, direccion = ? WHERE idCliente = ?';
+        $params= array($this->nombre, $this->apellido,$this->correo, $this->usuario, $this->telefono, $this->direccion, $this->id);
         return Database:: executeRow($sql, $params);
     }
 
@@ -202,7 +202,7 @@ class Clientes extends Validator{
     public function createCliente()
     {
         $hash=password_hash($this->contra, PASSWORD_DEFAULT);
-        $sql='INSERT INTO cliente (nombre, apellido, correo, usuario, contraseña, telefono, direccion, estado) VALUES (?,?,?,?,?,?,?,?)';
+        $sql='INSERT INTO cliente (nombre, apellido, correo, usuario, contraseña, telefono, direccion, estado, estadoEliminacion) VALUES (?,?,?,?,?,?,?,?,1)';
         $params=array($this->nombre, $this->apellido, $this->correo, $this->usuario, $hash,  $this->telefono, $this->direccion, $this->estado);
         return Database::executeRow($sql, $params);
     }

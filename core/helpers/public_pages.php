@@ -4,6 +4,7 @@
     {
       /**Metodo header, aqui se encuentra el header y navbar de las paginas de la tienda*/
         public static function header($title){
+          session_start();
                 print('<!DOCTYPE html>
                 <html lang="en">
                     <head>
@@ -19,40 +20,39 @@
                     </head>
                    
                     <body>
-                    
-                        <ul id="dropdown1" class="dropdown-content">
-                            <li><a href="../../views/public/checkin.php">Registrarse</a></li>
-                            <li><a href="../../views/public/login.php">Ingresar</a></li>
-                            
-                        </ul>
+                ');
+                if(isset($_SESSION['idCliente'])){
+                    $filename = basename($_SERVER['PHP_SELF']);                    
+                    if ($filename != 'login.php') {  
+                        self::modals();                                         
+                        print('                        
                         <ul id="dropdown2" class="dropdown-content">
                             <li><a href="games.php">Videojuegos</a></li>
-                            <li><a href="consoles.php">Consolas</a></li>
-                            
+                            <li><a href="consoles.php">Consolas</a></li>                            
                         </ul>
                     <div class="navbar-fixed">    
-                      <nav class=" light-blue darken-2">
-                     
+                        <nav class=" light-blue darken-2">
+                    
                             <div class="nav-wrapper container-fluid">
-                              <a href="index.php" class="brand-logo"><img src="../../resource/img/logo/logoMKStore.png" width="125" height="70"></a>
-                              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                            <a href="index.php" class="brand-logo"><img src="../../resource/img/logo/logoMKStore.png" width="125" height="70"></a>
+                            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                                 
-                              <ul class="right hide-on-med-and-down">
+                            <ul class="right hide-on-med-and-down">
                                 <!-- Dropdown Trigger -->
                                 <li><a href="index.php">Inicio</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
                                 <li><a href="trends.php">Tendecias</a></li>
                                 <li><a href="about_us.php">¿Quienes somos?</a></li>      
-                                <li><a href="contact_us.php">Contactanos</a></li> 
-                                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">account_circle</i></a></li>                      
-                                <li><a href="shopping_cart.php" ><i class="material-icons right">add_shopping_cart</i></a></li>                      
-                                <li><a href="salesControl.php" ><i class="material-icons right">list</i></a></li>                      
-                              </ul>
-                              
+                                <li><a href="contact_us.php">Contactanos</a></li>                                 
+                                <li><a href="shopping_cart.php" ><i class="material-icons right">add_shopping_cart</i>Carrito</a></li>                      
+                                <li><a href="salesControl.php" ><i class="material-icons right">list</i>Compras</a></li>       
+                                <li><a href="#" onclick="modalProfile()"><i class="material-icons right">update</i>Modificacion de datos</a></li>       
+                                <li><a href="#" onclick="cerrarSesion()"><i class="material-icons right">close</i>Cerrar Sesion</a></li>                                
+                                              
+                            </ul>
+                            
                             </div>
-                         
-                      </nav>
-                      
+                        </nav>
                     </div>  
                     <ul class="sidenav" black id="mobile-demo">
                         <li><a href="index.php">Inicio</a></li>
@@ -61,12 +61,60 @@
                         
                         <li><a href="mobile.html">Tendencias</a></li>
                         <li><a href="about_us.php">¿Quienes somos?</a></li>
-                        <li><a href="contact_us.php">Contactanos</a></li>
-                        <li><a href="../../views/public/login.php">Ingresa</a></li>
-                        <li><a href="../../views/public/checkin.php">Registrate</a></li>
-                        <li><a href="shopping_cart.php">Carrito de compras</a></li>
-                      </ul>
-                    ');
+                        <li><a href="contact_us.php">Contactanos</a></li>         
+                        <li><a href="shopping_cart.php">Carrito de compras</a></li>  
+                        <li><a href="salesControl.php">Control de compras</a></li>  
+                        <li><a href="#" onclick="modalProfile()"></i>Modificacion de datos</a>                   
+                        <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li> 
+                    </ul> ');
+                    }else {
+                        header('location: index.php');
+                    }
+                }else{                  
+                     print('
+                        <ul id="dropdown1" class="dropdown-content">
+                        <li><a href="../../views/public/checkin.php">Registrarse</a></li>
+                        <li><a href="../../views/public/login.php">Ingresar</a></li>
+                        
+                    </ul>
+                    <ul id="dropdown2" class="dropdown-content">
+                        <li><a href="games.php">Videojuegos</a></li>
+                        <li><a href="consoles.php">Consolas</a></li>
+                        
+                    </ul>
+                <div class="navbar-fixed">    
+                  <nav class=" light-blue darken-2">
+                        <div class="nav-wrapper container-fluid">
+                          <a href="index.php" class="brand-logo"><img src="../../resource/img/logo/logoMKStore.png" width="125" height="70"></a>
+                          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                            
+                          <ul class="right hide-on-med-and-down">
+                            <!-- Dropdown Trigger -->
+                            <li><a href="index.php">Inicio</a></li>
+                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a href="trends.php">Tendecias</a></li>
+                            <li><a href="about_us.php">¿Quienes somos?</a></li>      
+                            <li><a href="contact_us.php">Contactanos</a></li> 
+                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">account_circle</i></a></li>                                                                                                
+                          </ul>
+                          
+                        </div>
+                  </nav>
+                 </div> 
+                 <ul class="sidenav" black id="mobile-demo">
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="consoles.php">Consolas</a></li>
+                    <li><a href="games.php">Videojuegos</a></li>
+                    
+                    <li><a href="mobile.html">Tendencias</a></li>
+                    <li><a href="about_us.php">¿Quienes somos?</a></li>
+                    <li><a href="contact_us.php">Contactanos</a></li>
+                    <li><a href="../../views/public/login.php">Ingresa</a></li>
+                    <li><a href="../../views/public/checkin.php">Registrate</a></li>
+                  
+                  </ul>
+                        ');
+                    }       
                     
         }
         /*Metodo footer, aqui se encuentra el footer de las paginas publicas*/
@@ -104,8 +152,10 @@
             <script src="../../resource/js/jquery-3.3.1.min.js"></script>
             <script src="../../resource/js/materialize.min.js"></script>
             <script src="../../resource/js/initialization.js"></script>
+            <script type="text/javascript" src="../../core/controllers/public/customerAccount.js"></script>
             <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
             <script type="text/javascript" src="../../core/helpers/functions.js"></script>
+            <script type="text/javascript" src="../../core/helpers/customerUpdateValidator.js"></script>
             <script src="../../core/controllers/public/'.$controlador.'"></script>       
           </footer>
          
@@ -199,7 +249,61 @@
                 </div>
             </div>');
         }
-
+        
+        private function modals()
+        {
+            print('
+                <div id="modal-profile" class="modal">
+                    <div class="modal-content">
+                        <h4 class="center-align">Editar perfil</h4>
+                        <form method="post" id="form-profile">
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="profile_nombre" type="text" name="profile_nombre" class="validate"  onfocusout="validateNombre2()" required/>                             
+                                    <span class="helper-text"></span>
+                                    <label for="profile_nombre">Nombres</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="profile_apellido" type="text" name="profile_apellido" class="validate" onfocusout="validateApellido2()" required/>  
+                                    <span class="helper-text"></span>                              
+                                    <label for="profile_apellido">Apellidos</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="profile_correo" type="email" name="profile_correo" class="validate" onfocusout="validateCorreo2()" required/>      
+                                    <span class="helper-text"></span>                          
+                                    <label for="profile_correo">Correo</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person_pin</i>
+                                    <input id="profile_usuario" type="text" name="profile_usuario" class="validate" onfocusout="validateUsuario2()" required/>  
+                                    <span class="helper-text"></span>                              
+                                    <label for="profile_usuario">Usuario</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person_pin</i>
+                                    <input id="profile_telefono" type="text" name="profile_telefono" class="validate" onfocusout="validateTelefono2()" required/>  
+                                    <span class="helper-text"></span>                          
+                                    <label for="profile_telefono">Telefono</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person_pin</i>
+                                    <input id="profile_direccion" type="text" name="profile_direccion" class="validate" onfocusout="validateDireccion2()" required/>  
+                                    <span class="helper-text"></span>                              
+                                    <label for="profile_direccion">Direccion</label>
+                                </div>
+                            </div>
+                            <div class="row center-align">
+                                <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Modificar"><i class="material-icons">update</i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            ');
+        }
         
     }
     

@@ -139,12 +139,12 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     $result['exception']='Nombre incorrecto';
                 }
             break;
-            case'login':
+            case'login':           
                 $_POST=$cliente->validateForm($_POST);
                 if($cliente->setUsuario($_POST['usuarioCliente'])){
                     if($cliente->checkUser()){
                         if($cliente->setContra($_POST['ContraseñaCliente'])){
-                            if($cliente->checkContra()){
+                            if($cliente->checkContra()){                                
                                 $_SESSION['idCliente']=$cliente->getId();
                                 $_SERVER['nombre']=$cliente->getNombre();
                                 $result['status'] = 1;                                 
@@ -160,11 +160,73 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }else{  
                     $result['exception']='Usuario incorrecto';
                 }
-            break;          
+            break;   
+            case 'logout':            
+                if (session_destroy()) {
+                    header('location: ../../views/public/index.php');
+                } else {
+                    header('location: ../../views/public/index.php');
+                }
+            break;
+            case 'readProfile':
+            if($cliente->setId($_SESSION['idCliente'])){
+                if($result['dataset']=$cliente->getCliente()){
+                    $result['status'] = 1;
+                }else{
+                    $result['exception'] = 'Cliente inexistente';
+                }
+
+            }else{
+                $result['exception']='Cliente incorrecto';
+            }
+            break;  
+            case 'editProfile':
+            if ($cliente->setId($_SESSION['idCliente'])) {
+                if ($cliente->getCliente()) {
+                    $_POST = $cliente->validateForm($_POST);
+                    if ($cliente->setNombre($_POST['profile_nombre'])) {
+                        if ($cliente->setApellido($_POST['profile_apellido'])) {
+                            if ($cliente->setCorreo($_POST['profile_correo'])) {
+                                if($cliente->setDireccion($_POST['profile_direccion'])){
+                                    if($cliente->setTelefono($_POST['profile_telefono'])){
+                                        if ($cliente->setUsuario($_POST['profile_usuario'])) {                                                                           
+                                            if ($cliente->updateCliente()){                                                
+                                                $result['status'] = 1;
+                                            } else {
+                                                $result['exception'] = 'Operación fallida';
+                                            }                     
+                                        } else {
+                                            $result['exception'] = 'Usuario incorrecto';
+                                        }
+                                    }else{
+                                        $result['exception'] = 'Telefono incorrecto';
+                                    }    
+                                }else{
+                                    $result['exception'] = 'Direccion incorrecta';
+                                }                             
+                               
+                            } else {
+                                $result['exception'] = 'Correo incorrecto';
+                            }
+                        } else {
+                            $result['exception'] = 'Apellidos incorrectos';
+                        }
+                    } else {
+                        $result['exception'] = 'Nombres incorrectos';
+                    }
+                } else {
+                    $result['exception'] = 'Usuario inexistente';
+                }
+            } else {
+                $result['exception'] = 'Usuario incorrecto';
+            } 
+            break;                
         }     
+    
     }else{
         exit('Acceso no disponible');
     }
+
     print(json_encode($result));
  }else{
     exit('Recurso denegado');

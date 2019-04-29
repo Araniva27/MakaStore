@@ -205,7 +205,7 @@
 
     <?php 
      //Aplicacion del foooter
-      public_pages::footer();
+      public_pages::footer('customer.js');
      ?>
     <!--Inclusion scripts javascript para funcionalidad de paginas web-->
     
