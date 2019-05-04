@@ -41,6 +41,32 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 }
             break;    
         }
+    }else if(isset($_SESSION['idCliente']) && $_GET['site']=='public'){
+        switch ($_GET['action']){
+            case 'readVentasCliente':            
+                if($sales->setIdCliente($_SESSION['idCliente'])){
+                    if($result['dataset']=$sales->ventaCliente()){
+                        $result['status']=1;
+                    }else{
+                        $result['exception']='No se han encontrado compras';
+                    }
+                }else{
+                    $result['exception']='Cliente incorrecto';
+                }
+            break;
+            case 'detalle':
+            if($sales->setId($_POST['idVenta'])){
+                if($result['dataset']=$sales->obtenerDetalle()){
+                    $result['status']=1; 
+                }else{
+                    $result['exception']='error';
+                }    
+            }else{
+                $result['exception']='Venta incorrecta';
+            }
+        break;
+        }
+      
     }else{
         exit('Acceso no disponible');
     }

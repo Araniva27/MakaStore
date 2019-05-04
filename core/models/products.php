@@ -12,7 +12,10 @@ class Productos extends Validator{
     private $proveedor=null;
     private $cantidad=null;
     private $eliminacion=null;
-    
+    private $cliente= null;
+    private $estadoComentario=null;
+    private $comentario=null;
+    private $valoracion=null;
     private $ruta='../../resource/img/productos/';
 
     //Metodos para sobrecargar propiedades
@@ -150,6 +153,59 @@ class Productos extends Validator{
     public function getEliminacion(){
         return $this->eliminacion;
     }
+
+    public function setCliente($value){
+        if($this->validateId($value)){
+            $this->cliente=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getCliente(){
+        return $this->cliente;
+    }
+
+    public function setEstadoComentario(){
+        if($value == '1' || $value == '0'){
+            $this->estadoComentario=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getEstadoComentario(){
+        return $this->estadoComentario;
+    }
+
+    public function setComentario($value){
+        if($this->validateAlphabetic($value, 1, 200)){
+            $this->comentario=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getComentario(){
+        return $this->comentario;
+    }
+
+    public function setValoracion($value){
+        if($value == '1' || $value == '2' || $value == '3' || $value == '4' || $value == '5' ){
+            $this->valoracion=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getValoracion(){
+        return $this->valoracion;
+    }
+    
     
     //Metodos para el manejo del CRUD
     public function readProductos(){
@@ -165,8 +221,15 @@ class Productos extends Validator{
     }
     //Metodo para seleccionar categorias de productos
     public function readCategoria(){
-        $sql='SELECT idCategoria, nomCategoria from categoria';
+        $sql='SELECT idCategoria, nomCategoria, descripcion, foto from categoria WHERE estado = 1';
         $params=array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    //Metodo para seleccionar los productos segun su categoria
+    public function readProductosCategoria(){
+        $sql='SELECT nomCategoria, idProducto, producto.foto, nombre, producto.descripcion,precio FROM producto INNER JOIN categoria USING (idCategoria) WHERE idCategoria = ? AND producto.estado=1 AND producto.estadoEliminacion=1';
+        $params=array($this->categoria);
         return Database::getRows($sql, $params);
     }
     //Metodo para crear productos
@@ -217,6 +280,14 @@ class Productos extends Validator{
         $params=array($this->id);
         return Database::getRows($sql, $params);
     }
+
+    //Metodo para que el cliente pueda leer los comentarios de los productos
+    public function readCommentCustomer(){
+        $sql='SELECT idComentario, comentario, producto.nombre as producto,cliente.nombre as cliente, comentarios.estado as estado, cliente.usuario as usuario FROM cliente, producto, comentarios where producto.idProducto=comentarios.idProducto and cliente.idCliente=comentarios.idCliente and comentarios.idProducto=? and comentarios.estado = 1';
+        $params=array($this->id);
+        return Database::getRows($sql, $params);
+
+    }
     //Metodo para actualizar estado de los comentarios
     public function updateState(){
         $sql='UPDATE comentarios set estado= ? where idComentario=?';
@@ -240,6 +311,32 @@ class Productos extends Validator{
         $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado, producto.estadoEliminacion from producto, proveedor where proveedor.idProveedor=producto.idProveedor AND producto.estadoEliminacion=0';
         $params=array(null);
         return Database::getRows($sql, $params);        
+    }
+
+    //Metodo para observar las valoraciones de los productos
+    public function readValoraciones(){
+        $sql='SELECT valoracion, producto.nombre as producto, cliente.nombre as cliente FROM cliente, producto, valoraciones WHERE producto.idProducto=valoraciones.idProducto AND cliente.idCliente=valoraciones.idCliente and producto.idProducto = ?';
+        $params=array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    //Metodo para comentar productos
+    public function createCommentary(){
+        $sql='INSERT INTO comentarios (comentario, idProducto, idCliente, estado) VALUES (? , ? , ?, 1)';
+        $params=array($this->comentario, $this->id, $this->cliente);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function createPunctuation(){
+        $sql='INSERT INTO valoraciones (valoracion, idProducto, idCliente) VALUES (?, ?, ?)';
+        $params=array($this->valoracion, $this->id, $this->cliente);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function validatePunctuation(){
+        $sql='SELECT * from valoraciones WHERE idCliente = ? and idProducto = ?';
+        $params=array($this->cliente, $this->id);
+        return Database::getRow($sql, $params);
     }
 }
 ?>

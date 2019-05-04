@@ -19,31 +19,7 @@
 
         </div>
         <!--Creacion de la barra de busqueda de juegos-->
-        <div class="container">
-            <nav>
-
-                <div class="nav-wrapper blue">
-                    <form>
-                        <div class="input-field">
-                            <input id="search" type="search" required>
-                            <label class="label-icon" for="search">
-                                <i class="material-icons">search</i>
-                            </label>
-                            <i class="material-icons">close</i>
-                        </div>
-
-                    </form>
-                </div>
-
-            </nav>
-            <br>
-            <div class="row center">
-                <a class="waves-effect waves-light btn blue">
-                    <i class="material-icons right">search</i>Buscar</a>
-            </div>
-
-
-        </div>
+        
         <?php
             public_pages::informacion_producto('The legend of Zelda Breath of the wild','Es el título oficial del videojuego de acción-aventura de la serie The Legend of Zelda,
             desarrollado por Nintendo EPD (división de Nintendo creada por la unión de Nintendo EAD,

@@ -60,12 +60,13 @@
                             <th>Cantidad</th>
                             <th>Precio unitario</th>
                             <th>Precio Total ($)</th>
-
                         </tr>
                     </thead>
                     <!--Datos de la tabla-->
-                    <tbody id="detalle">                        
+                    <tbody id="detalle">                                           
                     </tbody>
+                    <div id="total">
+                    </div>
                 </div>
             </table>
         </div>
@@ -100,7 +101,7 @@
     <br>
     <?php
 //llamada a la funcion footer en la clase dashboard
-  dashboard::footer('sales.js');
+  dashboard::footer('sales.js','productValidator.js');
 ?>
 
         </html>

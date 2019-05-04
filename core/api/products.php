@@ -250,7 +250,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 if($result['dataset']=$producto->readProductosEliminados()){
                     $result['status']=1;
                 }else{
-                    $result['exception']='No hay productos registrados';
+                    $result['exception']='No hay productos eliminados';
                 }
             break;
             case 'enable':
@@ -271,6 +271,193 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
             break;
         }
+    }else if($_GET['site'] == 'public'){
+        switch ($_GET['action']){
+            case 'readCategorias':
+                if ($result['dataset'] = $producto->readCategoria()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+            break;
+            case 'readProductos':
+                if ($producto->setCategoria($_POST['idCategoria'])) {
+                    if ($result['dataset'] = $producto->readProductosCategoria()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Categoría incorrecta';
+                }
+                break;
+            case 'detailProducto': 
+                if ($producto->setId($_POST['idProducto'])) {
+                    if ($result['dataset'] = $producto->getProducto()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;   
+            case 'getComentarios';
+            if($producto->setId($_POST['idProducto'])){
+                if($result['dataset']=$producto->readCommentCustomer()){
+                    $result['status']=1; 
+                }else{
+                    $result['exception']='error';
+                }    
+            }else{
+                $result['exception']='Producto incorrecto';
+            }
+            break;
+            case 'getValoraciones':
+                if($producto->setId($_POST['idProducto'])){
+                    if($result['dataset']=$producto->readValoraciones()){
+                        $result['status']=1; 
+                    }else{
+                        $result['exception']='error';
+                    }    
+                }else{
+                    $result['exception']='Producto incorrecto';
+                }
+            break;
+            case 'get':
+                if ($producto->setId($_POST['idProducto'])) {
+                    if ($result['dataset'] = $producto->getProducto()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;
+            case 'comment':
+                $_POST=$producto->validateForm($_POST);
+                if(isset($_SESSION['idCliente'])){
+                    if($producto->setComentario($_POST['create_comentario'])){
+                        if($producto->setId($_POST['idProducto'])){
+                            if($producto->setCliente($_SESSION['idCliente'])){
+                                if($producto->createCommentary()){
+                                    $result['status'] = 1;
+                                }else{
+                                    $result['status'] = 2;
+                                    $result['exception'] = 'No se guardó el archivo';
+                                }
+                            }else{
+                                $result['exception'] = 'Usuario incorrecto';
+                            }
+                        }else{
+                            $result['exception'] = 'Producto incorrecto';
+                        }
+                    }else{
+                        $result['exception'] = 'Comentario incorrecto';
+                    }
+                }else{
+                    $result['exception'] = 'Debe de iniciar sesion para poder comentar';
+                }
+            break;  
+            case 'punctuation':
+            $_POST=$producto->validateForm($_POST);
+            if(isset($_SESSION['idCliente'])){
+                if($producto->setValoracion($_POST['puntuacion'])){
+                    if($producto->setId($_POST['idProducto2'])){
+                        if($producto->setCliente($_SESSION['idCliente'])){
+                            if($producto->validatePunctuation()){
+                                $result['exception'] = 'Ya has realizado un valoracion';
+                            }else{
+                                if($producto->createPunctuation()){
+                                    $result['status'] = 1;
+                                }else{
+                                    $result['status'] = 2;
+                                    $result['exception'] = 'No se guardó la valoracion';
+                                }
+                            }                           
+                        }else{
+                            $result['exception'] = 'Usuario incorrecto';
+                        }
+                    }else{
+                        $result['exception'] = 'Producto incorrecto';
+                    }
+                }else{
+                    $result['exception'] = 'Puntuacion incorrecta';
+                }
+            }else{
+                $result['exception'] = 'Debe de iniciar sesion para poder comentar';
+            }
+        break;  
+            default:
+                exit('Acción no disponible');
+        }
+    /*} else if($_GET['site'] == 'public' && isset($_SESSION['idCliente'])){
+        switch ($_GET['action']){
+           
+            case 'readCategorias':
+                if ($result['dataset'] = $producto->readCategoria()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+            break;
+            case 'readProductos':
+                if ($producto->setCategoria($_POST['idCategoria'])) {
+                    if ($result['dataset'] = $producto->readProductosCategoria()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Categoría incorrecta';
+                }
+                break;
+            case 'detailProducto': 
+                if ($producto->setId($_POST['idProducto'])) {
+                    if ($result['dataset'] = $producto->getProducto()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;   
+            case 'getComentarios';
+            if($producto->setId($_POST['idProducto'])){
+                if($result['dataset']=$producto->readCommentCustomer()){
+                    $result['status']=1; 
+                }else{
+                    $result['exception']='error';
+                }    
+            }else{
+                $result['exception']='Producto incorrecto';
+            }
+            break;
+            case 'getValoraciones':
+                if($producto->setId($_POST['idProducto'])){
+                    if($result['dataset']=$producto->readValoraciones()){
+                        $result['status']=1; 
+                    }else{
+                        $result['exception']='error';
+                    }    
+                }else{
+                    $result['exception']='Producto incorrecto';
+                }
+            break;
+            case 'get':
+                if ($producto->setId($_POST['idProducto'])) {
+                    if ($result['dataset'] = $producto->getProducto()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;  
+        } */
     }else{
         exit('Recurso denegado');
     }

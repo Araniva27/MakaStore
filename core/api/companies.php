@@ -138,7 +138,7 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 if($result['dataset']=$compañia->readProveedoresEliminados()){
                     $result['status']=1;
                 }else{
-                    $result['exception']='No hay productos registrados';
+                    $result['exception']='No hay proveedores eliminados';
                 }
              break;
              case 'enable':
@@ -152,10 +152,10 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                          }
                      }                           
                  } else {
-                     $result['exception'] = 'Producto inexistente';
+                     $result['exception'] = 'Proveedor inexistente';
                  }
              }else{
-                 $result['exception'] = 'Producto incorrecto';
+                 $result['exception'] = 'Proveedor incorrecto';
              }
          break;
             default:           

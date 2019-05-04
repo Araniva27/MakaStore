@@ -16,9 +16,7 @@
                     <link rel="stylesheet" type="text/css" href="../../resource/css/modals.css" >
                     <link rel="shortcut icon" href="../../resource/img/logo/logoMKStore.png">
                     <link rel="stylesheet" type="text/css" href="../../resource/css/material.min.css" >
-                    <link rel="stylesheet" type="text/css" href="../../resource/css/dataTables.material.min.css">
-                    
-
+                    <link rel="stylesheet" type="text/css" href="../../resource/css/dataTables.material.min.css">                
                     <title>'.$title.'</title>
                 </head>
                
@@ -59,10 +57,11 @@
                         <li><a href="../../views/dashboard/check_in.php"><i class="material-icons">assignment</i>Registrarse</a></li>
                         
                         </ul>');
-                }else {
+                } else {
                     header('location: main.php');
                 }
             }else{
+                header('location:index.php');
                 print('
                 <div class="navbar-fixed">    
                     <nav class="blue navbar-fixed">
@@ -118,6 +117,7 @@
                 <script type="text/javascript" src="../../core/helpers/'.$validator.'"></script>
                 <script type="text/javascript" src="../../core/helpers/userValidator.js"></script>
                 <script type="text/javascript" src="../../resource/js/jquery.validate.min.js"></script>
+                <script type="text/javascript" src="../../core/helpers/table.js"></script>
             </footer>');
         }
 

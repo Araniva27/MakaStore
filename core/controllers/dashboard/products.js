@@ -40,40 +40,13 @@ function fillTable(rows, estado)
                 }
     });
     //aplicacion del pluggin datatable
-    $('#tbody-read').html(content);
-    var table = $('#tabla-productos').DataTable({
-        "oLanguage":{
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-        retrieve: true
-       
-    });
-    $('select').formSelect();
+    
+    $('#tbody-read').html(content);  
+    table('#tabla-productos'); 
     $('.tooltipped').tooltip();   
     $('.materialboxed').materialbox();
 }
-
+//funcion para mostrar tabla
 function showTable(estado)
 {
     $.ajax({
@@ -105,7 +78,7 @@ function showTable(estado)
 }
 
 
-
+//funcion para llenar las cartas con los comentarios de los productos
 
 function fillCards(rows)
 {
@@ -167,7 +140,7 @@ function fillCards(rows)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 } */
-
+//funcion para actualizar estado de los comentarios
 function updateState(id)
 {
     $.ajax({
@@ -202,7 +175,7 @@ function updateState(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
+//evento en el boton para actualizar estado
 $('#form-updateState').submit(function()
 {
     event.preventDefault();
@@ -243,6 +216,8 @@ $('#form-updateState').submit(function()
     });
 })
 
+
+//funcion para leer los comentarios
 function readComments(id)
 {
     $.ajax({
@@ -380,6 +355,7 @@ $('#form-create').submit(function()
                 } else {
                     sweetAlert(3, 'Producto creado. ' + result.exception, null);
                 }
+                $('#tabla-productos').DataTable().clear();
                 $('#tabla-productos').DataTable().destroy();
                 showTable();
             } else {
@@ -583,7 +559,7 @@ function confirmDelete(id, file)
                             sweetAlert(1, 'Producto eliminado correctamente', null);
                         } else {
                             sweetAlert(3, 'Producto eliminado. ' + result.exception, null);
-                        }
+                        }                                                  
                         $('#tabla-productos').DataTable().destroy();
                         showTable();
                     } else {
@@ -660,9 +636,9 @@ function enableProduct(id)
                             sweetAlert(1, 'Producto habilitado correctamente', null);
                         } else {
                             sweetAlert(3, 'Producto habilitado. ' + result.exception, null);
-                        }
-                        $('#tabla-productos').DataTable().destroy();
-                        showTable();
+                        }                                 
+                        $('#tabla-productos').DataTable().destroy();     
+                        showTable();                
                     } else {
                         sweetAlert(2, result.exception, null);
                     }

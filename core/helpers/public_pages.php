@@ -9,13 +9,12 @@
                 <html lang="en">
                     <head>
                         <meta charset="UTF-8">
-                        
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <meta http-equiv="X-UA-Compatible" content="ie=edge">
                         <link rel="stylesheet" type="text/css" href="../../resource/css/materialize.min.css">
                         <link href="../../resource/css/material-icons.css" rel="stylesheet">
-                        <link href="../../resource/css/star.css" rel="stylesheet">
-                        <link rel="shortcut icon" href="../../resource/img/logo/logoMKStore.png">
+                        <link href="../../resource/css/star.css" rel="stylesheet">                             
+                        <link rel="shortcut icon" href="../../resource/img/logo/logoMKStore.png">                           
                         <title>'.$title.'</title>
                     </head>
                    
@@ -154,9 +153,11 @@
             <script src="../../resource/js/initialization.js"></script>
             <script type="text/javascript" src="../../core/controllers/public/customerAccount.js"></script>
             <script type="text/javascript" src="../../resource/js/sweetalert.min.js"></script>
-            <script type="text/javascript" src="../../core/helpers/functions.js"></script>
+            <script type="text/javascript" src="../../core/helpers/functions.js"></script>            
             <script type="text/javascript" src="../../core/helpers/customerUpdateValidator.js"></script>
             <script src="../../core/controllers/public/'.$controlador.'"></script>       
+            <script type="text/javascript" src="../../resource/js/datatables.min.js"></script>
+            <script type="text/javascript" src="../../resource/js/dataTables.material.min.js"></script>
           </footer>
          
                 ');

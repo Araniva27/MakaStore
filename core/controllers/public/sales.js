@@ -5,7 +5,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiVentas = '../../core/api/sales.php?site=dashboard&action=';
+const apiVentas = '../../core/api/sales.php?site=public&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -15,16 +15,15 @@ function fillTable(rows)
         content +=`
             <tr>
                 <td>${row.idVenta}</td>
-                <td>${row.nombre}</td>
-                <td>${row.fecha_hora}</td>
-                <td>${row.estado}</td>                                            
+                <td>${row.fecha_hora}</td>      
+                <td>${row.estado}</td>                                                                  
                 <td><a href="#" onclick="modalDetalles(${row.idVenta})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Detalle"><i class="material-icons">list</i></a></td>                
             </tr>
         `;
     });
 
     $('#tbody-read').html(content);
-    var table = $('#tabla-ventas').DataTable({
+    var table = $('#tabla-compras').DataTable({
         "oLanguage":{
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -58,7 +57,7 @@ function fillTable(rows)
 
 function showTable(){
     $.ajax({
-        url: apiVentas + 'read',
+        url: apiVentas + 'readVentasCliente',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -82,8 +81,9 @@ function showTable(){
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
+
 //Funcion para mostrar la tabla con los detalles de la compra
-function fillTable2(rows)
+function fillTableDetalle(rows)
 {   
     let content= '';
     let label = '';
@@ -110,34 +110,6 @@ function fillTable2(rows)
 
 }
 
-/*function showTable2(){
-    $.ajax({
-        url: apiVentas + 'read2',
-        type: 'post',
-        data: null,
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                fillTable2(result.dataset);
-            } else {
-                sweetAlert(4, result.exception, null);
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-}*/
-
-
 function modalDetalles(id)
 {
     $.ajax({
@@ -155,7 +127,7 @@ function modalDetalles(id)
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
                 $('#idVenta').val(result.dataset.idVenta);
-                fillTable2(result.dataset);
+                fillTableDetalle(result.dataset);
                 $('#modalDetalle').modal('open');
                 $(document).ready(function()
                 {  
@@ -175,34 +147,3 @@ function modalDetalles(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
-//Función para mostrar los resultados de una búsqueda
-$('#buscarVenta').submit(function()
-{
-    event.preventDefault();
-    $.ajax({
-        url: apiVentas+ 'search',
-        type: 'post',
-        data: $('#buscarVenta').serialize(),
-        datatype: 'json'
-    })
-    .done(function(response){
-        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-        if (isJSONString(response)) {
-            const result = JSON.parse(response);
-            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (result.status) {
-                sweetAlert(4, 'Coincidencias: ' + result.dataset.length, null);
-                fillTable(result.dataset);
-            } else {
-                sweetAlert(3, result.exception, null);
-            }
-        } else {
-            console.log(response);
-        }
-    })
-    .fail(function(jqXHR){
-        //Se muestran en consola los posibles errores de la solicitud AJAX
-        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-    });
-})

@@ -54,9 +54,9 @@ function setValid(field)
 
 
 //Funcion para validar solo letras
-function checkIfOnlyLetters(field)
+function checkIfOnlyLetters(field, minLength, maxLength)
 {
-    if(/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]+$/.test(field.value)){
+    if(/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]+$/.test(field.value)){        
          setValid(field);
          return true;
     }else{
