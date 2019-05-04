@@ -389,6 +389,20 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 $result['exception'] = 'Debe de iniciar sesion para poder comentar';
             }
         break;  
+        case 'searchProductos': 
+            $_POST = $producto->validateForm($_POST);
+            if ($_POST['nombreProducto'] != '') {
+                if($producto->setCategoria($_POST['idCategoria'])){
+                    if ($result['dataset'] = $producto->searchProductosCategoria($_POST['nombreProducto'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                }                   
+            } else {
+                $result['exception'] = 'Ingrese un valor para buscar';
+            }
+            break;
             default:
                 exit('Acción no disponible');
         }

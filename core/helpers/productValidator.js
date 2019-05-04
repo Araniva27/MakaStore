@@ -26,6 +26,7 @@ function validateNombre()
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombre)) return;
      if(!validateAlphanumeric(nombre)) return;
+     if(!meetLength(nombre, 1, 100))return;
      return true;
 }
 
@@ -52,6 +53,7 @@ function validateDescripcion()
      //verificar si el campo esta vacio
      if(checkIfEmpty(descripcion)) return;
      if(!validateAlphanumeric(descripcion)) return;
+     if(!meetLength(descripcion, 1, 500)) return
      return true;
 }
 //Funcion para validar si el campo es vacio
@@ -125,6 +127,7 @@ function validateNombreActualizado()
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombreA)) return;
      if(!validateAlphanumeric(nombreA)) return;
+     if(!meetLength(nombreA, 1, 100)) return
      return true;
 }
 
@@ -134,5 +137,20 @@ function validateDescripcionActualizada()
      //verificar si el campo esta vacio
      if(checkIfEmpty(descripcionA)) return;
      if(!validateAlphanumeric(descripcionA)) return;
+     if(!meetLength(descripcionA, 1, 500)) return
      return true;
+}
+
+
+function meetLength(field, minLength, maxLength){
+    if(field.value.length>=minLength && field.value.length< maxLength){
+        setValid(field);
+        return true;
+    }else if(field.value.length<minLength){
+        setInvalid(field,  `Debe de tener al menos ${minLength} caracteres `);
+    }else{
+        setInvalid(field,  `Debe de tener menos de ${maxLength} caracteres `);
+        return false;
+    }
+    
 }

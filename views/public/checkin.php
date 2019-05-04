@@ -22,12 +22,14 @@ public_pages::header('Registro');//aplicacion del header y envio del parametro t
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='nombre' id='nombre' onfocusout="validateNombre()"/>
+                                <span class="helper-text"></span>
                                 <label for='nombre'>Nombre</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='apellido' id='apellido' onfocusout="validateApellido()"/>
+                                <span class="helper-text"></span>
                                 <label for='apellido'>Apellido</label>
                             </div>
                         </div>
@@ -36,12 +38,14 @@ public_pages::header('Registro');//aplicacion del header y envio del parametro t
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='usuario' id='usuario' onfocusout="validateUsuario()"/>
+                                <span class="helper-text"></span>
                                 <label for='usuario'>Usuario</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='password' name='contra' id='contra' onfocusout="validateContraseña()"/>
+                                <span class="helper-text"></span>
                                 <label for='contra'>Contraseña</label>
                             </div>
                         </div>
@@ -49,12 +53,14 @@ public_pages::header('Registro');//aplicacion del header y envio del parametro t
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='text' name='telefono' id='telefono' onfocusout="validateTelefono()"/>
+                                <span class="helper-text"></span>
                                 <label for='telefono'>Telefono</label>
                             </div>
 
                             <!--Creacion del text input en el formulario-->
                             <div class='input-field col s12 l6 m6'>
                                 <input class='validate' type='email' name='correo' id='correo' onfocusout="validateCorreo()"/>
+                                <span class="helper-text"></span>
                                 <label for='correo'>Correo</label>
                             </div>
 
@@ -62,6 +68,7 @@ public_pages::header('Registro');//aplicacion del header y envio del parametro t
                                 <!--Creacion del text input en el formulario-->
                                 <div class='input-field col s12 l12 m12'>
                                     <input class='validate' type='text' name='direccion' id='direccion' onfocusout="validateDireccion()"/>
+                                    <span class="helper-text"></span>
                                     <label for='direccion'>Direccion</label>
                                 </div>
                                 <input class='validate' type='hidden' name='estado' id='estado' value="1" />

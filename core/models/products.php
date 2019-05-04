@@ -338,5 +338,11 @@ class Productos extends Validator{
         $params=array($this->cliente, $this->id);
         return Database::getRow($sql, $params);
     }
+
+    public function searchProductosCategoria($value){
+        $sql='SELECT nomCategoria, idProducto, producto.foto, nombre, producto.descripcion,precio FROM producto INNER JOIN categoria USING (idCategoria) WHERE idCategoria = ? AND producto.estado=1 AND producto.estadoEliminacion=1 and producto.nombre LIKE ?';
+        $params=array($this->categoria,"%$value%");
+        return Database::getRows($sql, $params);
+    }
 }
 ?>

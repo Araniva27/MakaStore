@@ -130,5 +130,3 @@ function validateDireccion2(){
      if(!validateAlphanumeric2(direccionC)) return;
      return true;
 }
-
-

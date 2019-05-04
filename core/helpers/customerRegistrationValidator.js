@@ -112,7 +112,7 @@ function validateApellido(){
 function validateUsuario(){
      //verificar si el campo esta vacio
      if(checkIfEmpty(usuario)) return;
-     if(!checkIfOnlyLetters(usuario)) return;
+     if(!validateAlphanumeric(usuario)) return;
      return true;
 }
 //funcion para validar contraseña
@@ -120,6 +120,7 @@ function validateContraseña(){
      //verificar si el campo esta vacio
      if(checkIfEmpty(contraseña)) return;
      if(!validateAlphanumeric(contraseña)) return;
+     if(!meetLength(contraseña, 5,100))
      return true;
 }
 //funcion para validar telefono
@@ -158,4 +159,18 @@ function validateContraseña2(){
     if(checkIfEmpty(contraseña2)) return;
     if(!validateAlphanumeric(contraseña2)) return;
     return true;
+}
+
+
+function meetLength(field, minLength, maxLength){
+    if(field.value.length>=minLength && field.value.length< maxLength){
+        setValid(field);
+        return true;
+    }else if(field.value.length<minLength){
+        setInvalid(field,  `Debe de tener al menos ${minLength} caracteres `);
+    }else{
+        setInvalid(field,  `Debe de tener menos de ${maxLength} caracteres `);
+        return false;
+    }
+    
 }

@@ -168,6 +168,7 @@ function validateContraseñaActual1()
     //verificar si el campo esta vacio
     if(checkIfEmpty(contraActual1)) return;
     if(!validateAlphanumeric(contraActual1)) return;
+    if(!meetLength(contraActual1, 6, 100)) return
     return true;
     
 }
@@ -178,6 +179,7 @@ function validateContraseñaActual2()
     //verificar si el campo esta vacio
     if(checkIfEmpty(contraActual2)) return;
     if(!validateAlphanumeric(contraActual2)) return;
+    if(!meetLength(contraActual2, 6, 100)) return
     return true;
     
 }
@@ -188,6 +190,7 @@ function validateContraseñaNueva1()
     //verificar si el campo esta vacio
     if(checkIfEmpty(contraNueva1)) return;
     if(!validateAlphanumeric(contraNueva1)) return;
+    if(!meetLength(contraNueva1, 6, 100)) return
     return true;
     
 }
@@ -198,6 +201,20 @@ function validateContraseñaNueva2()
     //verificar si el campo esta vacio
     if(checkIfEmpty(contraNueva2)) return;
     if(!validateAlphanumeric(contraNueva2)) return;
+    if(!meetLength(contraNueva2, 6, 100))
     return true;
+    
+}
+
+function meetLength(field, minLength, maxLength){
+    if(field.value.length>=minLength && field.value.length< maxLength){
+        setValid(field);
+        return true;
+    }else if(field.value.length<minLength){
+        setInvalid(field,  `Debe de tener al menos ${minLength} caracteres `);
+    }else{
+        setInvalid(field,  `Debe de tener menos de ${maxLength} caracteres `);
+        return false;
+    }
     
 }

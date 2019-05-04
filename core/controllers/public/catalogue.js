@@ -45,6 +45,8 @@ function readCategorias()
                 });
                                 
                 $('#title').text('Nuestro catálogo');
+                $('#busquedaProducto').html(null);                
+                $('#barraBusqueda').html(null);
                 $('#catalogo').html(content);
                 $('.tooltipped').tooltip();
             } else {
@@ -80,24 +82,17 @@ function readProductosCategoria(id, categoria)
             if (result.status) {
                 let content = '';
                 var busqueda= '';
-
-                busqueda += `
-                    <nav>
-                        <div class="nav-wrapper blue">
-                            <form>
-                                <div class="input-field">
-                                    <input id="search" type="search" required>
-                                    <label class="label-icon" for="search">
-                                        <i class="material-icons">search</i>
-                                    </label>
-                                    <i class="material-icons">close</i>
-                                </div>
-                                <div class="row center">
-                                    
-                                </div>
-                            </form>
-                        </div>
-                    </nav>
+                //Colocacion de barra de busqueda
+                busqueda += `     
+                <div class="input-field col l5">
+                    <i class="material-icons prefix">search</i>
+                    <input id="idCategoria" type="hidden" name="idCategoria" value="${id}"/>                
+                    <input id="nombreProducto" type="text" name="nombreProducto"/>
+                    <label for="nombreProducto">Buscador</label>
+                </div>
+                <div class="input-field col l4 center">
+                    <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Buscar"><i class="material-icons">check_circle</i></button>
+                </div>
                     <br><br>
                     `;
                 result.dataset.forEach(function(row){                    
@@ -117,7 +112,8 @@ function readProductosCategoria(id, categoria)
                     `;
                 });
                 $('#title').text('Categoría: ' + categoria);                
-                $('#barraBusqueda').html(busqueda);
+                $('#form-search').html(busqueda);
+                $('#idCategoria').text(result.dataset.idCategoria);
                 $('#catalogo').html(content);
                 $('.materialboxed').materialbox();
                 $('.tooltipped').tooltip();
@@ -474,3 +470,56 @@ $('#form-valoracion').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+//Función para mostrar los resultados de una búsqueda
+ $('#form-search').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiCatalogo + 'searchProductos',
+        type: 'post',
+        data: $('#form-search').serialize(),
+        datatype: 'json'
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            let content2= '';
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                sweetAlert(4, 'Coincidencias: ' + result.dataset.length, null);
+                //readProductosCategoria(result.dataset);
+                result.dataset.forEach(function(row){                    
+                    content2 += `
+                        <div class="col s12 m6 l4">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="../../resource/img/productos/${row.foto}" class="materialboxed">
+                                    <a href="#" onclick="getProducto(${row.idProducto})" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-tooltip="Ver detalle"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">${row.nombre}</span>
+                                    <p>Precio(US$) ${row.precio}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                $('#catalogo').html(content2);
+                $('.materialboxed').materialbox();
+                $('.tooltipped').tooltip();
+            } else {
+                sweetAlert(3, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+  
+

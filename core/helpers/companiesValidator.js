@@ -103,6 +103,7 @@ function validateNombre()
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombre)) return;
      if(!checkIfOnlyLetters(nombre)) return;
+     if(!meetLength(nombre, 1, 50)) return
      return true;
 }
 
@@ -112,6 +113,7 @@ function validateNombreA()
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombreActualizado)) return;
      if(!checkIfOnlyLetters(nombreActualizado)) return;
+     if(!meetLength(nombreActualizado, 1, 50)) return
      return true;
 }
 
@@ -121,6 +123,7 @@ function validateDireccion()
      //verificar si el campo esta vacio
      if(checkIfEmpty(direccion)) return;
      if(!checkIfOnlyLetters(direccion)) return;
+     if(!meetLength(direccion, 1, 100)) return
      return true;
 }
 
@@ -129,6 +132,7 @@ function validateDireccionA()
      //verificar si el campo esta vacio
      if(checkIfEmpty(direccionActualizado)) return;
      if(!checkIfOnlyLetters(direccionActualizado)) return;
+     if(!meetLength(direccion, 1, 100)) return
      return true;
 }
 
@@ -163,4 +167,17 @@ function validateCorreoA()
      if(checkIfEmpty(correoActualizado)) return;
      if(!validateEmail(correoActualizado)) return;
      return true;
+}
+
+function meetLength(field, minLength, maxLength){
+    if(field.value.length>=minLength && field.value.length< maxLength){
+        setValid(field);
+        return true;
+    }else if(field.value.length<minLength){
+        setInvalid(field,  `Debe de tener al menos ${minLength} caracteres `);
+    }else{
+        setInvalid(field,  `Debe de tener menos de ${maxLength} caracteres `);
+        return false;
+    }
+    
 }

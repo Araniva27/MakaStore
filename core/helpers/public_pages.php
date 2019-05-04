@@ -38,9 +38,7 @@
                                 
                             <ul class="right hide-on-med-and-down">
                                 <!-- Dropdown Trigger -->
-                                <li><a href="index.php">Inicio</a></li>
-                                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
-                                <li><a href="trends.php">Tendecias</a></li>
+                                <li><a href="index.php">Inicio</a></li>                               
                                 <li><a href="about_us.php">¿Quienes somos?</a></li>      
                                 <li><a href="contact_us.php">Contactanos</a></li>                                 
                                 <li><a href="shopping_cart.php" ><i class="material-icons right">add_shopping_cart</i>Carrito</a></li>                      
@@ -54,11 +52,7 @@
                         </nav>
                     </div>  
                     <ul class="sidenav" black id="mobile-demo">
-                        <li><a href="index.php">Inicio</a></li>
-                        <li><a href="consoles.php">Consolas</a></li>
-                        <li><a href="games.php">Videojuegos</a></li>
-                        
-                        <li><a href="mobile.html">Tendencias</a></li>
+                        <li><a href="index.php">Inicio</a></li>                     
                         <li><a href="about_us.php">¿Quienes somos?</a></li>
                         <li><a href="contact_us.php">Contactanos</a></li>         
                         <li><a href="shopping_cart.php">Carrito de compras</a></li>  
@@ -89,9 +83,7 @@
                             
                           <ul class="right hide-on-med-and-down">
                             <!-- Dropdown Trigger -->
-                            <li><a href="index.php">Inicio</a></li>
-                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
-                            <li><a href="trends.php">Tendecias</a></li>
+                            <li><a href="index.php">Inicio</a></li>                           
                             <li><a href="about_us.php">¿Quienes somos?</a></li>      
                             <li><a href="contact_us.php">Contactanos</a></li> 
                             <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right">account_circle</i></a></li>                                                                                                
@@ -101,11 +93,7 @@
                   </nav>
                  </div> 
                  <ul class="sidenav" black id="mobile-demo">
-                    <li><a href="index.php">Inicio</a></li>
-                    <li><a href="consoles.php">Consolas</a></li>
-                    <li><a href="games.php">Videojuegos</a></li>
-                    
-                    <li><a href="mobile.html">Tendencias</a></li>
+                    <li><a href="index.php">Inicio</a></li>                    
                     <li><a href="about_us.php">¿Quienes somos?</a></li>
                     <li><a href="contact_us.php">Contactanos</a></li>
                     <li><a href="../../views/public/login.php">Ingresa</a></li>

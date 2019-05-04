@@ -68,12 +68,15 @@
         </div>
     </div>
 
-<div class="container">
-    <h4 class="center blue-text" id="title"></h4>
-    <div class="row" id="barraBusqueda">
+    <div class="container">
+        <h4 class="center blue-text" id="title"></h4>
+        <!-- <div class="row" id="barraBusqueda">  -->
+            <form method="post" id="form-search">   
+            
+            </form>                       
+        <!-- </div> -->
+        <div class="row" id="catalogo"></div>
     </div>
-    <div class="row" id="catalogo"></div>
-</div>
 <!--Creacion del modal para comentar productos-->
 <div id="modalComentario" class="modal modalprod">
         <div class="modal-content">
