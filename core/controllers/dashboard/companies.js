@@ -293,7 +293,7 @@ function confirmDelete(id){
         }
     });
 }
-
+//Funcion para leer los proveeedores eliminados
 $("#btnProveedoresEliminado").on("click",function(){
     $.ajax({
         url: apiCompanies + 'readEliminados',
@@ -321,7 +321,7 @@ $("#btnProveedoresEliminado").on("click",function(){
     });
     
 });
-
+//Funcipn para habilitar compañias
 function enableCompanie(id)
 {
     swal({

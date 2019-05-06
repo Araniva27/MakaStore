@@ -2,6 +2,7 @@ $(document).ready(function()
 {
     $('.slider').slider();
     readCategorias();
+    
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
@@ -165,17 +166,17 @@ function getProducto(id)
                                 </p>
                             </div>
                             <div class="card-action">
-                                <form method="post" id="form-cantidad">
-                                    <div class="row center">
+                                <form method="post" id="form-preDetalle">
+                                    <div class="row center">                                    
                                         <div class="input-field col s12 m6">
+                                        <input id="cantidadBD" type="hidden" name="cantidadBD" value="${result.dataset.cantidad}">
+                                        <input id="idProducto3" type="hidden" name="idProducto3" value="${result.dataset.idProducto}">
                                             <i class="material-icons prefix">list</i>
-                                            <input id="cantidad" type="number" name="cantidad" min="1" class="validate">
+                                            <input id="cantidad" type="number" name="cantidad" min="1" class="validate" required>
                                             <label for="cantidad">Cantidad</label>
-                                        </div>
-                                        <div class="input-field col s12 m6">
-                                            <button type="submit" class="btn waves-effect waves-light blue tooltipped" data-tooltip="Agregar al carrito"><i class="material-icons">add_shopping_cart</i></button>
-                                        </div>
-                                    </div>
+                                        </div> 
+                                        <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Crear"  onclick="agregarCarrito()"><i class="material-icons">add_shopping_cart</i></button>
+                                    </div>                                    
                                 </form>
                             </div>
                         </div>
@@ -522,4 +523,41 @@ $('#form-valoracion').submit(function()
     });
 })
   
+ //funcion para agregar al preDetalle
+function agregarCarrito(){
+    
+    event.preventDefault();
+    $.ajax({
+        url: apiCatalogo + 'preDetalle',
+        type: 'post',
+        data: new FormData($('#form-preDetalle')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+    })
+    .done(function(response){
+        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if(isJSONString(response)){
+            const result= JSON.parse(response);
+            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if(result.status){
+                $('#form-preDetalle')[0].reset();                
+                if(result.status==1){
+                    sweetAlert(1, 'Pedido añadido correctamente', null);
+                }else{
+                    sweetAlert(3,'Pedido añadido. ' +result.exception, null);
+                }              
+            }else{
+                sweetAlert(4, result.exception, null);
+            }
+        }else{
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        //Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' +jqXHR.status+ ' ' +jqXHR.statusText);
+    })
+}
 

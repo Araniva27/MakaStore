@@ -24,8 +24,7 @@
             <div class="caption left-align">
                 <h3>Consolas</h3>
                 <!--Titulo del slide-->
-                <h5 class="light grey-text text-lighten-3">Conoce las mejores consolas para divertirte</h5>
-                <a class="waves-effect waves-light btn red darken-3" href="consoles.php">Conoce mas</a>
+                <h5 class="light grey-text text-lighten-3">Conoce las mejores consolas para divertirte</h5>                
             </div>
         </li>
         <li>

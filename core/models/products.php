@@ -16,6 +16,8 @@ class Productos extends Validator{
     private $estadoComentario=null;
     private $comentario=null;
     private $valoracion=null;
+    private $cantidad2=null;
+    private $idPre =null;
     private $ruta='../../resource/img/productos/';
 
     //Metodos para sobrecargar propiedades
@@ -206,7 +208,33 @@ class Productos extends Validator{
         return $this->valoracion;
     }
     
+    public function setCantidad2($value){
+        if($this->validateAlphanumeric($value, 1,10)){
+            $this->cantidad2=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getCantidad2(){
+        return $this->cantidad2;
+    }
     
+
+    public function setIdPre($value){
+        if($this->validateId($value)){
+            $this->idPre=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+    public function getidPre(){
+        return $this->idPre;
+    }
     //Metodos para el manejo del CRUD
     public function readProductos(){
         $sql='SELECT idProducto, foto, nombre, precio, cantidad, nombreProveedor, producto.estado from producto, proveedor where proveedor.idProveedor=producto.idProveedor and producto.estadoEliminacion= 1';
@@ -221,7 +249,7 @@ class Productos extends Validator{
     }
     //Metodo para seleccionar categorias de productos
     public function readCategoria(){
-        $sql='SELECT idCategoria, nomCategoria, descripcion, foto from categoria WHERE estado = 1';
+        $sql='SELECT idCategoria, nomCategoria, descripcion, foto from categoria WHERE estado = 1 AND estadoEliminacion = 1';
         $params=array(null);
         return Database::getRows($sql, $params);
     }
@@ -326,23 +354,64 @@ class Productos extends Validator{
         $params=array($this->comentario, $this->id, $this->cliente);
         return Database::executeRow($sql, $params);
     }
-
+    //Metodo para asignar puntuacion a un producto
     public function createPunctuation(){
         $sql='INSERT INTO valoraciones (valoracion, idProducto, idCliente) VALUES (?, ?, ?)';
         $params=array($this->valoracion, $this->id, $this->cliente);
         return Database::executeRow($sql, $params);
-    }
-
+    }   
+    //Metodo para validar que un usuario coloque solamente un comentario en un producto
     public function validatePunctuation(){
         $sql='SELECT * from valoraciones WHERE idCliente = ? and idProducto = ?';
         $params=array($this->cliente, $this->id);
         return Database::getRow($sql, $params);
     }
-
+    //Metodo para buscar productos de acuerdo a la categoria asignada
     public function searchProductosCategoria($value){
         $sql='SELECT nomCategoria, idProducto, producto.foto, nombre, producto.descripcion,precio FROM producto INNER JOIN categoria USING (idCategoria) WHERE idCategoria = ? AND producto.estado=1 AND producto.estadoEliminacion=1 and producto.nombre LIKE ?';
         $params=array($this->categoria,"%$value%");
         return Database::getRows($sql, $params);
+    }
+
+    //Metodo para insertar datos en tabla preDetalle
+    public function insertPreDetalle(){
+        $sql='INSERT INTO predetalle (idCliente, idProducto, cantidad) VALUES (?, ?, ?)';
+        $params=array($this->cliente, $this->id, $this->cantidad);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Metodo para verificar existencia de productos
+    public function validateStock(){
+        $sql='SELECT cantidad FROM producto WHERE idProducto = ?';
+        $params=array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    //Metodo para eliminar preDetalle
+    public function eliminarPreDetalle(){
+        $sql='DELETE FROM predetalle WHERE idCliente = ?';
+        $params=array($this->idCliente);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Metodo para obtener preDetalle del cliente
+    public function readPreDetalle(){
+        $sql='SELECT idPreDetalle, producto.nombre as producto, predetalle.cantidad as cantidad, producto.precio as precio, producto.foto as foto,(producto.precio * predetalle.cantidad) as total , producto.cantidad as cantidadP FROM producto, predetalle WHERE producto.idProducto = predetalle.idProducto AND idCliente = ?';
+        $params=array($this->cliente);
+        return Database::getRows($sql, $params);
+    }
+
+    public function getPreDetalle(){
+        $sql='SELECT idPreDetalle, producto.nombre as producto, predetalle.cantidad as cantidad, producto.precio as precio, producto.foto as foto,(producto.precio * predetalle.cantidad) as total , producto.cantidad as cantidadP FROM producto, predetalle WHERE producto.idProducto = predetalle.idProducto AND idCliente = ?';
+        $params=array($this->cliente);
+        return Database::getRow($sql, $params);
+    }
+
+    //Metodo para actualizar cantidad en preDetalle
+    public function updateCantidadPreDetalle(){
+        $sql='UPDATE predetalle set cantidad = (predetalle.cantidad + ?) WHERE idPreDetalle = ?';
+        $params=array($this->cantidad, $this->idPre);
+        return Database::executeRow($sql, $params);
     }
 }
 ?>

@@ -215,7 +215,7 @@
     <br>
     <?php
 //invocacion de la clase public_pages y colocacion del footer
- dashboard::footer();
+ dashboard::footer('companies.js', 'companiesValidator.js');
 ?>
 
         </html>

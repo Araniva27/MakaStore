@@ -107,7 +107,7 @@
 	</body>
 	<?php
 //Aplicacion del footer a la pagina
-    public_pages::footer();
+    public_pages::footer('cataloge.js');
 ?>
 
 		</html>

@@ -11,7 +11,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idAdmin']) && $_GET['site'] == 'dashboard') {
         switch ($_GET['action']){
-            case 'readProductos':
+            case 'readProductos'://Caso para leer productos
             
                 if($result['dataset']=$producto->readProductos()){
                     $result['status']=1;
@@ -21,21 +21,21 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
          
                
             break;
-            case 'readProveedores':
+            case 'readProveedores'://Caso para leer proveedores
                 if($result['dataset']=$producto->readProveedores()){
                     $result['status']=1;
                 }else{
                     $result['exception']= 'No hay proveedores';
                 }
             break;
-            case 'readCategoria':
+            case 'readCategoria'://Caso para leer categorias de los productos disponibles
                 if($result['dataset']=$producto->readCategoria()){
                     $result['status']=1;
                 }else{
                     $result['exception']= 'No hay categorias';
                 }
             break;    
-            case 'create':
+            case 'create'://Caso para crear productos nuevos
                 $_POST=$producto->validateForm($_POST);
                 if($producto->setNombre($_POST['create_nombreP'])){
                     if($producto->setPrecio($_POST['create_precioP'])){
@@ -89,7 +89,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Nombre incorrecto';
                 }
             break;
-            case 'get':
+            case 'get'://Caso para obtener datos de un registro en especifico
             if ($producto->setId($_POST['idProducto'])) {
                 if ($result['dataset'] = $producto->getProducto()) {
                     $result['status'] = 1;
@@ -100,7 +100,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 $result['exception'] = 'Producto incorrecto';
             }
             break;  
-            case 'update':
+            case 'update'://Caso para actualizar datos de un producto
                 $_POST=$producto->validateForm($_POST);
                 if($producto->setId($_POST['idProducto'])){
                     if($producto->getProducto()){
@@ -164,7 +164,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Producto incorrecto';
                 }
             break;  
-            case 'delete':
+            case 'delete'://Caso para eliminar un producto
                 if ($producto->setId($_POST['idProducto'])) {
                     if ($producto->getProducto()) {
                         if($producto->setEliminacion(0)){
@@ -181,7 +181,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
             break;
-            case 'getCantidad':
+            case 'getCantidad'://Caso para obtener la cantidad de producto
                 if ($producto->setId($_POST['idProducto'])) {
                     if ($result['dataset'] = $producto->getStock()) {
                         $result['status'] = 1;
@@ -192,7 +192,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
             break;
-            case 'updateCantidad':
+            case 'updateCantidad'://Caso para actualizar la cantidad de producto
                 $_POST=$producto->validateForm($_POST);
                 if($producto->setId($_POST['idProductoC'])){
                    if($producto->setCantidad($_POST['cantidadP'])){
@@ -208,7 +208,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Producto incorrecto';
                 }
             break;
-            case 'getComentarios':
+            case 'getComentarios'://Caso para obtener los comentarios de un prducto
                 if($producto->setId($_POST['idProducto'])){
                     if($result['dataset']=$producto->readComment()){
                         $result['status']=1; 
@@ -230,7 +230,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Comentario incorrecto'; 
                 }
             break;    
-            case 'updateState':
+            case 'updateState'://Caso para actualizar estado de comentarios
             $_POST=$producto->validateForm($_POST);
                 if($producto->setId($_POST['idComentario'])){
                     if($producto->setEstado((isset($_POST['update_estadoC']) ? 1 : 0))){
@@ -246,14 +246,14 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Producto incorrecto';
                 }
             break; 
-            case 'readEliminados':
+            case 'readEliminados': //Caso para leer los productos que han sido eliminados
                 if($result['dataset']=$producto->readProductosEliminados()){
                     $result['status']=1;
                 }else{
                     $result['exception']='No hay productos eliminados';
                 }
             break;
-            case 'enable':
+            case 'enable'://Caso para habilitar registros
                 if($producto->setId($_POST['idProducto'])){
                     if ($producto->getProducto()) {
                         if($producto->setEliminacion(1)){
@@ -271,16 +271,16 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
             break;
         }
-    }else if($_GET['site'] == 'public'){
+    }else if($_GET['site'] == 'public'){//Acciones a realizar si es el sitio publico
         switch ($_GET['action']){
-            case 'readCategorias':
+            case 'readCategorias'://Leer categorias
                 if ($result['dataset'] = $producto->readCategoria()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Contenido no disponible';
                 }
             break;
-            case 'readProductos':
+            case 'readProductos'://Leert productos
                 if ($producto->setCategoria($_POST['idCategoria'])) {
                     if ($result['dataset'] = $producto->readProductosCategoria()) {
                         $result['status'] = 1;
@@ -291,7 +291,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Categoría incorrecta';
                 }
                 break;
-            case 'detailProducto': 
+            case 'detailProducto': //PObtener el detalle del producto
                 if ($producto->setId($_POST['idProducto'])) {
                     if ($result['dataset'] = $producto->getProducto()) {
                         $result['status'] = 1;
@@ -302,7 +302,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
             break;   
-            case 'getComentarios';
+            case 'getComentarios';//Obtener los comentarios de un producto en especifico
             if($producto->setId($_POST['idProducto'])){
                 if($result['dataset']=$producto->readCommentCustomer()){
                     $result['status']=1; 
@@ -313,7 +313,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 $result['exception']='Producto incorrecto';
             }
             break;
-            case 'getValoraciones':
+            case 'getValoraciones': //Caso para obtener las valoraciones de los productos
                 if($producto->setId($_POST['idProducto'])){
                     if($result['dataset']=$producto->readValoraciones()){
                         $result['status']=1; 
@@ -335,7 +335,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
             break;
-            case 'comment':
+            case 'comment'://Caso oara registrar comentario del producto
                 $_POST=$producto->validateForm($_POST);
                 if(isset($_SESSION['idCliente'])){
                     if($producto->setComentario($_POST['create_comentario'])){
@@ -360,13 +360,13 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Debe de iniciar sesion para poder comentar';
                 }
             break;  
-            case 'punctuation':
+            case 'punctuation'://Caso para realizar una puntuacion de algun producto
             $_POST=$producto->validateForm($_POST);
             if(isset($_SESSION['idCliente'])){
                 if($producto->setValoracion($_POST['puntuacion'])){
                     if($producto->setId($_POST['idProducto2'])){
                         if($producto->setCliente($_SESSION['idCliente'])){
-                            if($producto->validatePunctuation()){
+                            if($producto->validatePunctuation()){//Validacion para que solo exista un comentario de un cliente en cada producto
                                 $result['exception'] = 'Ya has realizado un valoracion';
                             }else{
                                 if($producto->createPunctuation()){
@@ -388,20 +388,91 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
             }else{
                 $result['exception'] = 'Debe de iniciar sesion para poder comentar';
             }
-        break;  
-        case 'searchProductos': 
-            $_POST = $producto->validateForm($_POST);
-            if ($_POST['nombreProducto'] != '') {
-                if($producto->setCategoria($_POST['idCategoria'])){
-                    if ($result['dataset'] = $producto->searchProductosCategoria($_POST['nombreProducto'])) {
+            break;  
+            case 'searchProductos': //Caso para buscar productos
+                $_POST = $producto->validateForm($_POST);
+                if ($_POST['nombreProducto'] != '') {
+                    if($producto->setCategoria($_POST['idCategoria'])){
+                        if ($result['dataset'] = $producto->searchProductosCategoria($_POST['nombreProducto'])) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'No hay coincidencias';
+                        }
+                    }                   
+                } else {
+                    $result['exception'] = 'Ingrese un valor para buscar';
+                }
+            break;
+            case 'preDetalle':                
+                $_POST=$producto->validateForm($_POST);
+                if(isset($_SESSION['idCliente'])){
+                    if($producto->setCantidad($_POST['cantidad'])){
+                        if($producto->setId($_POST['idProducto3'])){
+                            if($producto->setCliente($_SESSION['idCliente'])){
+                                if($_POST['cantidadBD']>= $_POST['cantidad']){
+                                    if($producto->insertPreDetalle()){                                        
+                                        $result['status'] = 1;
+                                    }else{
+                                        $result['status'] = 2;
+                                        $result['exception'] = 'Proceso fallido';
+                                    }   
+                                }else{
+                                    $result['exception'] = 'Cantidad de producto insuficiente';
+                                }                                                                                                                  
+                            }else{
+                                $result['exception'] = 'Usuario incorrecto';
+                            }
+                        }else{
+                            $result['exception'] = 'Producto incorrecto';
+                        }
+                    }else{
+                        $result['exception'] = 'Cantidad incorrecta';
+                    }
+                }else{
+                    $result['exception'] = 'Debe de iniciar sesion para poder agregar al carrito';
+                }
+            break;
+            case 'readPreDetalle':
+                if(isset($_SESSION['idCliente'])){    
+                    if($producto->setCliente($_SESSION['idCliente'])){
+                        if ($result['dataset'] = $producto->readPreDetalle()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Contenido no disponible';
+                        }
+                    }
+                }else{
+                    $result['exception'] = 'Contenido no disponible';   
+                }                        
+            break;
+            case 'getPre':
+                if ($producto->setCliente($_SESSION['idCliente'])) {
+                    if ($result['dataset'] = $producto->readPreDetalle()) {
                         $result['status'] = 1;
                     } else {
-                        $result['exception'] = 'No hay coincidencias';
+                        $result['exception'] = 'Pre detalle inexistente';
                     }
-                }                   
-            } else {
-                $result['exception'] = 'Ingrese un valor para buscar';
-            }
+                } else {
+                    $result['exception'] = 'Pre detalle incorrecto';
+                }
+            break;    
+            case 'updateCantidadPre':
+                $_POST=$producto->validateForm($_POST);
+                if($producto->setIdPre($_POST['idPre'])){
+                if($producto->setCantidad($_POST['cantidadPre'])){
+                   
+                        if($producto->updateCantidadPreDetalle()){
+                            $result['status']=1;
+                        }else{
+                            $result['exception']='Operacion fallida';
+                        }
+                                        
+                }else{
+                    $result['exception']='Cantidad incorrecta';
+                }
+                }else{
+                    $result['exception']='Producto incorrecto';
+                }
             break;
             default:
                 exit('Acción no disponible');

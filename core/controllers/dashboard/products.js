@@ -444,7 +444,7 @@ function modalStock(id)
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
-
+//Funcion para agregar cantidad de producto
 $('#form-cantidad').submit(function()
 {
     event.preventDefault();

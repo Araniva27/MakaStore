@@ -46,10 +46,10 @@
                         </div></li>
                         <!--creacion de los elementos que se encuentran en el menu asi como su icono-->
                         <li><a href="../../views/dashboard/main.php"><i class="material-icons">home</i>Home</a></li>
+                        <li><a href="../../views/dashboard/categories.php"><i class="material-icons">star</i>Categorias</a></li>
                         <li><a href="../../views/dashboard/products.php"><i class="material-icons">videogame_asset</i>Productos</a></li>
                         <li><a href="../../views/dashboard/companies.php"><i class="material-icons">assignment_late</i>Proveedores</a></li>
-                        <li><a href="../../views/dashboard/sales.php"><i class="material-icons">attach_money</i>Control de ventas</a></li>                        
-                        <li><a href="../../views/dashboard/control.php"><i class="material-icons">find_replace</i>Controlador</a></li>
+                        <li><a href="../../views/dashboard/sales.php"><i class="material-icons">attach_money</i>Control de ventas</a></li>                                            
                         <li><a href="../../views/dashboard/customers.php"><i class="material-icons">list</i>Control clientes</a></li>
                         <li><a href="#"  onclick="modalProfile()"><i class="material-icons">update</i>Modificación de datos</a></li>
                         <li><a href="#modal-password" class="modal-trigger"><i class="material-icons">lock</i>Cambiar clave</a></li>
