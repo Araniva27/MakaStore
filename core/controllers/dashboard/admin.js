@@ -22,9 +22,22 @@ $('#registro-admin').submit(function(){
             }
         }else{
             console.log(response);
+            sweetAlert(2,error3(response), null);
         }
     })
     .fail(function(jqXHR){
         console.log('Error: ' +jqXHR.status+ jqXHR.statusText);
     });
 })
+
+function error3(response){
+    switch (response) {
+        case 'Dato duplicado, no se puede guardar':   
+            mensaje = 'Nombre de usuario, telefono o correo ya existen';
+            break;
+        default:
+            mensaje = 'Ocurrio un problema, reportese con su administrador';
+            break;
+    }
+    return mensaje;
+}

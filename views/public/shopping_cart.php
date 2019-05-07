@@ -21,9 +21,12 @@
             </div>
         </div>
         <div id="total"></div>
+        
     </div>
+    
 </div>
 
+                
 
 
 <!--Creacion del modal donde se encuentran los metodos de pago-->
@@ -93,6 +96,20 @@
             </form>
         </div>
     </div>
+<!--Modal para asignar el tipo de pago-->
+<div id="pagar" class="modal">
+    <div class="modal-content">
+        <h4>Realizar Compra</h4>
+        <form method='post' id="crearFactura">            
+            <div class="row center-align">
+                <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i
+                        class="material-icons">cancel</i></a>
+                <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Aceptar"><i
+                        class="material-icons">check</i></button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 

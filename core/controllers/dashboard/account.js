@@ -87,6 +87,7 @@ $('#form-profile').submit(function()
             }
         } else {
             console.log(response);
+            sweetAlert(2,error2(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -117,6 +118,7 @@ $('#form-password').submit(function()
             }
         } else {
             console.log(response);
+            
         }
     })
     .fail(function(jqXHR){
@@ -124,3 +126,15 @@ $('#form-password').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function error2(response){
+    switch (response) {
+        case 'Dato duplicado, no se puede guardar':   
+            mensaje = 'Nombre de usuario, telefono o correo ya existen';
+            break;
+        default:
+            mensaje = 'Ocurrio un problema, reportese con su administrador';
+            break;
+    }
+    return mensaje;
+}

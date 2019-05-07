@@ -181,8 +181,8 @@ class Admin extends Validator{
     }
 
     public function updateAdmin(){
-        $sql='UPDATE admin set nombre = ?, apellido = ?, usuario = ?, telefono = ?, direccion = ? WHERE idAdmin = ?';
-        $params=array($this->nombre, $this->apellido, $this->usuario, $this->telefono, $this->direccion, $this->id);
+        $sql='UPDATE admin set nombre = ?, apellido = ?, usuario = ?, telefono = ?, direccion = ?, correo = ? WHERE idAdmin = ?';
+        $params=array($this->nombre, $this->apellido, $this->usuario, $this->telefono, $this->direccion, $this->correo, $this->id);
         return Database::executeRow($sql, $params);        
     }
 

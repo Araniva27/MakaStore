@@ -17,8 +17,8 @@ const usuario2 = document.getElementById('usuarioCliente');
 const contraseña2 = document.getElementById('ContraseñaCliente');
 
 //Colores de validacion
-const verdeM = '#4CAF50';
-const rojoM = '#F44336';
+const verde = '#4CAF50';
+const rojo = '#F44336';
 
 //Funcion para validar si el campo es vacio
 function checkIfEmpty(field)
@@ -65,7 +65,7 @@ function validatePhone(field){
 
 //Funcion para validar correo
 function validateEmail(field){
-    if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/.test(field.value)){
+    if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))+$/.test(field.value)){
         setValid(field);
         return true;
     }else{
@@ -134,7 +134,7 @@ function validateTelefono(){
 function validateCorreo(){
      //verificar si el campo esta vacio
      if(checkIfEmpty(correo)) return;
-     if(!validateCorreo(correo)) return;
+     if(!validateEmail(correo)) return;
      return true;
 }
 //funcion para validar direccion

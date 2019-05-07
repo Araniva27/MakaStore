@@ -120,7 +120,7 @@ class Clientes extends Validator{
 
     public function setDireccion($value)
     {
-        if($this->validateAlphabetic($value, 1, 100)){
+        if($this->validateAlphanumeric($value, 1, 100)){
             $this->direccion=$value;
             return true;
         }else{

@@ -23,7 +23,7 @@ function validateNombre()
 {
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombre)) return;
-     if(!checkIfOnlyLetters(nombre)) return;
+     if(!validateAlphanumeric(nombre)) return;
      return true;
 }
 
@@ -77,7 +77,7 @@ function setValid(field)
 //Funcion para validar solo letras
 function checkIfOnlyLetters(field)
 {
-    if(/^[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]+$/.test(field.value)){
+    if(/^[a-zA-ZñÑáÁéÉíÍóÓúÚ.,\s]+$/.test(field.value)){
          setValid(field);
          return true;
     }else{
@@ -103,7 +103,7 @@ function validateNombreActualizado()
 {
      //verificar si el campo esta vacio
      if(checkIfEmpty(nombreA)) return;
-     if(!checkIfOnlyLetters(nombreA)) return;
+     if(!validateAlphanumeric(nombreA)) return;
      return true;
 }
 

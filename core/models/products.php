@@ -413,5 +413,55 @@ class Productos extends Validator{
         $params=array($this->cantidad, $this->idPre);
         return Database::executeRow($sql, $params);
     }
+
+    //Metodo para eliminar un preDetalle
+    function deletePreDetalle(){
+        $sql='DELETE FROM predetalle WHERE idCliente = ?';
+        $params=array($this->cliente);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function createSale(){
+        $sql = 'INSERT INTO venta(idCliente, fecha_hora, idEstado) VALUES (?, (SELECT NOW()), 1)';
+        $params = array($this->cliente);
+        return Database::executeRow($sql,$params);
+    }
+
+    public function getLastSale(){
+        $sql = 'SELECT idVenta FROM `venta` WHERE idCliente = ? ORDER BY idVenta DESC LIMIT 1';
+        $params = array($this->cliente);
+        $data = Database::getRow($sql, $params);
+		if ($data) {
+            $this->cliente = $data['idVenta'];
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function createDetailsSale(){
+        $sql = 'INSERT INTO detalle_venta(idProducto, cantidad, idVenta) VALUES(?, ? ,?)';
+        $params = array($this->id,$this->cantidad,$this->cliente);
+        Database::executeRow($sql,$params);
+    }
+
+    public function getPre(){
+        $sql='SELECT idProducto, nombre, descripcion, precio,foto, predetalle.cantidad as cantidad FROM predetalle INNER JOIN producto USING(idProducto) WHERE idCliente = ?';
+        $params = array($this->cliente);
+        return Database::getRows($sql,$params);
+    }
+
+    public function getPreDetalle2(){
+        $sql='SELECT idPreDetalle, producto.nombre as producto, predetalle.cantidad as cantidad, producto.precio as precio, producto.foto as foto,(producto.precio * predetalle.cantidad) as total , producto.cantidad as cantidadP FROM producto, predetalle WHERE producto.idProducto = predetalle.idProducto AND idPreDetalle = ?';
+        $params=array($this->idPre);
+        return Database::getRow($sql, $params);
+    }
+
+    //Metodo para eliminar un preDetalle
+    function deletePreDetalle2(){
+        $sql='DELETE FROM predetalle WHERE idPreDetalle = ?';
+        $params=array($this->idPre);
+        return Database::executeRow($sql, $params);
+    }
 }
 ?>

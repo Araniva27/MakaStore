@@ -360,9 +360,11 @@ $('#form-create').submit(function()
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);
+                
             }
         } else {
             console.log(response);
+            sweetAlert(2,error(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -519,6 +521,7 @@ $('#form-update').submit(function()
             }
         } else {
             console.log(response);
+            sweetAlert(2,error(response), null);
         }
     })
     .fail(function(jqXHR){
@@ -652,4 +655,16 @@ function enableProduct(id)
             });
         }
     });
+}
+
+function error(response){
+    switch (response) {
+        case 'Dato duplicado, no se puede guardar':   
+            mensaje = 'Nombre del producto ya existe';
+            break;
+        default:
+            mensaje = 'Ocurrio un problema, reportese con su administrador';
+            break;
+    }
+    return mensaje;
 }

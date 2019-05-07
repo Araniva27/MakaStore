@@ -34,8 +34,8 @@
                 <tbody id="tbody-read">
                 </tbody>
             </table>
-            <button type="submit" class="btn waves-effect red"  id="btnProveedoresEliminado">Productos eliminados</button>
-            <button type="submit" class="btn waves-effect green" onClick="showTable(1)" >Todos los productos</button>
+            <button type="submit" class="btn waves-effect red"  id="btnProveedoresEliminado">Proveedores eliminados</button>
+            <button type="submit" class="btn waves-effect green" onClick="showTable(1)" >Todos los Proveedores</button>
     </div>       
     <div id="modal-create" class="modal">
         <div class="modal-content">

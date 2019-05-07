@@ -474,6 +474,61 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception']='Producto incorrecto';
                 }
             break;
+            case 'deletePre'://Caso para eliminar un producto
+                if ($producto->setIdPre($_POST['idPreDetalle'])) {
+                    if ($producto->getPreDetalle2()) {
+                        if ($producto->deletePreDetalle2()) {                           
+                            $result['status'] = 1;                                                                           
+                        } else {
+                            $result['status'] = 2;
+                            $result['exception'] = 'Operación fallida';
+                        }
+                    } else {
+                        $result['exception'] = 'Producto inexistente';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+            break;
+            case 'createSale':
+            $_POST = $producto->validateForm($_POST);
+            if(isset($_SESSION['idCliente'])){
+                if($producto->setCliente($_SESSION['idCliente'])){                
+                    if($producto->createSale()){
+                        $data = $producto->getPre();
+                            if($data){                                
+                                if($producto->getLastSale()){
+                                    for($x=0;$x<count($data);$x++){
+                                        if($producto->setId($data[$x]['idProducto'])){
+                                            if($producto->setCantidad($data[$x]['cantidad'])){   
+                                                if($producto->createDetailsSale()){                                                    
+                                                }
+                                            }else {
+                                                $result['exception'] = 'Comuniquese con la tienda 2';        
+                                            }
+                                        }else {
+                                            $result['exception'] = 'Comuniquese con la tienda';        
+                                        }                                            
+                                    }
+                                    if($producto->setCliente($_SESSION['idCliente'])){
+                                        if($producto->deletePreDetalle()){
+                                            $result['status'] = 1;
+                                        }
+                                    }
+                                }
+                            } else {
+                                $result['exception'] = 'Comuniquese con la tienda';
+                            }
+                    } else {
+                        $result['exception'] = 'Venta no creada';     
+                    }                   
+                } else {
+                    $result['exception'] = 'Cliente incorrecto'; 
+                }
+            } else {
+                $result['exception'] = 'Debe de iniciar sesion';
+            }
+            break;
             default:
                 exit('Acción no disponible');
         }
