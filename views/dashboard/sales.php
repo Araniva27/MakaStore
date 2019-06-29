@@ -15,7 +15,11 @@
 
             </div>
         </div>
-
+    </div>
+    <div class="row center">
+        <a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/reporteVentas.php">Reporte de ventas</a>            
+        <a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/reporteVentaProductos.php">Reporte de ventas por producto</a>            
+        <a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/reportePedidos.php">Reporte de pedidos</a>            
     </div>
     <!--Creacion del container donde se encuentra una lista 
     desplegable y un date picker estos elementos para realizar busquedas con filtros-->

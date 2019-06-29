@@ -16,8 +16,11 @@
     </div>
     <div class="container">
         <div class="row center">
-            <a class="waves-effect waves-light btn green modal-trigger" href="#modalprod">Registrar producto + </a>
-
+            <a class="waves-effect waves-light btn green modal-trigger" href="#modalprod">Registrar producto + </a>            
+        </div>
+        <div class="row center">
+            <a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/reporte.php">Reporte de productos por categoria</a>            
+            <a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/productoProveedor.php">Reporte de productos por proveedor</a>            
         </div>
     </div>
     <!--Creacion del modal para registrar productos-->

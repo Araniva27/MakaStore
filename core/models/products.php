@@ -422,7 +422,7 @@ class Productos extends Validator{
     }
 
     public function createSale(){
-        $sql = 'INSERT INTO venta(idCliente, fecha_hora, idEstado) VALUES (?, (SELECT NOW()), 1)';
+        $sql = 'INSERT INTO venta(idCliente, fecha_hora, idEstado) VALUES (?, (SELECT NOW()), 2)';
         $params = array($this->cliente);
         return Database::executeRow($sql,$params);
     }
@@ -462,6 +462,24 @@ class Productos extends Validator{
         $sql='DELETE FROM predetalle WHERE idPreDetalle = ?';
         $params=array($this->idPre);
         return Database::executeRow($sql, $params);
+    }
+
+    function getProductosCategoria(){
+        $sql = 'SELECT nombre, precio, cantidad, nombreProveedor, nomCategoria as categoria FROM producto INNER JOIN proveedor USING(idProveedor) INNER JOIN categoria USING (idCategoria) WHERE producto.estadoEliminacion = 1 ORDER BY categoria asc';
+        $params = array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    function getProductoCompañia(){
+        $sql = 'SELECT nombre, precio, cantidad, nombreProveedor, nomCategoria as categoria FROM producto INNER JOIN proveedor USING(idProveedor) INNER JOIN categoria USING (idCategoria) WHERE producto.estadoEliminacion = 1 ORDER BY nombreProveedor asc';
+        $params = array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    public function getVentasProducto(){
+        $sql = 'SELECT producto.nombre as producto,  SUM(detalle_venta.cantidad) as Suma, SUM(producto.precio * detalle_venta.cantidad) as total, venta.idEstado  FROM detalle_venta INNER JOIN producto USING(idProducto) INNER JOIN venta USING(idVenta) WHERE venta.idEstado = 1 GROUP by detalle_venta.idProducto';
+        $params = array(null);
+        return Database::getRows($sql, $params);
     }
 }
 ?>

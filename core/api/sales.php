@@ -39,7 +39,16 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                 } else {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 }
-            break;    
+            break;   
+            case 'updateState':
+                if($sales->setId($_POST['idVenta'])){
+                    if($sales->updateStateSale()){
+                        $result['status'] = 1;                        
+                    }else{
+                        $result['exception'] = 'Error al actulizar estado de venta';
+                    }
+                }
+            break; 
         }
     }else if(isset($_SESSION['idCliente']) && $_GET['site']=='public'){
         switch ($_GET['action']){

@@ -53,10 +53,7 @@ function readPreDetalle()
                                                 <h5>Precio Total($): ${row.total}
                                                     <strong>
                                                 </h5>
-                                    <button  class="btn waves-effect waves-light btn green" 
-                                        name="action" onclick="modalCantidad(${row.idPreDetalle})">Agregar producto
-                                        <i class="material-icons right">add</i>
-                                    </button>                                   
+                                                             
                                     <button  class="btn waves-effect waves-light btn red" 
                                         name="action" onclick="confirmDelete(${row.idPreDetalle})">Eliminar
                                         <i class="material-icons right">delete</i>
@@ -81,9 +78,8 @@ function readPreDetalle()
                             <h5>Total a pagar($): ${lblTotal}</h5>
                         </div>
                         <div class="card-action center">
-                            <!--Boton para pagar-->
-                            <button onclick="pagar()" class="btn waves-effect green tooltipped" data-tooltip="Pagar" id="realizarVenta">
-                            <i class="material-icons">check</i>
+                            <!--Boton para pagar-->                           
+                            <a onclick="pagar()" href="#" data-tooltip="Pagar" class="waves-effect waves-light btn green tooltipped" href="../../core/reports/public/comprobante.php"><i class="material-icons">check</i></a>           
                         </button>
                         </div>
                     </div>

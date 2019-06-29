@@ -9,6 +9,7 @@
         <div class="card-stacked">
             <div class="card-content">
                 <h5 class="center" style="color:white">Compras</h5>
+                <a class="waves-effect waves-light btn blue" href="../../core/reports/public/comprobante.php">Reporte de productos por proveedor</a>            
             </div>
         </div>
     </div>

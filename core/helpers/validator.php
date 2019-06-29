@@ -153,7 +153,7 @@ class Validator
 	}
 
 	public function saveFile($file, $path, $name)
-    {
+  {
 		if (file_exists($path)) {
 			if (move_uploaded_file($file['tmp_name'], $path.$name)) {
 				return true;

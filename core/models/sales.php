@@ -83,5 +83,37 @@ class Sales extends Validator{
         return Database::getRows($sql, $params);
 
     }
+
+    public function getSalesReport(){
+        $sql = 'SELECT producto.nombre as producto, detalle_venta.cantidad as cantidad, cliente.nombre as clienteN, cliente.apellido as clienteA, venta.fecha_hora as fecha, (producto.precio * detalle_venta.cantidad)as total, producto.precio as precioU FROM detalle_venta INNER JOIN venta ON detalle_venta.idVenta = venta.idVenta INNER JOIN cliente ON cliente.idCliente=venta.idCliente INNER JOIN producto ON producto.idProducto = detalle_venta.idProducto WHERE idEstado = 1 ORDER BY venta.fecha_hora';
+        $params= array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    public function updateStateSale(){
+        $sql = 'UPDATE venta set idEstado = 1 WHERE idVenta = ?';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function reportePedidos(){
+        $sql = 'SELECT producto.nombre as producto, detalle_venta.cantidad as cantidad, cliente.nombre as clienteN, cliente.apellido as clienteA, venta.fecha_hora as fecha, (producto.precio * detalle_venta.cantidad)as total, producto.precio as precioU, venta.idCliente as idC, cliente.telefono as telefono, cliente.direccion as direccion FROM detalle_venta INNER JOIN venta ON detalle_venta.idVenta = venta.idVenta INNER JOIN cliente ON cliente.idCliente=venta.idCliente INNER JOIN producto ON producto.idProducto = detalle_venta.idProducto WHERE idEstado = 2 ORDER BY venta.idCliente';
+        $params = array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    public function getLastSale(){
+        $sql = 'SELECT MAX(idVenta) as idV, fecha_hora as fecha, cliente.nombre as CN, cliente.apellido as CA, cliente.telefono as telefono, cliente.direccion, cliente.correo as correo FROM venta, cliente WHERE venta.idCliente = cliente.idCliente and venta.idCliente = ? and venta.idEstado = 2';
+        $params = array($this->idCliente);
+        return Database::getRow($sql,$params);
+    }
+
+    public function getSaleDetailReport(){
+        $sql = 'SELECT idDetalle,nombre as producto, detalle_venta.cantidad as cantidad, producto.precio as precio, (producto.precio * detalle_venta.cantidad) AS Total FROM detalle_venta, producto WHERE producto.idProducto= detalle_venta.idProducto AND idVenta = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+
 }
 ?>

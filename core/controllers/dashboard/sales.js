@@ -11,8 +11,9 @@ const apiVentas = '../../core/api/sales.php?site=dashboard&action=';
 function fillTable(rows)
 {    
     let content= '';
-    rows.forEach(function(row){        
-        content +=`
+    rows.forEach(function(row){   
+        if(row.estado == 'Realizada'){
+            content +=`
             <tr>
                 <td>${row.idVenta}</td>
                 <td>${row.nombre}</td>
@@ -21,6 +22,21 @@ function fillTable(rows)
                 <td><a href="#" onclick="modalDetalles(${row.idVenta})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Detalle"><i class="material-icons">list</i></a></td>                
             </tr>
         `;
+        }   else{
+            content +=`
+            <tr>
+                <td>${row.idVenta}</td>
+                <td>${row.nombre}</td>
+                <td>${row.fecha_hora}</td>
+                <td>${row.estado}</td>                                            
+                <td>
+                    <a href="#" onclick="modalDetalles(${row.idVenta})" class="waves-effect waves-light btn grey tooltipped" data-tooltip="Detalle"><i class="material-icons">list</i></a>
+                    <a href="#" onclick="updateStateSale(${row.idVenta})" class="waves-effect waves-light btn green tooltipped" data-tooltip="Entregar"><i class="material-icons">airport_shuttle</i></a>
+                </td>                
+            </tr>
+        `;
+        }  
+        
     });
 
     $('#tbody-read').html(content);
@@ -206,3 +222,52 @@ $('#buscarVenta').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function updateStateSale(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Quiere actualizar el estado de la venta',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiVentas + 'updateState',
+                type: 'post',
+                data:{
+                    idVenta: id                    
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        if (result.status == 1) {
+                            sweetAlert(1, 'Estado de venta actualizado correctamente', null);
+                            console.log(id);
+                        } else {
+                            sweetAlert(3, 'Categoría eliminada. ' + result.exception, null);
+                        }                                                  
+                        $('#tabla-ventas').DataTable().destroy();
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}

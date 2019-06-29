@@ -9,6 +9,8 @@ class Database{
     private function connect(){//funcion para conectar con la BD
         $server='localhost';
         $database='makastore2';
+     /*    $username='manuel';
+        $password='cXhab6BG9vu7ry9j'; */
         $username='root';
         $password='';
         try {
