@@ -78,8 +78,8 @@ function readPreDetalle()
                             <h5>Total a pagar($): ${lblTotal}</h5>
                         </div>
                         <div class="card-action center">
-                            <!--Boton para pagar-->                           
-                            <a onclick="pagar()" href="#" data-tooltip="Pagar" class="waves-effect waves-light btn green tooltipped" href="../../core/reports/public/comprobante.php"><i class="material-icons">check</i></a>           
+                            <!--Boton para pagar-->                                                       
+                            <a onclick="pagar()" data-tooltip="Pagar" class="waves-effect waves-light btn green tooltipped"><i class="material-icons">check</i></a>           
                         </button>
                         </div>
                     </div>
@@ -244,7 +244,8 @@ function confirmDelete(id)
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 if (result.status == 1) {
-                    sweetAlert(1, 'Venta procesada correctamente', 'index.php');
+                    //sweetAlert(1, 'Venta procesada correctamente', null);
+                    $('#modal-comprobante').modal('open');
                 } else if(result.status == 2) {
                     sweetAlert(3, 'Venta procesada. ' + result.exception, 'index.php');
                 } else {

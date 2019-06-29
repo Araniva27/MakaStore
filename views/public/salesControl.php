@@ -8,11 +8,13 @@
     <div class="card horizontal blue lighten-1">
         <div class="card-stacked">
             <div class="card-content">
-                <h5 class="center" style="color:white">Compras</h5>
-                <a class="waves-effect waves-light btn blue" href="../../core/reports/public/comprobante.php">Reporte de productos por proveedor</a>            
+                <h5 class="center" style="color:white">Compras</h5>                
             </div>
         </div>
     </div>
+</div>
+<div class="row center">
+<a class="waves-effect waves-light btn blue" href="../../core/reports/public/comprobante.php">Comprobante de la ultima compra realizada</a>            
 </div>
 <div class="container">
     <div class="container-fluid">

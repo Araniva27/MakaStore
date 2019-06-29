@@ -26,7 +26,19 @@
     
 </div>
 
-                
+<div id="modal-comprobante" class="modal">
+        <div class="modal-content">
+            <h4 class="center">Aviso</h4>
+            <div class="container">
+                <form class="col s12" method="post" id="form-create" enctype="multipart/form-data">
+                    <h6>La venta ha sido procesada con exito, a continuacion se creara el comprobante de compra</h6>                    
+                    <div class="row center">                     
+                    <a class="waves-effect waves-light btn green" href='../../core/reports/public/comprobante.php'><i class="material-icons">check</i></a>           
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>                
 
 
 <!--Creacion del modal donde se encuentran los metodos de pago-->
