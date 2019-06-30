@@ -15,6 +15,9 @@
 			</div>
 		</div>
 	</div>		
+	<div class="row center">
+		<a class="waves-effect waves-light btn blue" href="../../core/reports/dashboard/reporteClientesCompras.php">Reporte compras por cliente</a>
+	</div>
 	<div class="container">
 		<!---Creacion de la tabla donde se encuentran todos los productos registrados-->
 		<table class="centered responsive-table" id="tabla-clientes">

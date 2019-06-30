@@ -114,6 +114,12 @@ class Sales extends Validator{
         return Database::getRows($sql, $params);
     }
 
+    public function getCustomerSales(){
+        $sql = 'SELECT count(venta.idCliente) as compras, cliente.nombre as CN, cliente.apellido as CA FROM venta, cliente WHERE venta.idCliente = cliente.idCliente GROUP by cliente.idCliente ORDER by compras DESC';
+        $params = array(null);
+        return Database::getRows($sql, $params);
+    }
+
 
 }
 ?>
