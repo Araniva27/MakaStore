@@ -25,3 +25,18 @@
     width: 80vw;
 }
 
+.swal-overlay {
+    background-color: rgba(143, 184, 251, 0.45);
+}
+
+/* .swal-modal {
+    background-color: rgba(63, 185, 255, 0.69);
+    border: 3px solid black;
+} */
+
+/* .swal-footer {
+    background-color: rgb(245, 248, 250);
+    margin-top: 32px;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+  }  */

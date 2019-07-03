@@ -57,3 +57,62 @@ function sweetAlert(type, text, url)
         });
     }
 }
+
+function graficoBarras(canvas, x, y,legend, title){
+    let colors = [];
+    for (i = 0; i < x.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    
+    var context = $('#'+canvas);    
+    var grafico = new Chart(context,{        
+        type: 'bar',        
+        data: {
+            labels: x,
+            datasets: [
+                {
+                label: legend,
+                backgroundColor: colors,
+                data: y
+                },
+            ]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: title
+          }
+        }
+    });        
+}
+
+function graficoPastel(x,y,legend, title){
+    let colors = [];
+    for (i = 0; i < x.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+
+    var context = $('#'+canvas);    
+    var grafico = new Chart(context,{        
+        type: 'doughnut',        
+        data: {
+            labels: x,
+            datasets: [
+                {
+                label: legend,
+                backgroundColor: colors,
+                data: y
+                },
+            ]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: title
+          }
+        }
+    });       
+    
+}

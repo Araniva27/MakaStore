@@ -15,15 +15,15 @@ class PDF extends FPDF
     {
         $this->Image('../../../resource/img/logo/logoMKStore.png',90,5, 30);
         $this->Ln(30);
-        $this->SetFont('Arial','I',20);
+        $this->SetFont('Arial','B',20);
         //$this->Cell(30);
         $this->setTextColor(255,255,255);
-        $this->setFillColor(51,116,255);
+        $this->setFillColor(33, 97, 140);
         $this->Cell(190,15, utf8_decode($this->title),0 , 0, 'C', true);
         /* $this->Cell(190,15, utf8_decode('Comprobante de compra'),0 , 0, 'C', true); */
         $this->Ln(0);
         $this->setTextColor(0,0,0);
-        $this->SetFont('Arial','I',12);
+        $this->SetFont('Arial','',12);
         $this->Ln(20);
         $this->Cell(190,20, ('Fecha: '. date('d/m/Y')),0 , 0, 'R', false);
         $this->Ln(5);
@@ -41,7 +41,6 @@ class PDF extends FPDF
         // Número de página
         $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
        // $this->Cell(0,10,utf8_decode('Realizado por: '.$_SESSION['nombre'].' '.$_SESSION['apellido']),0,'L','R');
-        
     }
    
   

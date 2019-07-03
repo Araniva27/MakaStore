@@ -458,26 +458,37 @@ class Productos extends Validator{
     }
 
     //Metodo para eliminar un preDetalle
-    function deletePreDetalle2(){
+    function deletePreDetalle2()
+    {
         $sql='DELETE FROM predetalle WHERE idPreDetalle = ?';
         $params=array($this->idPre);
         return Database::executeRow($sql, $params);
     }
 
-    function getProductosCategoria(){
+    function getProductosCategoria()
+    {
         $sql = 'SELECT nombre, precio, cantidad, nombreProveedor, nomCategoria as categoria FROM producto INNER JOIN proveedor USING(idProveedor) INNER JOIN categoria USING (idCategoria) WHERE producto.estadoEliminacion = 1 ORDER BY categoria asc';
         $params = array(null);
         return Database::getRows($sql, $params);
     }
 
-    function getProductoCompañia(){
+    function getProductoCompañia()
+    {
         $sql = 'SELECT nombre, precio, cantidad, nombreProveedor, nomCategoria as categoria FROM producto INNER JOIN proveedor USING(idProveedor) INNER JOIN categoria USING (idCategoria) WHERE producto.estadoEliminacion = 1 ORDER BY nombreProveedor asc';
         $params = array(null);
         return Database::getRows($sql, $params);
     }
 
-    public function getVentasProducto(){
+    public function getVentasProducto()
+    {
         $sql = 'SELECT producto.nombre as producto,  SUM(detalle_venta.cantidad) as Suma, SUM(producto.precio * detalle_venta.cantidad) as total, venta.idEstado  FROM detalle_venta INNER JOIN producto USING(idProducto) INNER JOIN venta USING(idVenta) WHERE venta.idEstado = 1 GROUP by detalle_venta.idProducto';
+        $params = array(null);
+        return Database::getRows($sql, $params);
+    }
+
+    public function getCantidadCategoria()
+    {
+        $sql = 'SELECT COUNT(producto.idProveedor) as contador, proveedor.nombreProveedor as proveedor FROM producto INNER JOIN proveedor USING(idProveedor) WHERE producto.estadoEliminacion = 1 AND proveedor.estadoEliminacion = 1 GROUP by producto.idProveedor';
         $params = array(null);
         return Database::getRows($sql, $params);
     }

@@ -49,6 +49,20 @@ if(isset($_GET['site']) && isset($_GET['action'])){
                     }
                 }
             break; 
+            case 'readSalesChart':
+                if($result['dataset']=$sales->salesForDate()){
+                    $result['status']=1;
+                }else{
+                    $result['exception']='No hay ventas realizadas';
+                }
+            break;
+            case 'salesCategory':
+                if($result['datase'] = $sales->getSaleCategory()){
+                    $result['status'] = 1;
+                }else{
+                    $result['exception']='Error al obtener los datos';
+                }
+            break;
         }
     }else if(isset($_SESSION['idCliente']) && $_GET['site']=='public'){
         switch ($_GET['action']){

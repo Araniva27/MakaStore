@@ -18,8 +18,6 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }else{
                     $result['exception']='No hay productos registrados';
                 }
-         
-               
             break;
             case 'readProveedores'://Caso para leer proveedores
                 if($result['dataset']=$producto->readProveedores()){
@@ -270,6 +268,13 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
             break;
+            case 'readProductsCategory':
+                if($result['dataset'] = $producto->getCantidadCategoria()){
+                    $result['status'] = 1;
+                }else{
+                    $result['exception'] = 'No se han encontrado datos';
+                }
+            break;         
         }
     }else if($_GET['site'] == 'public'){//Acciones a realizar si es el sitio publico
         switch ($_GET['action']){
